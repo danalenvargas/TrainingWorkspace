@@ -21,14 +21,14 @@ public class UserManagementService {
 		return user;
 	}
 	
-	public void addUser(String username, String password, String userType, boolean canCreate, boolean canRead,
+	public void addUser(String username, String password, String userType, boolean canCreate,
 			boolean canUpdate, boolean canDelete) {
-		userDao.addUser(username, password, userType, canCreate, canRead, canUpdate, canDelete);
+		userDao.addUser(username, password, userType, canCreate, canUpdate, canDelete);
 	}
 	
-	public void editUser(int userId, String username, String password, boolean canCreate, boolean canRead,
+	public void editUser(int userId, String username, String password, boolean canCreate,
 			boolean canUpdate, boolean canDelete) {
-		userDao.editUser(userId, username, password, canCreate, canRead, canUpdate, canDelete);
+		userDao.editUser(userId, username, password, canCreate, canUpdate, canDelete);
 	}
 	
 	public void deleteUser(int userId) {

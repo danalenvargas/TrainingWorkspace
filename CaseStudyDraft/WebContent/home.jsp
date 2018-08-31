@@ -7,15 +7,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Home Page</title>
 	<style>
-		body {
-			background-color: lightgray;
-		}
-	</style>
+/*  		body {  */
+/*  			background-color: lightgray;  */
+/*  		}  */
+ 	</style> 
 </head>
 <body>
 	<h1 align="center">Product Inventory System</h1>
 	<h6>Hello ${user.username}, you have successfully logged in!</h6>
-	<button type="button" name="btnProd">Product List</button> <br>
+	<button type="button" name="btnProd" onclick="location.href='ProductManagement'">Product List</button> <br>
 	<c:if test="${user.userType == 'admin'}">
 		<button type="button" name="btnManageUsers" onclick="location.href='UserManagement'">Manage User Accounts</button> <br>
 	</c:if>

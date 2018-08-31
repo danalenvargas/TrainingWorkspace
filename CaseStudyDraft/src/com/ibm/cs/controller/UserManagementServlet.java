@@ -39,18 +39,18 @@ public class UserManagementServlet extends HttpServlet {
 		}
 		
 		switch(action){
-			case "showpage":
-				ArrayList<User> userList = userService.getStandardUsers();
-				request.setAttribute("userList", userList);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("usermanagement.jsp");
-				dispatcher.forward(request, response);
-				break;
-			case "getUser":
-				int userId = Integer.parseInt(request.getParameter("userId"));
-				User user = userService.getUser(userId);
-				String jsonString = new Gson().toJson(user);
-				response.setContentType("application/json");
-                response.getWriter().write(jsonString);
+		case "showpage":
+			ArrayList<User> userList = userService.getStandardUsers();
+			request.setAttribute("userList", userList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("usermanagement.jsp");
+			dispatcher.forward(request, response);
+			break;
+		case "getUser":
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			User user = userService.getUser(userId);
+			String jsonString = new Gson().toJson(user);
+			response.setContentType("application/json");
+            response.getWriter().write(jsonString);
 		}
 	}
 
@@ -61,36 +61,34 @@ public class UserManagementServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		int userId;
 		String username, password, userType;
-		boolean canCreate, canRead, canUpdate, canDelete;
+		boolean canCreate, canUpdate, canDelete;
 		
 		switch(action){
-			case "addUser":
-				username = request.getParameter("username");
-				password = request.getParameter("password");
-				userType = "user";
-				canCreate = request.getParameterMap().containsKey("canCreate");
-				canRead = request.getParameterMap().containsKey("canRead");
-				canUpdate = request.getParameterMap().containsKey("canUpdate");
-				canDelete = request.getParameterMap().containsKey("canDelete");
-				userService.addUser(username, password, userType, canCreate, canRead, canUpdate, canDelete);
-				response.sendRedirect("UserManagement?action=showpage");
-				break;
-			case "editUser":
-				userId = Integer.parseInt(request.getParameter("userId"));
-				username = request.getParameter("username");
-				password = request.getParameter("password");
-				canCreate = request.getParameterMap().containsKey("canCreate");
-				canRead = request.getParameterMap().containsKey("canRead");
-				canUpdate = request.getParameterMap().containsKey("canUpdate");
-				canDelete = request.getParameterMap().containsKey("canDelete");
-				userService.editUser(userId, username, password, canCreate, canRead, canUpdate, canDelete);
-				response.sendRedirect("UserManagement?action=showpage");
-				break;
-			case "deleteUser":
-				userId = Integer.parseInt(request.getParameter("userId"));
-				userService.deleteUser(userId);
-				response.sendRedirect("UserManagement?action=showpage");
-				break;
+		case "addUser":
+			username = request.getParameter("username");
+			password = request.getParameter("password");
+			userType = "user";
+			canCreate = request.getParameterMap().containsKey("canCreate");
+			canUpdate = request.getParameterMap().containsKey("canUpdate");
+			canDelete = request.getParameterMap().containsKey("canDelete");
+			userService.addUser(username, password, userType, canCreate, canUpdate, canDelete);
+			response.sendRedirect("UserManagement?action=showpage");
+			break;
+		case "editUser":
+			userId = Integer.parseInt(request.getParameter("userId"));
+			username = request.getParameter("username");
+			password = request.getParameter("password");
+			canCreate = request.getParameterMap().containsKey("canCreate");
+			canUpdate = request.getParameterMap().containsKey("canUpdate");
+			canDelete = request.getParameterMap().containsKey("canDelete");
+			userService.editUser(userId, username, password, canCreate, canUpdate, canDelete);
+			response.sendRedirect("UserManagement?action=showpage");
+			break;
+		case "deleteUser":
+			userId = Integer.parseInt(request.getParameter("userId"));
+			userService.deleteUser(userId);
+			response.sendRedirect("UserManagement?action=showpage");
+			break;
 		}
 	}
 

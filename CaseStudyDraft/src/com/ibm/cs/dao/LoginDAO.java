@@ -20,7 +20,7 @@ public class LoginDAO extends MasterDAO{
 		
 		int userId;
 		String userType;
-		boolean canCreate, canRead, canUpdate, canDelete;
+		boolean canCreate, canUpdate, canDelete;
 		
 		try {
 			pst = conn.prepareStatement("SELECT * FROM tbl_user "
@@ -35,11 +35,10 @@ public class LoginDAO extends MasterDAO{
 				userId = rs.getInt("user_id");
 				userType = rs.getString("usertype");
 				canCreate = rs.getBoolean("can_create");
-				canRead = rs.getBoolean("can_read");
 				canUpdate = rs.getBoolean("can_update");
 				canDelete = rs.getBoolean("can_delete");
 				
-				return new User(userId, username, password, userType, canCreate, canRead, canUpdate, canDelete);
+				return new User(userId, username, password, userType, canCreate, canUpdate, canDelete);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

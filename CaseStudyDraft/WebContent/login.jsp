@@ -6,16 +6,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Product Inventory Login</title>
 	<style>
-		body {
-			background-color: lightgray;
-		}
+/* 		body { */
+/* 			background-color: lightgray; */
+/* 		} */
 		
 		form {
 			margin: auto;
 			width: 50%;
 			border-left: 5px solid blue;
 			padding: 10px 25px;
-			background-color: dodgerblue;
+/* 			background-color: dodgerblue; */
 		}
 		
 		input {

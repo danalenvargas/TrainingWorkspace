@@ -1,0 +1,9 @@
+package com.ibm.cs.service;
+
+public class ProductManagementService {
+
+	public ProductManagementService() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

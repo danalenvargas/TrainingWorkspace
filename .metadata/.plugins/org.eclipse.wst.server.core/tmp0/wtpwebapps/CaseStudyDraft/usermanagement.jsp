@@ -10,6 +10,9 @@
 </head>
 <body>
 <h1>User Management</h1>
+<!-- =============================== -->
+<!-- |   LISTING EXISTING USERS      | -->
+<!-- =============================== -->
 List of Users: <br>
 <div style="width:50%; float:left;">
 	<table>
@@ -20,7 +23,6 @@ List of Users: <br>
 		<tr>
 			<th>Username</th>
 			<th>Create</th>
-			<th>Read</th>
 			<th>Update</th>
 			<th>Delete</th>
 		</tr>
@@ -28,20 +30,21 @@ List of Users: <br>
 			<tr>
 				<td onclick="showUserDetails('${account.userId}');">${account.username}</td>
 				<td>${account.canCreate}</td>
-				<td>${account.canRead}</td>
 				<td>${account.canUpdate}</td>
 				<td>${account.canDelete}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<br><br>
+<!-- =============================== -->
+<!-- |   FOR ADDING NEW USERS      | -->
+<!-- =============================== -->
 	<h3>Add New User</h3>
 	<form action="UserManagement" method="post">
 		Username: <input type="text" name="username" placeholder="username"><br>
 		Password: <input type="password" name="password" placeholder="password"><br>
 		Privileges:<br>
 		Create: <input type="checkbox" name="canCreate" value="1"><br>
-		Read: <input type="checkbox" name="canRead" value="1"><br>
 		Update: <input type="checkbox" name="canUpdate" value="1"><br>
 		Delete: <input type="checkbox" name="canDelete" value="1"><br>
 		<br>
@@ -49,6 +52,9 @@ List of Users: <br>
 		<input type="submit" value="Submit">
 	</form>
 </div>
+<!-- =============================== -->
+<!-- |   FOR MODIFYING SELECTED USER      | -->
+<!-- =============================== -->
 <div id="editForm" style="width:50%; float:right; visibility: hidden">
 	User Details:
 	<form action="UserManagement" method="post">
@@ -56,7 +62,6 @@ List of Users: <br>
 		Password: <input id="txtPassword" type="password" name="password" placeholder="password"><br>
 		Privileges:<br>
 		Create: <input id="chkCreate" type="checkbox" name="canCreate" value="1"><br>
-		Read: <input id="chkRead" type="checkbox" name="canRead" value="1"><br>
 		Update: <input id="chkUpdate" type="checkbox" name="canUpdate" value="1"><br>
 		Delete: <input id="chkDelete" type="checkbox" name="canDelete" value="1"><br>
 		<br>

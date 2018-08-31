@@ -35,10 +35,10 @@ public class LoginServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		switch (action) {
-			case "logout":
-				HttpSession session = request.getSession();
-				session.invalidate();
-				response.sendRedirect("login.jsp");
+		case "logout":
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("login.jsp");
 		}
 	}
 

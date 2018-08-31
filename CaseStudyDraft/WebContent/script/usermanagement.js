@@ -16,7 +16,6 @@ function showUserDetails(userId){
 				document.getElementById("txtPassword").value = data.password;
 				document.getElementById("txtUserId").value = data.userId;
 				document.getElementById("chkCreate").checked = data.canCreate;
-				document.getElementById("chkRead").checked = data.canRead;
 				document.getElementById("chkUpdate").checked = data.canUpdate;
 				document.getElementById("chkDelete").checked = data.canDelete;
 				document.getElementById("txtUserId2").value = data.userId;

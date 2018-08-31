@@ -22,4 +22,6 @@
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.ibm.cs.service.ProductManagementService"/>
+<fullyQualifiedTypeName name="com.ibm.cs.dao.ProductManagementDAO"/>
 </qualifiedTypeNameHistroy>

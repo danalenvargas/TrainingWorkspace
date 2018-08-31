@@ -7,12 +7,12 @@ public class User implements Serializable{
 	private int userId;
 
 	private String username, password, userType;
-	private boolean canCreate, canRead, canUpdate, canDelete;
+	private boolean canCreate, canUpdate, canDelete;
 
 	public User() {
 	}
 
-	public User(int userId, String username, String password, String userType, boolean canCreate, boolean canRead,
+	public User(int userId, String username, String password, String userType, boolean canCreate,
 			boolean canUpdate, boolean canDelete) {
 		super();
 		this.userId = userId;
@@ -20,7 +20,6 @@ public class User implements Serializable{
 		this.password = password;
 		this.userType = userType;
 		this.canCreate = canCreate;
-		this.canRead = canRead;
 		this.canUpdate = canUpdate;
 		this.canDelete = canDelete;
 	}
@@ -63,14 +62,6 @@ public class User implements Serializable{
 
 	public void setCanCreate(boolean canCreate) {
 		this.canCreate = canCreate;
-	}
-
-	public boolean isCanRead() {
-		return canRead;
-	}
-
-	public void setCanRead(boolean canRead) {
-		this.canRead = canRead;
 	}
 
 	public boolean isCanUpdate() {

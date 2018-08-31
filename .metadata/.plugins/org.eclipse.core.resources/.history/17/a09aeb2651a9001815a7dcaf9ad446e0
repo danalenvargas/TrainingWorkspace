@@ -1,0 +1,64 @@
+package com.ibm.cs.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import com.ibm.cs.entity.User;
+
+public class UserManagementDAO extends MasterDAO {
+
+	public UserManagementDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ArrayList<User> getStandardUsers(){
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		boolean hasResult;
+		String userType;
+		Connection conn = getConnection();
+		
+		try {
+			pst = conn.prepareStatement("SELECT * FROM tbl_user WHERE usertype=?");
+			pst.setString(1, "user");
+			
+			rs = pst.executeQuery();
+			hasResult = rs.next();
+			
+			if(hasResult) {
+				userType = rs.getString("usertype");
+				return new User(username, password, userType);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+            	try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+		
+		return null;
+	}
+
+}

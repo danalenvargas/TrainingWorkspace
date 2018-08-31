@@ -1,0 +1,5 @@
+127.0.0.1 - - [25/Aug/2018:01:50:09 +0800] "GET / HTTP/1.1" 404 1036
+0:0:0:0:0:0:0:1 - - [25/Aug/2018:01:50:09 +0800] "GET /CaseStudyDraft/home.jsp HTTP/1.1" 200 450
+0:0:0:0:0:0:0:1 - - [25/Aug/2018:01:50:23 +0800] "GET /CaseStudyDraft/login.jsp HTTP/1.1" 200 815
+0:0:0:0:0:0:0:1 - - [25/Aug/2018:01:50:25 +0800] "POST /CaseStudyDraft/LoginServlet HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [25/Aug/2018:01:50:25 +0800] "GET /CaseStudyDraft/home.jsp HTTP/1.1" 200 450

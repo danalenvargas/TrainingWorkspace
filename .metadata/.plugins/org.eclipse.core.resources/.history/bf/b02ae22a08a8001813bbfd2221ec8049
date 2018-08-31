@@ -1,0 +1,11 @@
+package com.ibm.cs.entity;
+
+import java.io.Serializable;
+
+public class User implements Serializable{
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,17 @@
+package com.ibm.cs.service;
+
+import java.util.ArrayList;
+
+import com.ibm.cs.entity.User;
+
+public class UserManagementService {
+
+	public UserManagementService() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ArrayList<User> getStandardUsers(){
+		
+	}
+
+}

@@ -1,0 +1,13 @@
+/**
+ * 
+ */
+function showUserDetails(selectedUser){
+	document.getElementById("editForm").style.visibility = "visible";
+	document.getElementById("txtUserame").value = selectedUser.username;
+	document.getElementById("txtPassword").value = selectedUser.pasword;
+	document.getElementById("txtUserId").value = selectedUser.userId;
+	document.getElementById("chkCreate").checked = selectedUser.canCreate;
+	document.getElementById("chkRead").checked = selectedUser.canRead;
+	document.getElementById("chkUpdate").checked = selectedUser.canUpdate;
+	document.getElementById("chkDelete").checked = selectedUser.canDelete;
+}

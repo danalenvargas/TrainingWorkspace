@@ -1,0 +1,9 @@
+package com.ibm.cs.dao;
+
+public class MasterDAO {
+
+	public MasterDAO() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

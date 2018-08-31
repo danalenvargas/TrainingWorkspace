@@ -1,0 +1,9 @@
+package com.ibm.cs.dao;
+
+public class UserManagementDAO {
+
+	public UserManagementDAO() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

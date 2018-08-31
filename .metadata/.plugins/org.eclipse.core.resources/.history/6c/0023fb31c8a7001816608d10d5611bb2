@@ -1,0 +1,32 @@
+package com.ibm.cs.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class LoginDAO extends MasterDAO{
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	boolean status = false;
+
+	public LoginDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public boolean isValidUser(String userName, String password) {
+		boolean isValid = false;
+		Connection conn = getConnection();
+		pst = conn.prepareStatement("SELECT * FROM tblUser WHERE name=? AND password=?");
+        pst.setString(1, userName);
+        pst.setString(2, password);
+
+        rs = pst.executeQuery();
+        status = rs.next();
+        
+        if(status){
+        }
+		
+		return isValid;
+	}
+	
+}

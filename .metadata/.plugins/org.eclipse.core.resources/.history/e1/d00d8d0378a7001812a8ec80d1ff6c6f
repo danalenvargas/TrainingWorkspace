@@ -1,0 +1,9 @@
+package com.ibm.cs.dao;
+
+public class LoginDAO {
+
+	public LoginDAO() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

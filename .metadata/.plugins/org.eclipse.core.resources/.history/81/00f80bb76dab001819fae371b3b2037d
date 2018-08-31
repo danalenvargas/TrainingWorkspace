@@ -1,0 +1,42 @@
+package com.ibm.training;
+
+public class Dispatcher implements Runnable {
+	Service service;
+	
+	public Dispatcher() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Dispatcher(Service service) {
+		this.service = service;
+	}
+
+	@Override
+	public void run() throws ExpiredProductException{
+		while(true) {
+			try {
+				Product[] productArray = service.reviewProducts(EnumProdType.PERISHABLE);
+				
+				for(int i=0; i<productArray.length; i++) {
+					Perishable peri = (Perishable) productArray[i];
+					if(peri != null && peri.getExpiresIn() < 1) {
+//						throw new ExpiredProductException(new Error());
+						throw new ExpiredProductException2("Expired!");
+					}
+				}
+//				System.out.println("\n\n...One day has passed. Days until expiry gets closer.");
+//				System.out.println(service.arrayToString(productArray));
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			catch (ExpiredProductException2 e) {
+				e.getMessage()
+			}
+//			catch (ExpiredProductException e) {
+//				System.out.println("Expired product found!");
+//			}
+		}
+	}
+}

@@ -1,0 +1,25 @@
+package com.ibm.cs.service;
+
+import java.util.ArrayList;
+
+import com.ibm.cs.dao.UserManagementDAO;
+import com.ibm.cs.entity.User;
+
+public class UserManagementService {
+	UserManagementDAO userDao = new UserManagementDAO();
+
+	public UserManagementService() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ArrayList<User> getStandardUsers(){
+		return userDao.getStandardUsers();
+	}
+	
+	public void addUser(String username, String password, String userType, boolean canCreate, boolean canRead,
+			boolean canUpdate, boolean canDelete) {
+		User user = new User(username, password, userType, canCreate, canRead, canUpdate, canDelete);
+		userDao.addUser(User);
+	}
+
+}

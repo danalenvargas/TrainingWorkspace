@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class Pyramid {
+	
+	public static void main(String[] args) {
+		
+		Scanner s = new Scanner(System.in);
+		int decision = 1;
+		int x;
+		int y;
+		
+		
+		while (decision == 1)
+		{
+			if(decision == 1)
+			{
+				
+				
+				
+				
+				
+				
+			}					
+		}
+		
+		
+		
+		
+		
+	}
+}

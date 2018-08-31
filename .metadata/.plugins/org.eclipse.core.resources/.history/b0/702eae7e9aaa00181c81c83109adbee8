@@ -1,0 +1,58 @@
+package com.ibm.training;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Service productService = new Service();
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		
+		try {
+			Perishable veggies = new Perishable("veggies", dateFormat.parse("11/17/2018"));
+			Perishable meats = new Perishable("meats", dateFormat.parse("09/02/2018"));
+			Perishable milk = new Perishable("milk", dateFormat.parse("10/15/2018"));
+			NonPerishable toys = new NonPerishable("toys", true);
+			NonPerishable hammer = new NonPerishable("hammer", true);
+			NonPerishable diaper = new NonPerishable("diaper", false);
+			NonPerishable mugs = new NonPerishable("mugs", false);
+
+			productService.addProduct(veggies);
+			productService.addProduct(milk);
+			productService.addProduct(toys);
+			productService.addProduct(hammer);
+			productService.addProduct(mugs);
+			productService.addProduct(meats);
+			productService.addProduct(diaper);
+
+			System.out.println(productService.getProduct(1));
+			System.out.println(productService.reviewProducts());
+			System.out.println(productService.reviewProducts(EnumProdType.PERISHABLE));
+			System.out.println(productService.reviewProducts(EnumProdType.NONPERISHABLE));
+			
+			Checker checker = new Checker(productService);
+			checker.start();
+		} catch (ParseException e) {
+			System.out.println("Error in Parsing Date");
+			e.printStackTrace();
+		}
+	}
+	
+	private String displayProduct(Product prod) {
+		StringBuffer output = new StringBuffer("Product at index " + index + " is:\n");
+		output.append(getProperties(prod) + "\n");
+		return output.toString();
+	}
+	// private utility method to get String value of a product's properties (name, expiryDate, isRecyclable)
+	private String getProperties(Product prod) {
+		if(prod instanceof Perishable) {
+			Perishable peri = (Perishable) prod; //downcast from Product to Perishable
+			return peri.getName() + "\t|   " + "Perishable\t\tExpiry Date: " + dateFormat.format(peri.getExpiryDate());
+		} else {
+			NonPerishable nonPeri = (NonPerishable) prod; //downcast from Product to NonPerishable
+			return nonPeri.getName() + "\t|   " + "Non-Perishable\t" + (nonPeri.isRecyclable() ? "Recyclabe":"Not Recyclable");
+		}
+	}
+}

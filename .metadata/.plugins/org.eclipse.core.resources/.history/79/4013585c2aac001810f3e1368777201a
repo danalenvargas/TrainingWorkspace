@@ -1,0 +1,36 @@
+package com.ibm.training;
+
+import java.util.ArrayList;
+
+public class Dispatcher implements Runnable {
+	Service service;
+	
+	public Dispatcher() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Dispatcher(Service service) {
+		this.service = service;
+	}
+
+	@Override
+	public void run(){
+		while(true) {
+			try {
+				Thread.sleep(2000);
+				ArrayList<Product> productArray = service.reviewProducts(EnumProdType.PERISHABLE);
+				for(int i=0; i<productArray.size(); i++) {
+					Perishable peri = (Perishable) productArray.get(i);
+					if(peri != null && peri.getExpiresIn() < 1) {
+						throw new ExpiredProductException("Dispatcher found an expired product: " + peri.getName());
+					}
+				}
+			} catch (ExpiredProductException e) {
+				System.out.println(e.getMessage());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+	}
+}

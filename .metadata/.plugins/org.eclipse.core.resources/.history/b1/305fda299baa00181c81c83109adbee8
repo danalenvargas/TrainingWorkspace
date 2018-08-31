@@ -1,0 +1,63 @@
+package com.ibm.training;
+
+import java.text.SimpleDateFormat;
+
+public class Service {
+	Product[] productArray = new Product[20];
+	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
+	public Product[] getProductArray() {
+		return productArray;
+	}
+
+	public void setProductArray(Product[] productArray) {
+		this.productArray = productArray;
+	}
+	
+
+	public void addProduct(Product newProduct) {
+		for(int i=0; i<productArray.length; i++) {
+			if(!(productArray[i] instanceof Product)) {
+				productArray[i] = newProduct;
+				break;
+			}
+		}
+	}
+
+	public Product getProduct(int index) {
+		return productArray[index];
+	}
+	
+	// returns listing of all products
+	public String reviewProducts() {
+		return productArray;
+	}
+	
+	// returns listing of products filtered by type (Perishable or NonPerishable)
+	public String reviewProducts(EnumProdType type) {
+		StringBuffer listing = new StringBuffer("List of all " + type + " products:\n");
+		for(int i=0; i<productArray.length; i++) {
+			if(productArray[i] instanceof Perishable && type == EnumProdType.PERISHABLE) {
+				listing.append(getProperties(productArray[i]) + "\n");
+			}else if(productArray[i] instanceof NonPerishable && type == EnumProdType.NONPERISHABLE) {
+				listing.append(getProperties(productArray[i]) + "\n");
+			}
+		}
+		return listing.toString();
+	}
+	
+	public String getExpiryCountdown() {
+		StringBuffer listing = new StringBuffer("List of all perishable products:\n");
+		for(int i=0; i<productArray.length; i++) {
+			if(productArray[i] instanceof Perishable) {
+				Perishable peri = (Perishable) productArray[i];
+				listing.append(getProperties(productArray[i]) + 
+						"\t|   " + "Days until Expiry: " +
+						((peri.getExpiresIn() > 0) ? peri.getExpiresIn():"Expired!") + "\n");
+			}
+		}
+		return listing.toString();
+	}
+	
+	
+}

@@ -1,0 +1,63 @@
+package com.ibm.training;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+public class Service {
+	ArrayList<Product> productArray = new ArrayList<Product>();
+	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
+	public ArrayList<Product> getProductArray() {
+		return productArray;
+	}
+
+	public void setProductArray(Product[] productArray) {
+		this.productArray = productArray;
+	}
+	
+	public void addProduct(Product newProduct) {
+		for(int i=0; i<productArray.length; i++) {
+			if(!(productArray[i] instanceof Product)) {
+				productArray[i] = newProduct;
+				break;
+			}
+		}
+	}
+
+	// return product at particular index
+	public Product getProduct(int index) {
+		return productArray[index];
+	}
+	
+	// returns array of all products
+	public Product[] reviewProducts() {
+		return productArray;
+	}
+	
+	// returns array of products filtered by type (Perishable or NonPerishable)
+	public Product[] reviewProducts(EnumProdType type) {
+		Product[] newArr = new Product[20];
+		int counter = 0;
+		for(int i=0; i<productArray.length; i++) {
+			if(productArray[i] instanceof Perishable && type == EnumProdType.PERISHABLE) {
+				newArr[counter] = productArray[i];
+				counter++;
+			}else if(productArray[i] instanceof NonPerishable && type == EnumProdType.NONPERISHABLE) {
+				newArr[counter] = productArray[i];
+				counter++;
+			}
+		}
+		return newArr;
+	}
+	
+	// Returns string representation of any array of products
+	public String arrayToString(Product[] productArray) {
+		StringBuffer listing = new StringBuffer("");
+		for(int i=0; i<productArray.length; i++) {
+			if(productArray[i] instanceof Product) {
+				listing.append(productArray[i]);
+			}
+		}
+		return listing.toString();
+	}
+}

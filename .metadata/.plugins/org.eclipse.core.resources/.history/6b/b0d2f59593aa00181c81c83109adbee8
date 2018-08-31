@@ -1,0 +1,20 @@
+package com.ibm.training;
+
+import java.util.Date;
+
+public class Perishable extends Product {
+	private Date expiryDate;
+
+	public Perishable(String name, Date expiryDate) {
+		super(name);
+		this.expiryDate = expiryDate;
+	}
+	
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+}

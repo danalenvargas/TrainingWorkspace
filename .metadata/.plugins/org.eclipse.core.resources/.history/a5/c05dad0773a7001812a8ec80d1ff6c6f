@@ -1,0 +1,14 @@
+package com.ibm.cs.dao;
+
+import java.sql.*;
+
+public class MasterDAO {
+	private final String DRIVER_CLASS = "com.mysql.JDBC.Driver";
+	private final String username = "root";
+	private final String password = "admin";
+
+	public MasterDAO() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

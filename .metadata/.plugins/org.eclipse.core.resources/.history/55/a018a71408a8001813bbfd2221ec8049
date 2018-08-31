@@ -1,0 +1,11 @@
+package com.ibm.cs.entity;
+
+import java.io.Serializable;
+
+public class Uesr implements Serializable{
+
+	public Uesr() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

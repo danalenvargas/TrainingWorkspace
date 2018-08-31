@@ -1,0 +1,15 @@
+package com.ibm.training;
+
+public class Dispatcher2 implements Runnable {
+
+	public Dispatcher2() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

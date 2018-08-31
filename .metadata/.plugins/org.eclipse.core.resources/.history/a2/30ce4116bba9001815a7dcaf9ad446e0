@@ -1,0 +1,6 @@
+/**
+ * 
+ */
+function showUserDetails(selectedUser){
+	document.getElementById("editForm").style.visibility = "visible";
+}

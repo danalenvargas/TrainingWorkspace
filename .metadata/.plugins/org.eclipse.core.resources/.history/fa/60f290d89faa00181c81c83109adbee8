@@ -1,0 +1,54 @@
+package com.ibm.training;
+
+public class Checker implements Runnable {
+	Service service;
+
+	public Checker() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Checker(Service service) {
+		this.service = service;
+	}
+
+	public Service getService() {
+		return service;
+	}
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+	
+	@Override
+	public void run() {
+		while(true) {
+			try {
+				// get all perishable products
+				Product[] productArray = service.reviewProducts(EnumProdType.PERISHABLE);
+				// Decrement expiresIn property
+				for(int i=0; i<productArray.length; i++) {
+					if(productArray[i] != null) {
+						Perishable peri = (Perishable) productArray[i];
+						peri.setExpiresIn(peri.getExpiresIn()-1);
+					}
+				}
+				System.out.println("\n\n...One day has passed. Days until expiry gets closer.");
+				System.out.println(arrayToString(productArray));
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public String arrayToString(Product[] productArray) {
+		StringBuffer listing = new StringBuffer("");
+		for(int i=0; i<productArray.length; i++) {
+			if(productArray[i] instanceof Product) {
+				listing.append(productArray[i]);
+			}
+		}
+		return listing.toString();
+	}
+}

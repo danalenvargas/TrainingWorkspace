@@ -1,0 +1,29 @@
+/**
+ * 
+ */
+function showUserDetails(userId){
+	fetch('UserManagement?action=getUser&userId=' + userId)
+		.then(function(response){
+			console.log("got response")
+			response.json().then(function(data){
+				console.log(data);
+				document.getElementById("txtUsername").value = data.username;
+				document.getElementById("txtPassword").value = data.password;
+				document.getElementById("txtUserId").value = data.userId;
+				document.getElementById("chkCreate").checked = data.canCreate;
+				document.getElementById("chkRead").checked = data.canRead;
+				document.getElementById("chkUpdate").checked = data.canUpdate;
+				document.getElementById("chkDelete").checked = data.canDelete;
+				document.getElementById("txtUserId2").value = data.userId;
+			})
+			.catch(function(err){
+				console.log("error with parsing");
+			});
+		})
+		.catch(function(err){
+			console.log("Fetch Error: ", err)
+		});
+
+	document.getElementById("editForm").style.visibility = "visible";
+	document.getElementById("deleteForm").style.visibility = "visible";
+}

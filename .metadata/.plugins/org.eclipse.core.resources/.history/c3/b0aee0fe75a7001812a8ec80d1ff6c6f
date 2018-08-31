@@ -1,0 +1,28 @@
+package com.ibm.cs.dao;
+
+import java.sql.*;
+
+public class MasterDAO {
+	private final String DRIVER_CLASS = "com.mysql.JDBC.Driver";
+
+	private static final String URL = "jdbc:mysql://localhost/cs_draft_db";
+	private static final String USER = "root";
+	private static final String PASSWORD = "admin";
+	
+	
+	public MasterDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Connection getConnection() {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return conn;
+	}
+
+}

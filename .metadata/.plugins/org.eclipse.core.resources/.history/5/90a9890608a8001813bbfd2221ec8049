@@ -1,0 +1,9 @@
+package com.ibm.cs.entity;
+
+public class Uesr {
+
+	public Uesr() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

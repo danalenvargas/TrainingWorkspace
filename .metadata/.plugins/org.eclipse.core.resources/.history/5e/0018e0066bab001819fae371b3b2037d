@@ -1,0 +1,17 @@
+package com.ibm.training;
+
+import javax.management.RuntimeErrorException;
+
+public class ExpiredProductException extends RuntimeErrorException {
+
+	public ExpiredProductException(Error arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ExpiredProductException(Error arg0, String arg1) {
+		super(arg0, arg1);
+		// TODO Auto-generated constructor stub
+	}
+
+}

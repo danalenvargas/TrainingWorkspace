@@ -1,9 +1,0 @@
-package com.ibm.cs.service;
-
-public class UserManagementService {
-
-	public UserManagementService() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

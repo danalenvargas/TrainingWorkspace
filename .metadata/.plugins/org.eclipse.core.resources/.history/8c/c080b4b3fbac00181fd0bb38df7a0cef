@@ -1,9 +1,0 @@
-package com.ibm.cs.dao;
-
-public class ProductManagementDAO extends MasterDAO {
-
-	public ProductManagementDAO() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

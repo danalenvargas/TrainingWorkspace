@@ -1,16 +1,10 @@
 package com.ibm.cs.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.ibm.cs.entity.User;
 
 public class UserManagementDAO extends MasterDAO {
-	private PreparedStatement pst = null;
-	private ResultSet rs = null;
-	private Connection conn;
 
 	public UserManagementDAO() {
 		// TODO Auto-generated constructor stub
@@ -48,15 +42,7 @@ public class UserManagementDAO extends MasterDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-            if (rs != null) {
-                try {rs.close();} catch (SQLException e) { e.printStackTrace();}
-            }
-            if (pst != null) {
-                try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-            }
-            if (conn != null) {
-            	try {conn.close();} catch (SQLException e) {e.printStackTrace();}
-            }
+            closeConnection();
         }
 		return null;
 	}
@@ -88,15 +74,7 @@ public class UserManagementDAO extends MasterDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-            if (rs != null) {
-                try {rs.close();} catch (SQLException e) { e.printStackTrace();}
-            }
-            if (pst != null) {
-                try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-            }
-            if (conn != null) {
-            	try {conn.close();} catch (SQLException e) {e.printStackTrace();}
-            }
+            closeConnection();
         }
 	}
 	
@@ -104,9 +82,7 @@ public class UserManagementDAO extends MasterDAO {
 			boolean canUpdate, boolean canDelete) {
 		conn = getConnection();
 		try {
-			pst = conn.prepareStatement("UPDATE tbl_user "
-					+ "SET username=?, password=? "
-					+ "WHERE user_id=?");
+			pst = conn.prepareStatement("UPDATE tbl_user SET username=?, password=? WHERE user_id=?");
 			pst.setString(1, username);
 			pst.setString(2, password);
 			pst.setInt(3, userId);
@@ -124,15 +100,7 @@ public class UserManagementDAO extends MasterDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-            if (rs != null) {
-                try {rs.close();} catch (SQLException e) { e.printStackTrace();}
-            }
-            if (pst != null) {
-                try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-            }
-            if (conn != null) {
-            	try {conn.close();} catch (SQLException e) {e.printStackTrace();}
-            }
+			closeConnection();
         }
 	}
 	
@@ -148,15 +116,7 @@ public class UserManagementDAO extends MasterDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-            if (rs != null) {
-                try {rs.close();} catch (SQLException e) { e.printStackTrace();}
-            }
-            if (pst != null) {
-                try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-            }
-            if (conn != null) {
-            	try {conn.close();} catch (SQLException e) {e.printStackTrace();}
-            }
+			closeConnection();
         }
 	}
 	
@@ -188,17 +148,8 @@ public class UserManagementDAO extends MasterDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-            if (rs != null) {
-                try {rs.close();} catch (SQLException e) { e.printStackTrace();}
-            }
-            if (pst != null) {
-                try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-            }
-            if (conn != null) {
-            	try {conn.close();} catch (SQLException e) {e.printStackTrace();}
-            }
+			closeConnection();
         }
 		return user;
 	}
-
 }

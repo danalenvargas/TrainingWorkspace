@@ -41,6 +41,8 @@ public class RequestFilter implements Filter {
         	res.sendRedirect("login.jsp");
         } else if (uri.endsWith("usermanagement.jsp")) { //check if user asks for jsp page directly
         	res.sendRedirect("UserManagement");
+        } else if (uri.endsWith("productmanagement.jsp")) {
+        	res.sendRedirect("ProductManagement");
         } else {
         	chain.doFilter(request, response);
         }

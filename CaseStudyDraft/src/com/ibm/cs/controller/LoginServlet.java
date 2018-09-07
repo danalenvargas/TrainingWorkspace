@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ibm.cs.entity.User;
+import com.ibm.cs.model.User;
 import com.ibm.cs.service.LoginService;
 
 /**
@@ -61,5 +61,4 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
 	}
-
 }

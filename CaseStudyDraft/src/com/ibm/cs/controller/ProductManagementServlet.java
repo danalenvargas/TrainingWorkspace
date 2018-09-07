@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.ibm.cs.entity.Category;
-import com.ibm.cs.entity.Product;
+import com.ibm.cs.model.Category;
+import com.ibm.cs.model.Product;
 import com.ibm.cs.service.ProductManagementService;
 
 /**

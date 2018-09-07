@@ -1,10 +1,10 @@
 package com.ibm.cs.service;
 
-import com.ibm.cs.dao.LoginDAO;
-import com.ibm.cs.entity.User;
+import com.ibm.cs.dao.UserDAO;
+import com.ibm.cs.model.User;
 
 public class LoginService {
-	
+	UserDAO dao = new UserDAO();
 	private User user;
 
 	public LoginService() {
@@ -12,9 +12,9 @@ public class LoginService {
 	}
 	
 	public boolean isValidUser(String username, String password) {
-		LoginDAO loginDao = new LoginDAO();
-		
-		user = loginDao.getUser(username, password);
+		dao.openConnection();
+		user = dao.getUser(username, password);
+		dao.closeConnection();
 		
 		if(user != null) 
 			return true;

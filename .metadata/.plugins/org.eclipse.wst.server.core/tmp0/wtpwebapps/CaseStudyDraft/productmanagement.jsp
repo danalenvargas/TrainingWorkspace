@@ -13,7 +13,7 @@
 <!-- =============================== -->
 <!-- |   LIST OF CATEGORIES      | -->
 <!-- =============================== -->
-List of Categories:<br>
+List of Categories:<br />
 <div style="width:50%; float:left;">
 	<table>
 		<tr>
@@ -31,7 +31,7 @@ List of Categories:<br>
 			</tr>
 		</c:forEach>
 	</table>
-	<br><br>
+	<br /><br />
 	
 	<!-- =============================== -->
 	<!-- |   FOR ADDING NEW CATEGORY      | -->
@@ -39,7 +39,7 @@ List of Categories:<br>
 	Add Category:
 	<fieldset>
 		<form action="ProductManagement" method="post" >
-			Name: <input type="text" name="name" placeholder="category name"> <br>
+			Name: <input type="text" name="name" placeholder="category name"> <br />
 			Product Type:  <select name="productType">
 				<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
 				<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
@@ -52,23 +52,23 @@ List of Categories:<br>
 				<option value="Paper Goods">Paper Goods</option>
 				<option value="Personal Care">Personal Care</option>
 				<option value="Other" selected>Other</option>
-			</select> <br>
+			</select> <br />
 			<fieldset>
 				Perishable: <input type="radio" name="perishable" value="true" onclick="disableRecyclableButtons()"> 
-				Non Perishable: <input type="radio" name="perishable" value="false" onclick="enableRecyclableButtons()" checked><br>
+				Non Perishable: <input type="radio" name="perishable" value="false" onclick="enableRecyclableButtons()" checked><br />
 				Recyclable: <input id="radRecyclable" type="radio" name="recyclable" value="true"> 
 				Not Recyclable: <input id="radNotRecyclable" type="radio" name="recyclable" value="false" checked>
 			</fieldset>
-			<br>
-			<input type="hidden" name="action" value="addCategory">
-			<input type="submit" value="Submit">
+			<br />
+			<input type="hidden" name="action" value="addCategory" />
+			<input type="submit" value="Submit" />
 		</form>
 	</fieldset>
-	<br>
+	<br />
 	<!-- =============================== -->
 	<!-- |   LIST OF PRODUCTS      | -->
 	<!-- =============================== -->
-	List of Products:<br>
+	List of Products:<br />
 	<table>
 		<tr>
 			<th>Category</th>
@@ -95,38 +95,38 @@ List of Categories:<br>
 			</tr>
 		</c:forEach>
 	</table>
-	<br><br>
+	<br /><br />
 	<!-- =============================== -->
 	<!-- |   FOR ADDING NEW PRODUCT      | -->
 	<!-- =============================== -->
 	Add Product:
 	<fieldset>
-		<form action="ProductManagement" method="post" >
+		<form action="ProductManagement" method="post">
 			Category:  <select id="addProdCategory" name="categoryId">
 				<c:forEach items="${categoryList}" var="category">
 					<option value="${category.categoryId}" title="${category.productType}">${category.name}</option>
 				</c:forEach>
-			</select> <br>
-			Brand: <input id="addProdBrand" type="text" name="brand" placeholder="brand"> <br>
-			Variant: <input id="addProdVariant" type="text" name="variant" value="none" placeholder="none"> <br>
-			Size: <input id="addProdSize" type="text" name="size" placeholder="size">
-			<input id="addProdUnit" type="text" name="measurementUnit" placeholder="unit"> <br>
-			Description: <textarea name="description" placeholder="description" rows="3" cols="40"></textarea> <br>
+			</select> <br />
+			Brand: <input id="addProdBrand" type="text" name="brand" placeholder="brand" /> <br />
+			Variant: <input id="addProdVariant" type="text" name="variant" value="none" placeholder="none" /> <br />
+			Size: <input id="addProdSize" type="text" name="size" placeholder="size" />
+			<input id="addProdUnit" type="text" name="measurementUnit" placeholder="unit" /> <br />
+			Description: <textarea name="description" placeholder="description" rows="3" cols="40"></textarea> <br />
 			Special Handling: <select name="specialHandling">
 				<option value="" selected></option>
 				<option value="keep frozen">keep frozen</option>
 				<option value="keep frozen">keep refrigerated</option>
 				<option value="keep frozen">fragile</option>
-			</select> <br>
-			Selling Price: Php<input type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br><br>
+			</select> <br />
+			Selling Price: Php<input type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
 			SKU: <input id="addProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit">
-			<button type="button" onclick="generateSKU()">Generate</button> <br>
-			<input type="hidden" name="action" value="addProduct"> 
-			<input type="submit" value="Submit">
+			<button type="button" onclick="generateSKU()">Generate</button> <br />
+			<input type="hidden" name="action" value="addProduct" /> 
+			<input type="submit" value="Submit" />
 		</form>
 	</fieldset>
-	<br>
-	<br>
+	<br />
+	<br />
 	Input items
 </div>
 
@@ -141,7 +141,7 @@ List of Categories:<br>
 	<div id="editCategoryForm" style="width:50%; float:right; visibility: hidden">
 		Category Details:
 		<form action="ProductManagement" method="post">
-			Name: <input id="txtCategoryName" type="text" name="name" placeholder="category name"> <br>
+			Name: <input id="txtCategoryName" type="text" name="name" placeholder="category name" /> <br />
 			Product Type:  <select id="selProductType" name="productType">
 				<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
 				<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
@@ -154,22 +154,22 @@ List of Categories:<br>
 				<option value="Paper Goods">Paper Goods</option>
 				<option value="Personal Care">Personal Care</option>
 				<option value="Other">Other</option>
-			</select> <br>
+			</select> <br />
 			<fieldset>
-				Perishable: <input id="radEditPerishable" type="radio" name="perishable" value="true" onclick="disableEditRecyclableButtons()"> 
-				Non Perishable: <input id="radEditNonPerishable" type="radio" name="perishable" value="false" onclick="enableEditRecyclableButtons()" checked><br>
-				Recyclable: <input id="radEditRecyclable" type="radio" name="recyclable" value="true"> 
-				Not Recyclable: <input id="radEditNotRecyclable" type="radio" name="recyclable" value="false" checked>
+				Perishable: <input id="radEditPerishable" type="radio" name="perishable" value="true" onclick="disableEditRecyclableButtons()" /> 
+				Non Perishable: <input id="radEditNonPerishable" type="radio" name="perishable" value="false" onclick="enableEditRecyclableButtons()" checked /><br />
+				Recyclable: <input id="radEditRecyclable" type="radio" name="recyclable" value="true" /> 
+				Not Recyclable: <input id="radEditNotRecyclable" type="radio" name="recyclable" value="false" checked />
 			</fieldset>
-			<br>
-			<input id="txtCategoryId" type="hidden" name="categoryId">
-			<input type="hidden" name="action" value="editCategory">
-			<input type="submit" value="Update"><br>
+			<br />
+			<input id="txtCategoryId" type="hidden" name="categoryId" />
+			<input type="hidden" name="action" value="editCategory" />
+			<input type="submit" value="Update" /><br />
 		</form>
 		<form action="ProductManagement" method="post">
-			<input id="txtCategoryId2" type="hidden" name="categoryId">
-			<input type="hidden" name="action" value="deleteCategory">
-			<input type="submit" value="Remove Category">
+			<input id="txtCategoryId2" type="hidden" name="categoryId" />
+			<input type="hidden" name="action" value="deleteCategory" />
+			<input type="submit" value="Remove Category" />
 		</form>
 	</div>
 	<div id="editProductForm" >
@@ -178,23 +178,23 @@ List of Categories:<br>
 				<c:forEach items="${categoryList}" var="category">
 					<option value="${category.categoryId}" title="${category.productType}">${category.name}</option>
 				</c:forEach>
-			</select> <br>
-			Brand: <input id="editProdBrand" type="text" name="brand" placeholder="brand"> <br>
-			Variant: <input id="editProdVariant" type="text" name="variant" value="none" placeholder="none"> <br>
-			Size: <input id="editProdSize" type="text" name="size" placeholder="size">
-			<input id="editProdUnit" type="text" name="measurementUnit" placeholder="unit"> <br>
-			Description: <textarea id = "editProdDescription" name="description" placeholder="description" rows="3" cols="40"></textarea> <br>
+			</select> <br />
+			Brand: <input id="editProdBrand" type="text" name="brand" placeholder="brand" /> <br />
+			Variant: <input id="editProdVariant" type="text" name="variant" value="none" placeholder="none" /> <br />
+			Size: <input id="editProdSize" type="text" name="size" placeholder="size" />
+			<input id="editProdUnit" type="text" name="measurementUnit" placeholder="unit" /> <br />
+			Description: <textarea id = "editProdDescription" name="description" placeholder="description" rows="3" cols="40"></textarea> <br />
 			Special Handling: <select id="editProdSpecialHandling" name="specialHandling">
 				<option value="" selected></option>
 				<option value="keep frozen">keep frozen</option>
 				<option value="keep frozen">keep refrigerated</option>
 				<option value="keep frozen">fragile</option>
-			</select> <br>
-			Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br><br>
-			SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit">
-			<button type="button" onclick="generateSKU()">Generate</button> <br>
-			<input type="hidden" name="action" value="addProduct">
-			<input type="submit" value="Submit">
+			</select> <br />
+			Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
+			SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" />
+			<button type="button" onclick="generateSKU()">Generate</button> <br />
+			<input type="hidden" name="action" value="addProduct" />
+			<input type="submit" value="Submit" />
 		</form>
 	</div>
 </div>

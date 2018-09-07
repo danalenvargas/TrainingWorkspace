@@ -13,14 +13,12 @@ public abstract class MasterDAO {
 	// "jdbc:mysql://localhost/cs_draft_db?useLegacyDatetimeCode=false&serverTimezone=UTC";
 	// private static final String USER = "root";
 	// private static final String PASSWORD = "admin";
-	protected PreparedStatement pst = null;
-	protected ResultSet rs = null;
 	protected Connection conn;
 
 	private Properties properties = new Properties();
 
 	public MasterDAO() {
-		conn = getConnection();
+		getConnection(); //temporary band-aid, to remove later
 	}
 
 	protected Connection getConnection() {
@@ -46,8 +44,34 @@ public abstract class MasterDAO {
 		} 
 		return conn;
 	}
+	
+	public void openConnection() {
+		conn = getConnection();
+	}
+	
+//	public void startTransaction() {
+//		try {
+//			conn = getConnection();
+//			conn.setAutoCommit(false);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	public void endTransaction(boolean isSuccessful) {
+//		try {
+//			if(isSuccessful) {
+//				conn.commit();
+//			} else {
+//				conn.rollback();
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		closeConnection();
+//	}
 
-	protected void closeConnection() {
+	public void closeConnection() {
 		if (this.conn != null) {
 			try {
 				conn.close();
@@ -55,5 +79,20 @@ public abstract class MasterDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	protected void closeResources(ResultSet rs, PreparedStatement pst) {
+		if (rs != null) {
+            try {rs.close();} catch (SQLException e) { e.printStackTrace();}
+        }
+        if (pst != null) {
+            try {pst.close();} catch (SQLException e) {e.printStackTrace();}
+        }
+	}
+	
+	protected void closeResources(PreparedStatement pst) {
+        if (pst != null) {
+            try {pst.close();} catch (SQLException e) {e.printStackTrace();}
+        }
 	}
 }

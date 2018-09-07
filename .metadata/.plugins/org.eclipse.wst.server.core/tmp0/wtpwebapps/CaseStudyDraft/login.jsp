@@ -26,9 +26,9 @@
 <body>
 	<h1 align="center">Product Inventory Login</h1>
 	<form action="Login" method="post">
-		<input type="text" name="username" placeholder="username"><br>
-		<input type="password" name="password" placeholder="password"><br>
-		<input type="submit" name="submit" value="Login">
+		<input type="text" name="username" placeholder="username" /><br />
+		<input type="password" name="password" placeholder="password" /><br />
+		<input type="submit" name="submit" value="Login" />
 	</form>
 </body>
 </html>

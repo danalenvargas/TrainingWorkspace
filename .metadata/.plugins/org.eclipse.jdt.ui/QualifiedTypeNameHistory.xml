@@ -2,15 +2,11 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
-<fullyQualifiedTypeName name="java.sql.Connection"/>
-<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="com.ibm.cs.service.LoginService"/>
 <fullyQualifiedTypeName name="com.ibm.cs.dao.LoginDAO"/>
 <fullyQualifiedTypeName name="org.apache.catalina.User"/>
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
-<fullyQualifiedTypeName name="com.ibm.cs.dao.UserManagementDAO"/>
 <fullyQualifiedTypeName name="com.ibm.cs.service.UserManagementService"/>
 <fullyQualifiedTypeName name="com.ibm.cs.entity.User"/>
 <fullyQualifiedTypeName name="com.google.gson.Gson"/>
@@ -29,4 +25,9 @@
 <fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.ibm.cs.dao.UserManagementDAO"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="com.ibm.cs.dao.ProductDAO"/>
 </qualifiedTypeNameHistroy>

@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-
-import com.ibm.cs.entity.User;
+import com.ibm.cs.model.User;
 import com.ibm.cs.service.UserManagementService;
 
 /**

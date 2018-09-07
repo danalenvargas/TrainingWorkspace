@@ -24,8 +24,8 @@ List of Categories:<br />
 		</tr>
 		<c:forEach items="${categoryList}" var="category">
 			<tr>
-				<td onclick="showCategoryDetails('${category.categoryId}');">${category.name}</td>
-				<td>${category.productType}</td>
+				<td onclick="showCategoryDetails('${category.categoryId}');">${category.categoryName}</td>
+				<td>${category.categoryType}</td>
 				<td>${category.isPerishable}</td>
 				<td>${category.isRecyclable}</td>
 			</tr>
@@ -39,8 +39,8 @@ List of Categories:<br />
 	Add Category:
 	<fieldset>
 		<form action="ProductManagement" method="post" >
-			Name: <input type="text" name="name" placeholder="category name"> <br />
-			Product Type:  <select name="productType">
+			Name: <input type="text" name="categoryName" placeholder="category name"> <br />
+			Category Type:  <select name="categoryType">
 				<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
 				<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
 				<option value="Canned/Jarred Goods" title="vegetables, spaghetti sauce, ketchup">Canned/Jarred Goods</option>
@@ -83,7 +83,7 @@ List of Categories:<br />
 		</tr>
 		<c:forEach items="${productList}" var="product">
 			<tr>
-				<td onclick="showProductDetails('${product.productId}');">${product.category.name}</td>
+				<td onclick="showProductDetails('${product.productId}');">${product.category.categoryName}</td>
 				<td>${product.SKU}</td>
 				<td>${product.brand}</td>
 				<td>${product.variant}</td>
@@ -104,7 +104,7 @@ List of Categories:<br />
 		<form action="ProductManagement" method="post">
 			Category:  <select id="addProdCategory" name="categoryId">
 				<c:forEach items="${categoryList}" var="category">
-					<option value="${category.categoryId}" title="${category.productType}">${category.name}</option>
+					<option value="${category.categoryId}" title="${category.categoryType}">${category.categoryName}</option>
 				</c:forEach>
 			</select> <br />
 			Brand: <input id="addProdBrand" type="text" name="brand" placeholder="brand" /> <br />
@@ -141,8 +141,8 @@ List of Categories:<br />
 	<div id="editCategoryForm" style="width:50%; float:right; visibility: hidden">
 		Category Details:
 		<form action="ProductManagement" method="post">
-			Name: <input id="txtCategoryName" type="text" name="name" placeholder="category name" /> <br />
-			Product Type:  <select id="selProductType" name="productType">
+			Name: <input id="txtCategoryName" type="text" name="categoryName" placeholder="category name" /> <br />
+			Category Type:  <select id="selCategoryType" name="categoryType">
 				<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
 				<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
 				<option value="Canned/Jarred Goods" title="vegetables, spaghetti sauce, ketchup">Canned/Jarred Goods</option>
@@ -176,7 +176,7 @@ List of Categories:<br />
 		<form action="ProductManagement" method="post" >
 			Category:  <select id="editProdCategory" name="categoryId">
 				<c:forEach items="${categoryList}" var="category">
-					<option value="${category.categoryId}" title="${category.productType}">${category.name}</option>
+					<option value="${category.categoryId}" title="${category.categoryType}">${category.categoryName}</option>
 				</c:forEach>
 			</select> <br />
 			Brand: <input id="editProdBrand" type="text" name="brand" placeholder="brand" /> <br />

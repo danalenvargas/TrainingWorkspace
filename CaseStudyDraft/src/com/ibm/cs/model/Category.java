@@ -5,8 +5,8 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Category implements Serializable {
 	private int categoryId;
-	private String name;
-	private String productType; // (Beverages, Bread/Bakery, Canned/Jarred GOods, Dairy, Dry/Baking Goods, Frozen Goods, Meat, Produce, Cleaners, Paper Goods, Personal Care, Other)
+	private String categoryName;
+	private String categoryType; // (Beverages, Bread/Bakery, Canned/Jarred GOods, Dairy, Dry/Baking Goods, Frozen Goods, Meat, Produce, Cleaners, Paper Goods, Personal Care, Other)
 	private boolean isPerishable;
 	private Boolean isRecyclable;
 	
@@ -14,11 +14,11 @@ public class Category implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Category(int category_id, String name, String product_type, boolean isPerishable, Boolean isRecyclable) {
+	public Category(int category_id, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		super();
 		this.categoryId = category_id;
-		this.name = name;
-		this.productType = product_type;
+		this.categoryName = categoryName;
+		this.categoryType = categoryType;
 		this.isPerishable = isPerishable;
 		this.isRecyclable = isRecyclable;
 	}
@@ -31,20 +31,20 @@ public class Category implements Serializable {
 		this.categoryId = category_id;
 	}
 
-	public String getName() {
-		return name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCategoryName(String name) {
+		this.categoryName = name;
 	}
 
-	public String getProductType() {
-		return productType;
+	public String getCategoryType() {
+		return categoryType;
 	}
 
-	public void setProductType(String product_type) {
-		this.productType = product_type;
+	public void setCategoryType(String product_type) {
+		this.categoryType = product_type;
 	}
 
 	public boolean getIsPerishable() {

@@ -18,7 +18,7 @@ public abstract class MasterDAO {
 	private Properties properties = new Properties();
 
 	public MasterDAO() {
-		getConnection(); //temporary band-aid, to remove later
+		conn = getConnection(); //temporary band-aid, to remove later
 	}
 
 	protected Connection getConnection() {

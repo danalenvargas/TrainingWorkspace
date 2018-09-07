@@ -67,36 +67,34 @@ public class ProductManagementServlet extends HttpServlet {
 		ProductManagementService service = new ProductManagementService();
 		boolean isSuccessful;
 		int categoryId;
-		String name, productType;
+		String categoryName, categoryType;
 		boolean isPerishable;
 		Boolean isRecyclable;
 		String action = request.getParameter("action");
 		
 		switch(action) {
 		case "addCategory":
-			name = request.getParameter("name");
-			productType = request.getParameter("productType");
+			categoryName = request.getParameter("categoryName");
+			categoryType = request.getParameter("categoryType");
 			isPerishable = Boolean.valueOf(request.getParameter("perishable"));
 			isRecyclable = null;
 			if(!isPerishable) {
 				isRecyclable = Boolean.valueOf(request.getParameter("recyclable"));
 			}
-			isSuccessful = service.addCategory(name, productType, isPerishable, isRecyclable);
+			isSuccessful = service.addCategory(categoryName, categoryType, isPerishable, isRecyclable);
 			System.out.println("ADD CATEGORY SUCCESS: " + isSuccessful);
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("productmanagement.jsp");
-//			dispatcher.forward(request, response);
 			response.sendRedirect("productmanagement.jsp");
 			break;
 		case "editCategory":
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
-			name = request.getParameter("name");
-			productType = request.getParameter("productType");
+			categoryName = request.getParameter("categoryName");
+			categoryType = request.getParameter("categoryType");
 			isPerishable = Boolean.valueOf(request.getParameter("perishable"));
 			isRecyclable = null;
 			if(!isPerishable) {
 				isRecyclable = Boolean.valueOf(request.getParameter("recyclable"));
 			}
-			isSuccessful = service.editCategory(categoryId, name, productType, isPerishable, isRecyclable);
+			isSuccessful = service.editCategory(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
 			System.out.println("EDIT CATEGORY SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;

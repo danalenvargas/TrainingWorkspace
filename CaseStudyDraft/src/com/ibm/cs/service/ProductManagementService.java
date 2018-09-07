@@ -15,16 +15,16 @@ public class ProductManagementService {
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean addCategory(String name, String productType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		dao = new CategoryDAO();
-		isSuccessful = dao.addCategory(name, productType, isPerishable, isRecyclable);
+		isSuccessful = dao.addCategory(categoryName, categoryType, isPerishable, isRecyclable);
 		dao.closeConnection();
 		return isSuccessful;
 	}
 	
-	public boolean editCategory(int categoryId, String name, String productType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean editCategory(int categoryId, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		dao = new CategoryDAO();
-		isSuccessful = dao.editCategory(categoryId, name, productType, isPerishable, isRecyclable);
+		isSuccessful = dao.editCategory(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
 		dao.closeConnection();
 		return isSuccessful;
 	}

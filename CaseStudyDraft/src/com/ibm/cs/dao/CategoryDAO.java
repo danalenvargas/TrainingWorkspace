@@ -15,7 +15,7 @@ public class CategoryDAO extends MasterDAO {
 	int count;
 
 	public CategoryDAO() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
 	// constructor used when ProductDAO needs to use a CategoryDAO, so that they can share a single connection
@@ -23,14 +23,14 @@ public class CategoryDAO extends MasterDAO {
 		this.conn = conn;
 	}
 	
-	public boolean addCategory(String name, String productType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
 		try {
-			pst = conn.prepareStatement("INSERT INTO tbl_category(name, product_type, is_perishable, is_recyclable) VALUES(?,?,?,?)");
-			pst.setString(1, name);
-			pst.setString(2, productType);
+			pst = conn.prepareStatement("INSERT INTO tbl_category(category_name, category_type, is_perishable, is_recyclable) VALUES(?,?,?,?)");
+			pst.setString(1, categoryName);
+			pst.setString(2, categoryType);
 			pst.setBoolean(3, isPerishable);
 			if (isRecyclable != null) pst.setBoolean(4, isRecyclable);
 			else pst.setNull(4, java.sql.Types.BOOLEAN);
@@ -47,14 +47,14 @@ public class CategoryDAO extends MasterDAO {
 		return false;
 	}
 	
-	public boolean editCategory(int categoryId, String name, String productType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean editCategory(int categoryId, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		PreparedStatement pst = null;
 		
 		try{
-			pst = conn.prepareStatement("UPDATE tbl_category SET name=?, product_type=?, is_perishable=?, is_recyclable=? "
+			pst = conn.prepareStatement("UPDATE tbl_category SET category_name=?, category_type=?, is_perishable=?, is_recyclable=? "
 					+ "WHERE category_id=?");
-			pst.setString(1, name);
-			pst.setString(2, productType);
+			pst.setString(1, categoryName);
+			pst.setString(2, categoryType);
 			pst.setBoolean(3, isPerishable);
 			if (isRecyclable != null) pst.setBoolean(4, isRecyclable);
 			else pst.setNull(4, java.sql.Types.BOOLEAN);
@@ -97,7 +97,7 @@ public class CategoryDAO extends MasterDAO {
 		
 		ArrayList<Category> categoryList = new ArrayList<>();
 		int categoryId;
-		String name, productType;
+		String categoryName, categoryType;
 		boolean isPerishable; Boolean isRecyclable; // (isPerishable does not accept null, isRecyclable may be null)
 		
 		try {
@@ -106,14 +106,14 @@ public class CategoryDAO extends MasterDAO {
 			
 			while(rs.next()) {
 				categoryId = rs.getInt("category_id");
-				name = rs.getString("name");
-				productType = rs.getString("product_type");
+				categoryName = rs.getString("category_name");
+				categoryType = rs.getString("category_type");
 				isPerishable = rs.getBoolean("is_perishable");
 				isRecyclable = null;
 				if(!isPerishable) {
 					isRecyclable = rs.getBoolean("is_recyclable");
 				}
-				categoryList.add(new Category(categoryId, name, productType, isPerishable, isRecyclable));
+				categoryList.add(new Category(categoryId, categoryName, categoryType, isPerishable, isRecyclable));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -127,7 +127,7 @@ public class CategoryDAO extends MasterDAO {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
-		String name, productType;
+		String categoryName, categoryType;
 		boolean isPerishable; Boolean isRecyclable;
 		Category category = null;
 		
@@ -138,15 +138,15 @@ public class CategoryDAO extends MasterDAO {
 			rs = pst.executeQuery();
 			
 			if(rs.next()) {
-				name = rs.getString("name");
-				productType = rs.getString("product_type");
+				categoryName = rs.getString("category_name");
+				categoryType = rs.getString("category_type");
 				isPerishable = rs.getBoolean("is_perishable");
 				isRecyclable = null;
 				if(!isPerishable) {
 					isRecyclable = rs.getBoolean("is_recyclable");
 				}
 				
-				category = new Category(categoryId, name, productType, isPerishable, isRecyclable);
+				category = new Category(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
             }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

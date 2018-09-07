@@ -12,7 +12,7 @@ public class ProductDAO extends MasterDAO {
 	int count;
 
 	public ProductDAO() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	public ArrayList<Product> getProductList(){
 		PreparedStatement pst = null;

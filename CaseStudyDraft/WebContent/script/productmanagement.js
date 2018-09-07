@@ -27,14 +27,14 @@ function showCategoryDetails(categoryId){
 			credentials: 'same-origin'
 	};
 	
-	fetch('ProductManagement?action=getCategoryDetails&categoryId=' + categoryId, myInit) // Ajax request to server
+	fetch('ProductManagement?action=getCategoryDetails&categoryId=' + categoryId, myInit) // request category info from server
 		.then(function(response){
 			response.json().then(function(data){
-				console.log(data);
+//				console.log(data);
 				document.getElementById("txtCategoryName").value = data.name;
 				document.getElementById("txtCategoryId").value = data.categoryId;
 				document.getElementById("txtCategoryId2").value = data.categoryId;
-				document.getElementById("selProductType").value = data.productType;
+				document.getElementById("selCategoryType").value = data.productType;
 				if(data.isPerishable){
 					document.getElementById("radEditPerishable").checked = true;
 					disableEditRecyclableButtons();

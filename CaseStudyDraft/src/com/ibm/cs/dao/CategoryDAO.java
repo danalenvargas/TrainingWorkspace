@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+//import java.util.HashMap;
 
 import com.ibm.cs.model.Category;
 
@@ -122,6 +123,38 @@ public class CategoryDAO extends MasterDAO {
         }
 		return categoryList;
 	}
+	
+//	public HashMap<Integer, Category> getCategoryMap(){
+//		PreparedStatement pst = null;
+//		ResultSet rs = null;
+//		
+//		HashMap<Integer, Category> categoryMap = new HashMap<>();
+//		int categoryId;
+//		String categoryName, categoryType;
+//		boolean isPerishable; Boolean isRecyclable; // (isPerishable does not accept null, isRecyclable may be null)
+//		
+//		try {
+//			pst = conn.prepareStatement("SELECT * FROM tbl_category WHERE is_active = 1");
+//			rs = pst.executeQuery();
+//			
+//			while(rs.next()) {
+//				categoryId = rs.getInt("category_id");
+//				categoryName = rs.getString("category_name");
+//				categoryType = rs.getString("category_type");
+//				isPerishable = rs.getBoolean("is_perishable");
+//				isRecyclable = null;
+//				if(!isPerishable) {
+//					isRecyclable = rs.getBoolean("is_recyclable");
+//				}
+//				categoryMap.put(categoryId, new Category(categoryId, categoryName, categoryType, isPerishable, isRecyclable));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//            closeResources(rs, pst);
+//        }
+//		return categoryMap;
+//	}
 	
 	public Category getCategory(int categoryId) {
 		PreparedStatement pst = null;

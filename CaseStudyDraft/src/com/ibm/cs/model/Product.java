@@ -1,23 +1,25 @@
 package com.ibm.cs.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Product implements Serializable {
-	int productId;
+	int productId, fkCategoryId;
 	String SKU, brand, variant, size, measurementUnit, description, specialHandling;
 	double sellPrice, stockAmount;
-	Category category;
+	ArrayList<Batch> batches;
 
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Product(int productId, String sKU, String brand, String variant, String size, String measurementUnit,
-			String description, String specialHandling, double sellPrice, double stockAmount, Category category) {
+	public Product(int productId, int fkCategoryId, String SKU, String brand, String variant, String size, String measurementUnit,
+			String description, String specialHandling, double sellPrice, double stockAmount) {
 		super();
 		this.productId = productId;
-		SKU = sKU;
+		this.fkCategoryId = fkCategoryId;
+		this.SKU = SKU;
 		this.brand = brand;
 		this.variant = variant;
 		this.size = size;
@@ -26,7 +28,6 @@ public class Product implements Serializable {
 		this.specialHandling = specialHandling;
 		this.sellPrice = sellPrice;
 		this.stockAmount = stockAmount;
-		this.category = category;
 	}
 
 	public int getProductId() {
@@ -109,11 +110,21 @@ public class Product implements Serializable {
 		this.stockAmount = stockAmount;
 	}
 
-	public Category getCategory() {
-		return category;
+	public int getFkCategoryId() {
+		return fkCategoryId;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setFkCategoryId(int fkCategoryId) {
+		this.fkCategoryId = fkCategoryId;
 	}
+
+	public ArrayList<Batch> getBatches() {
+		return batches;
+	}
+
+	public void setBatches(ArrayList<Batch> batches) {
+		this.batches = batches;
+	}
+	
+	
 }

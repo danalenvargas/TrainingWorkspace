@@ -1,6 +1,7 @@
 package com.ibm.cs.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Category implements Serializable {
@@ -9,7 +10,9 @@ public class Category implements Serializable {
 	private String categoryType; // (Beverages, Bread/Bakery, Canned/Jarred GOods, Dairy, Dry/Baking Goods, Frozen Goods, Meat, Produce, Cleaners, Paper Goods, Personal Care, Other)
 	private boolean isPerishable;
 	private Boolean isRecyclable;
-	
+//	HashMap<Integer, Product> products = new HashMap<>();
+	ArrayList<Product> products = new ArrayList<>();
+
 	public Category() {
 		// TODO Auto-generated constructor stub
 	}
@@ -61,6 +64,14 @@ public class Category implements Serializable {
 
 	public void setIsRecyclable(Boolean isRecyclable) {
 		this.isRecyclable = isRecyclable;
+	}
+	
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(ArrayList<Product> products) {
+		this.products = products;
 	}
 	
 }

@@ -24,7 +24,7 @@ List of Categories:<br />
 		</tr>
 		<c:forEach items="${categoryList}" var="category">
 			<tr>
-				<td onclick="showCategoryDetails('${category.categoryId}');">${category.categoryName}</td>
+				<td onclick="showCategoryDetails('${category.categoryId}')">${category.categoryName}</td>
 				<td>${category.categoryType}</td>
 				<td>${category.isPerishable}</td>
 				<td>${category.isRecyclable}</td>
@@ -81,18 +81,23 @@ List of Categories:<br />
 			<th>Selling Price</th>
 			<th>Stock Amount</th>
 		</tr>
-		<c:forEach items="${productList}" var="product">
+		<c:forEach items="${categoryList}" var="category">
 			<tr>
-				<td onclick="showProductDetails('${product.productId}');">${product.category.categoryName}</td>
-				<td>${product.SKU}</td>
-				<td>${product.brand}</td>
-				<td>${product.variant}</td>
-				<td>${product.size} ${product.measurementUnit}</td>
-				<td>${product.description}</td>
-				<td>${product.specialHandling}</td>
-				<td>${product.sellPrice}</td>
-				<td>${product.stockAmount}</td>
+				<td>${category.categoryName}</td>
 			</tr>
+			<c:forEach items="${category.products}" var="product">
+				<tr onclick="showProductDetails('${product.productId}')">
+					<td></td>
+					<td>${product.SKU}</td>
+					<td>${product.brand}</td>
+					<td>${product.variant}</td>
+					<td>${product.size} ${product.measurementUnit}</td>
+					<td>${product.description}</td>
+					<td>${product.specialHandling}</td>
+					<td>${product.sellPrice}</td>
+					<td>${product.stockAmount}</td>
+				</tr>
+			</c:forEach>
 		</c:forEach>
 	</table>
 	<br /><br />
@@ -115,19 +120,80 @@ List of Categories:<br />
 			Special Handling: <select name="specialHandling">
 				<option value="" selected></option>
 				<option value="keep frozen">keep frozen</option>
-				<option value="keep frozen">keep refrigerated</option>
-				<option value="keep frozen">fragile</option>
+				<option value="keep refrigerated">keep refrigerated</option>
+				<option value="fragile">fragile</option>
 			</select> <br />
 			Selling Price: Php<input type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
 			SKU: <input id="addProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit">
-			<button type="button" onclick="generateSKU()">Generate</button> <br />
+			<button type="button" onclick="generateSKU('onAdd')">Generate</button> <br />
 			<input type="hidden" name="action" value="addProduct" /> 
 			<input type="submit" value="Submit" />
 		</form>
 	</fieldset>
 	<br />
 	<br />
-	Input items
+	<!-- =============================== -->
+	<!-- |   LIST OF BATCHES      | -->
+	<!-- =============================== -->
+	List of Batches:<br />
+	<table>
+		<tr>
+			<th>Category</th>
+			<th>Product</th>
+			<th>Batch id</th>
+			<th>Amount</th>
+			<th>Supplier</th>
+			<th>Comments</th>
+			<th>Entry Timestamp</th>
+		</tr>
+		<c:forEach items="${categoryList}" var="category">
+			<tr>
+				<td>${category.categoryName}</td>
+			</tr>
+			<c:forEach items="${category.products}" var="product">
+				<tr>
+					<td></td>
+					<td>${product.SKU} (${product.brand}/${product.variant}/${product.size} ${product.measurementUnit})</td>
+				</tr>
+				<c:forEach items="${product.batches}" var="batch">
+					<tr onclick="showBatchDetails('${batch.batchId}')">
+						<td></td>
+						<td></td>
+						<td>${batch.batchId}</td>
+						<td>${batch.amount}</td>
+						<td>${batch.supplier}</td>
+						<td>${batch.comments}</td>
+						<td>${batch.entryTimestamp}</td>
+					</tr>
+				</c:forEach>
+			</c:forEach>
+		</c:forEach>
+	</table>
+	<br /><br />
+	<!-- =============================== -->
+	<!-- |   FOR ADDING NEW BATCH      | -->
+	<!-- =============================== -->
+	Add Batch:
+	<fieldset>
+		<form action="ProductManagement" method="post" accept-charset=utf-8>
+			Product:  <select name="productId">
+				<c:forEach items="${categoryList}" var="category">
+					<c:forEach items="${category.products}" var="product">
+						<option value="${product.productId}" title="${category.categoryType}">${product.SKU} (${category.categoryName}-${product.brand}/${product.variant}/${product.size} ${product.measurementUnit})</option>
+					</c:forEach>
+				</c:forEach>
+			</select> <br />
+			Amount: <input type="number" name="amount" /> <br />
+			Supplier: <input type="text" name="supplier" value="" /> <br />
+			Comments: <textarea name="comments" placeholder="comments" rows="3" cols="40"></textarea> <br />
+			Manufacture Date: <input type="date" name="manufactureDate" /> <br />
+			Expiration Date: <input type="date" name="expirationDate" /> <br />
+			Purchase Price (per item): Php<input type="number" name="purchasePrice" step="0.01" /> <br />
+			<input type="hidden" name="action" value="inputBatch" />
+			<input type="submit" value="Submit" />
+		</form>
+	</fieldset>
+	<br /><br />
 </div>
 
 <!-- ==============================================================================================================-->
@@ -138,7 +204,8 @@ List of Categories:<br />
 	<!-- =============================== -->
 	<!-- |   FOR EDITING CATEGORY      | -->
 	<!-- =============================== -->
-	<div id="editCategoryForm" style="width:50%; float:right; visibility: hidden">
+<!-- 	<div id="editCategoryForm" style="width:50%; float:right; visibility: hidden"> -->
+	<div id="editCategoryForm" style="visibility: hidden">
 		Category Details:
 		<form action="ProductManagement" method="post">
 			Name: <input id="txtCategoryName" type="text" name="categoryName" placeholder="category name" /> <br />
@@ -172,7 +239,10 @@ List of Categories:<br />
 			<input type="submit" value="Remove Category" />
 		</form>
 	</div>
-	<div id="editProductForm" >
+	<!-- =============================== -->
+	<!-- |   FOR EDITING PRODUCT      | -->
+	<!-- =============================== -->
+	<div id="editProductForm" style="visibility: hidden">
 		<form action="ProductManagement" method="post" >
 			Category:  <select id="editProdCategory" name="categoryId">
 				<c:forEach items="${categoryList}" var="category">
@@ -187,14 +257,52 @@ List of Categories:<br />
 			Special Handling: <select id="editProdSpecialHandling" name="specialHandling">
 				<option value="" selected></option>
 				<option value="keep frozen">keep frozen</option>
-				<option value="keep frozen">keep refrigerated</option>
-				<option value="keep frozen">fragile</option>
+				<option value="keep refrigerated">keep refrigerated</option>
+				<option value="fragile">fragile</option>
 			</select> <br />
 			Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
 			SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" />
-			<button type="button" onclick="generateSKU()">Generate</button> <br />
-			<input type="hidden" name="action" value="addProduct" />
-			<input type="submit" value="Submit" />
+			<button type="button" onclick="generateSKU('onEdit')">Generate</button> <br />
+			<input id="editProdId" type="hidden" name="productId" />
+			<input type="hidden" name="action" value="editProduct" />
+			<input type="submit" value="Update" />
+		</form>
+		<form action="ProductManagement" method="post">
+			<input id="editProdId2" type="hidden" name="productId" />
+			<input type="hidden" name="action" value="deleteProduct" />
+			<input type="submit" value="Remove Product" />
+		</form>
+	</div>
+	<!-- =============================== -->
+	<!-- |   FOR EDITING BATCH      | -->
+	<!-- =============================== -->
+	<div id="editBatchForm" style="visibility: hidden">
+		<form action="ProductManagement" method="post" >
+			Batch ID: <span id="editBatchId"></span> <br />
+			Entry time: <span id="editBatchEntryTimestamp"></span> <br />
+			Product:  <select id="editBatchProduct" name="productId">
+				<c:forEach items="${categoryList}" var="category">
+					<c:forEach items="${category.products}" var="product">
+						<option value="${product.productId}" title="${category.categoryType}">${product.SKU} (${category.categoryName}-${product.brand}/${product.variant}/${product.size} ${product.measurementUnit})</option>
+					</c:forEach>
+				</c:forEach>
+			</select> <br />
+<!-- IMPORTANT ----			add warning that editing amount does not modify the inputted items -->
+			Amount: <input id="editBatchAmount" type="number" name="amount" /> <br /> 
+			Supplier: <input id="editBatchSupplier" type="text" name="supplier" value="" /> <br />
+			Comments: <textarea id="editBatchComments" name="comments" placeholder="comments" rows="3" cols="40"></textarea> <br />
+<!-- IMPORTANT ----			FIGURE OUT HOW TO MANAGE EDITING OF EXPIRATION AND MANUFACTURING DATES (I can just do this at the item modification level) -->
+<!-- 			Manufacture Date: <input id="editBatchManufactureDate" type="date" name="manufactureDate" /> <br /> -->
+<!-- 			Expiration Date: <input id="editBatchExpirationDate" type="date" name="expirationDate" /> <br /> -->
+<!-- 			Purchase Price (per item): Php<input id="editBatchPurchasePrice" type="number" name="purchasePrice" step="0.01" /> <br /> -->
+			<input id="editBatchId2" type="hidden" name="batchId" />
+			<input type="hidden" name="action" value="editBatch" />
+			<input type="submit" value="Update" />
+		</form>
+		<form action="ProductManagement" method="post">
+			<input id="editBatchId3" type="hidden" name="batchId" />
+			<input type="hidden" name="action" value="deleteBatch" />
+			<input type="submit" value="Remove Batch" />
 		</form>
 	</div>
 </div>

@@ -160,7 +160,7 @@ List of Categories:<br />
 						<td></td>
 						<td></td>
 						<td>${batch.batchId}</td>
-						<td>${batch.amount}</td>
+						<td>${batch.remainingAmount} / ${batch.amount}</td>
 						<td>${batch.supplier}</td>
 						<td>${batch.comments}</td>
 						<td>${batch.entryTimestamp}</td>
@@ -193,6 +193,57 @@ List of Categories:<br />
 			<input type="submit" value="Submit" />
 		</form>
 	</fieldset>
+	<br /><br />
+	<!-- =============================== -->
+	<!-- |   LIST OF ITEMS      | -->
+	<!-- =============================== -->
+	List of Items:<br />
+	<button type="button" onclick="showItemEditForm()">Edit Items</button>
+	<form action="ProductManagement" method="post" onsubmit="setIdsToDelete()">
+		<input id="deleteItemIds" type="hidden" name="itemIds">
+		<input type="hidden" name="action" value="deleteItems" />
+		<input type="submit" value="Delete Items" /> <br />
+	</form>
+	<table>
+		<tr>
+			<th>Category</th>
+			<th>Product</th>
+			<th>Batch</th>
+			<th>Item Id</th>
+			<th>Manufacture Date</th>
+			<th>Expiration Date</th>
+			<th>Purchase Price</th>
+		</tr>
+		<c:forEach items="${categoryList}" var="category">
+			<tr>
+				<td>${category.categoryName}</td>
+			</tr>
+			<c:forEach items="${category.products}" var="product">
+				<tr>
+					<td></td>
+					<td>${product.SKU} (${product.brand}/${product.variant}/${product.size} ${product.measurementUnit})</td>
+				</tr>
+				<c:forEach items="${product.batches}" var="batch">
+					<tr onclick="toggleCollapse('${batch.batchId}')">
+						<td></td>
+						<td></td>
+						<td>${batch.batchId}</td>
+					</tr>
+					<c:forEach items="${batch.items}" var="item">
+						<tr class="items-${batch.batchId}" style="display: none">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><input type="checkbox" value="${item.itemId}" onchange="toggleSelected(this);">${item.itemId}</td>
+							<td>${item.manufactureDate}</td>
+							<td>${item.expirationDate}</td>
+							<td>${item.purchasePrice}</td>
+						</tr>
+					</c:forEach>
+				</c:forEach>
+			</c:forEach>
+		</c:forEach>
+	</table>
 	<br /><br />
 </div>
 
@@ -288,7 +339,7 @@ List of Categories:<br />
 				</c:forEach>
 			</select> <br />
 <!-- IMPORTANT ----			add warning that editing amount does not modify the inputted items -->
-			Amount: <input id="editBatchAmount" type="number" name="amount" /> <br /> 
+			Amount: <span id="editBatchRemainingAmount"></span> / <input id="editBatchAmount" type="number" name="amount" /> <br /> 
 			Supplier: <input id="editBatchSupplier" type="text" name="supplier" value="" /> <br />
 			Comments: <textarea id="editBatchComments" name="comments" placeholder="comments" rows="3" cols="40"></textarea> <br />
 <!-- IMPORTANT ----			FIGURE OUT HOW TO MANAGE EDITING OF EXPIRATION AND MANUFACTURING DATES (I can just do this at the item modification level) -->
@@ -303,6 +354,20 @@ List of Categories:<br />
 			<input id="editBatchId3" type="hidden" name="batchId" />
 			<input type="hidden" name="action" value="deleteBatch" />
 			<input type="submit" value="Remove Batch" />
+		</form>
+	</div>
+	<!-- =============================== -->
+	<!-- |   FOR EDITING ITEM      | -->
+	<!-- =============================== -->
+	<div id="editItemForm" style="visibility: hidden">
+		<form action="ProductManagement" method="post" >
+			Item ID: <span id="editItemIds"></span> <br />
+			Manufacture Date: <input id="editItemManufactureDate" type="date" name="manufactureDate" /> <br />
+			Expiration Date: <input id="editItemExpirationDate" type="date" name="expirationDate" /> <br />
+			Purchase Price (per item): Php<input id="editItemPurchasePrice" type="number" name="purchasePrice" step="0.01" /> <br />
+			<input id="editItemIdsHidden" type="hidden" name="itemIds" />
+			<input type="hidden" name="action" value="editItems" />
+			<input type="submit" value="Update" />
 		</form>
 	</div>
 </div>

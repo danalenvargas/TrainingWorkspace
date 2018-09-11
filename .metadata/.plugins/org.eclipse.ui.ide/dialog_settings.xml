@@ -5,10 +5,12 @@
 	</list>
 	<section name="CleanDialogSettings">
 		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="true" key="BUILD_ALL"/>
 		<item value="false" key="TOGGLE_SELECTED"/>
-		<item value="402" key="DIALOG_HEIGHT"/>
+		<item value="464" key="DIALOG_HEIGHT"/>
 		<item value="710" key="DIALOG_X_ORIGIN"/>
 		<item value="312" key="DIALOG_Y_ORIGIN"/>
+		<item value="true" key="BUILD_NOW"/>
 	</section>
 	<section name="org.eclipse.ui.internal.ide.dialogs.ProjectContentsLocationArea">
 		<item value="C:\My Tools\Workspace\MyJava" key="OUTSIDE_LOCATION"/>

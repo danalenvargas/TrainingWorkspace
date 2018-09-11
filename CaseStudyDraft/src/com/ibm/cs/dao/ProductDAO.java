@@ -70,7 +70,6 @@ public class ProductDAO extends MasterDAO {
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
-				System.out.println("FOUND PRODUCTS");
 				productId = rs.getInt("product_id");
 				SKU = rs.getString("SKU");
 				brand = rs.getString("brand");
@@ -82,7 +81,6 @@ public class ProductDAO extends MasterDAO {
 				sellPrice = rs.getDouble("sell_price");
 				stockAmount = calculateStockAmount(productId);
 
-				System.out.println("ADDING TO LIST");
 				productList.add(new Product(productId, categoryId, SKU, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, stockAmount));
 			}
 		} catch (SQLException e) {

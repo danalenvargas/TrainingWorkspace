@@ -28,6 +28,20 @@
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 		</list>
 	</section>
+	<section name="org.eclipse.ui.internal.dialogs.WorkbenchEditorsDialog">
+		<item value="0" key="sort"/>
+		<item value="false" key="allPersp"/>
+		<list key="columns">
+			<item value="252"/>
+			<item value="504"/>
+		</list>
+		<list key="bounds">
+			<item value="321"/>
+			<item value="82"/>
+			<item value="798"/>
+			<item value="552"/>
+		</list>
+	</section>
 	<section name="ImportExportAction">
 		<item value="org.eclipse.ui.wizards.import.Preferences" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
 		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">

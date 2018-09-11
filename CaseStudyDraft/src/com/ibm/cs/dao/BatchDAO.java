@@ -20,7 +20,7 @@ public class BatchDAO extends MasterDAO {
 		ResultSet rs = null;
 		
 		ArrayList<Batch> batchList = new ArrayList<>();
-		int batchId, amount;
+		int batchId, amount, remainingAmount;
 		String comments, supplier;
 		Date entryTimestamp;
 		
@@ -30,13 +30,13 @@ public class BatchDAO extends MasterDAO {
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
-				System.out.println("FOUND BATCHES");
 				batchId = rs.getInt("batch_id");
 				amount = rs.getInt("amount");
+				remainingAmount = calculateRemainingAmount(batchId);
 				comments = rs.getString("comments");
 				supplier = rs.getString("supplier");
 				entryTimestamp = rs.getTimestamp("entry_timestamp");
-				batchList.add(new Batch(batchId, productId, amount, comments, supplier, entryTimestamp));
+				batchList.add(new Batch(batchId, productId, amount, remainingAmount, comments, supplier, entryTimestamp));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +79,7 @@ public class BatchDAO extends MasterDAO {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
-		int fkProductId, amount;
+		int fkProductId, amount, remainingAmount;
 		String comments, supplier;
 		Date entryTimestamp;
 		Batch batch = null;
@@ -93,10 +93,11 @@ public class BatchDAO extends MasterDAO {
 			if(rs.next()) {
 				fkProductId = rs.getInt("fk_product_id");
 				amount = rs.getInt("amount");
+				remainingAmount = calculateRemainingAmount(batchId);
 				comments = rs.getString("comments");
 				supplier = rs.getString("supplier");
 				entryTimestamp = rs.getTimestamp("entry_timestamp");
-				batch = new Batch(batchId, fkProductId, amount, comments, supplier, entryTimestamp);
+				batch = new Batch(batchId, fkProductId, amount, remainingAmount, comments, supplier, entryTimestamp);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,6 +150,28 @@ public class BatchDAO extends MasterDAO {
             closeResources(pst);
         }
 		return false;
+	}
+	
+	private int calculateRemainingAmount(int batchId) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		int remainingAmount = 0;
+		try {
+			pst = conn.prepareStatement("SELECT COUNT(*) AS amount FROM tbl_item "
+					+ "WHERE tbl_item.fk_batch_id = ?");
+			pst.setInt(1, batchId);
+			
+			rs = pst.executeQuery();
+			if(rs.next()) {
+				remainingAmount = rs.getInt("amount");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            closeResources(rs, pst);
+        }
+		return remainingAmount;
 	}
 
 }

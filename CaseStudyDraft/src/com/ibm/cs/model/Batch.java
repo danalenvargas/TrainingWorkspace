@@ -6,7 +6,7 @@ import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Batch implements Serializable {
-	int batchId, fkProductId, amount;
+	int batchId, fkProductId, amount, remainingAmount;
 	String comments, supplier;
 	Date entryTimestamp;
 	ArrayList<Item> items = new ArrayList<>();
@@ -15,11 +15,12 @@ public class Batch implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Batch(int batchId, int fkProductId, int amount, String comments, String supplier, Date entryTimestamp) {
+	public Batch(int batchId, int fkProductId, int amount, int remainingAmount, String comments, String supplier, Date entryTimestamp) {
 		super();
 		this.batchId = batchId;
 		this.fkProductId = fkProductId;
 		this.amount = amount;
+		this.remainingAmount = remainingAmount;
 		this.comments = comments;
 		this.supplier = supplier;
 		this.entryTimestamp = entryTimestamp;
@@ -80,6 +81,13 @@ public class Batch implements Serializable {
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
 	}
-	
+
+	public int getRemainingAmount() {
+		return remainingAmount;
+	}
+
+	public void setRemainingAmount(int remainingAmount) {
+		this.remainingAmount = remainingAmount;
+	}
 	
 }

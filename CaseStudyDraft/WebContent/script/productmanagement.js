@@ -1,6 +1,8 @@
 /**
  * 
  */
+var selectedItems = [];
+
 function enableRecyclableButtons(){
 	document.getElementById("radRecyclable").disabled = false;
 	document.getElementById("radNotRecyclable").disabled = false;
@@ -107,6 +109,7 @@ function showBatchDetails(batchId){
 				document.getElementById("editBatchEntryTimestamp").innerHTML = batch.entryTimestamp;
 				document.getElementById("editBatchProduct").value = batch.fkProductId;
 				document.getElementById("editBatchAmount").value = batch.amount;
+				document.getElementById("editBatchRemainingAmount").innerHTML = batch.remainingAmount;
 				document.getElementById("editBatchSupplier").value = batch.supplier;
 				document.getElementById("editBatchComments").value = batch.comments;
 //				document.getElementById("editBatchManufactureDate").value = batch.manufactureDate;
@@ -122,6 +125,59 @@ function showBatchDetails(batchId){
 		.catch(function(err){
 			console.log("Fetch Error: ", err)
 		});
+}
+
+function showItemEditForm(){
+	var myInit = {
+			method:'GET',
+			credentials: 'same-origin'
+	};
+	
+	fetch('ProductManagement?action=getItemDetails&itemIds=' + encodeURIComponent(JSON.stringify(selectedItems)), myInit) // request batch info from server
+	.then(function(response){
+		response.json().then(function(items){
+			var sameManufactureDates=true, sameExpirationDates=true, samePurchasePrices=true;
+			for(var i=0; i<items.length - 1; i++){
+				if(items[i].manufactureDate != items[i+1].manufactureDate) sameManufactureDates = false;
+				if(items[i].expirationDate != items[i+1].expirationDate) sameExpirationDates = false;
+				if(items[i].purchasePrice != items[i+1].purchasePrice) samePurchasePrices = false;
+			}
+			
+			if(sameManufactureDates == true) 
+				document.getElementById("editItemManufactureDate").value = items[0].manufactureDate;
+			else
+				document.getElementById("editItemManufactureDate").value = "";
+			
+			if(sameExpirationDates == true) 
+				document.getElementById("editItemExpirationDate").value = items[0].expirationDate;
+			else
+				document.getElementById("editItemExpirationDate").value = "";
+			
+			if(samePurchasePrices == true) 
+				document.getElementById("editItemPurchasePrice").value = items[0].purchasePrice;
+			else
+				document.getElementById("editItemPurchasePrice").value = "";
+			
+			if(items.length == 1){
+				document.getElementById("editItemIds").innerHTML = items[0].itemId;
+			}else if(items.length > 1){
+				document.getElementById("editItemIds").innerHTML = items.length + " items selected";
+			}
+			
+			document.getElementById("editItemIdsHidden").value = JSON.stringify(selectedItems);
+			document.getElementById("editItemForm").style.visibility = "visible";
+		})
+		.catch(function(err){
+			console.log("error with parsing");
+		});
+	})
+	.catch(function(err){
+		console.log("Fetch Error: ", err)
+	});
+}
+
+function setIdsToDelete(){
+	document.getElementById("deleteItemIds").value = JSON.stringify(selectedItems);
 }
 
 function generateSKU(location){
@@ -146,6 +202,27 @@ function generateSKU(location){
 		SKU += document.getElementById("editProdUnit").value.substring(0,2);
 		
 		document.getElementById("editProdSKU").value = SKU.toUpperCase();
+	}
+}
+
+function toggleSelected(checkbox){
+	if(checkbox.checked == true){
+		selectedItems.push(checkbox.value);
+	}else{
+		selectedItems.splice(selectedItems.indexOf(checkbox.value));
+	}
+}
+
+function toggleCollapse(batchId){
+	itemRows = document.getElementsByClassName("items-" + batchId);
+	var styleToSet;
+	if (itemRows[0] != null && itemRows[0].style.display == "none"){
+		styleToSet = "";
+	} else if(itemRows[0] != null && itemRows[0].style.display == ""){
+		styleToSet = "none";
+	}
+	for(var i=0; i<itemRows.length; i++){
+		itemRows[i].style.display = styleToSet;
 	}
 }
 

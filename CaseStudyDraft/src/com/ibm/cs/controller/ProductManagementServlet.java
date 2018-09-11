@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ibm.cs.model.Batch;
 import com.ibm.cs.model.Category;
+import com.ibm.cs.model.Item;
 import com.ibm.cs.model.Product;
 //import com.ibm.cs.model.Product;
 import com.ibm.cs.service.ProductManagementService;
@@ -48,39 +50,38 @@ public class ProductManagementServlet extends HttpServlet {
 		case "showpage":
 			ArrayList<Category> categoryList = service.getInventory();
 			request.setAttribute("categoryList", categoryList);
-//			ArrayList<Product> productList = service.getProductList();
-//			request.setAttribute("productList", productList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("productmanagement.jsp");
 			dispatcher.forward(request, response);
 			break;
+			
 		case "getCategoryDetails":
 			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 			Category category = service.getCategory(categoryId);
 			jsonString = new Gson().toJson(category);
-			System.out.println("GOT CATEGORY DETAILS:");
-			System.out.println(category);
-			System.out.println(jsonString);
 			response.setContentType("application/json");
             response.getWriter().write(jsonString);
 			break;
+			
 		case "getProductDetails":
 			int productId = Integer.parseInt(request.getParameter("productId"));
 			Product product = service.getProduct(productId);
 			jsonString = new Gson().toJson(product);
-			System.out.println("GOT PRODUCT DETAILS:");
-			System.out.println(product);
-			System.out.println(jsonString);
 			response.setContentType("application/json");
             response.getWriter().write(jsonString);
 			break;
+			
 		case "getBatchDetails":
 			int batchId = Integer.parseInt(request.getParameter("batchId"));
 			Batch batch = service.getBatch(batchId);
 			jsonString = new Gson().toJson(batch);
-			System.out.println("GOT BATCH DETAILS:");
-			System.out.println(batch);
-			System.out.println(jsonString);
-			response.setContentType("application/json");
+            response.getWriter().write(jsonString);
+			break;
+			
+		case "getItemDetails":
+			int[] itemIds = new Gson().fromJson(request.getParameter("itemIds"), int[].class);
+			ArrayList<Item> itemList = service.getItems(itemIds);
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			jsonString = gson.toJson(itemList);
             response.getWriter().write(jsonString);
 			break;
 		}
@@ -92,6 +93,7 @@ public class ProductManagementServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductManagementService service = new ProductManagementService();
 		boolean isSuccessful;
+		int[] itemIds;
 		int categoryId, productId, batchId, amount;
 		String categoryName, categoryType, brand, variant, size, measurementUnit, specialHandling, description, SKU, comments, supplier;
 		double sellPrice, purchasePrice;
@@ -112,9 +114,9 @@ public class ProductManagementServlet extends HttpServlet {
 				isRecyclable = Boolean.valueOf(request.getParameter("recyclable"));
 			}
 			isSuccessful = service.addCategory(categoryName, categoryType, isPerishable, isRecyclable);
-			System.out.println("ADD CATEGORY SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "editCategory":
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
 			categoryName = request.getParameter("categoryName");
@@ -125,15 +127,15 @@ public class ProductManagementServlet extends HttpServlet {
 				isRecyclable = Boolean.valueOf(request.getParameter("recyclable"));
 			}
 			isSuccessful = service.editCategory(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
-			System.out.println("EDIT CATEGORY SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "deleteCategory":
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
 			isSuccessful = service.deleteCategory(categoryId);
-			System.out.println("DELETE CATEGORY SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "addProduct":
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
 			brand = request.getParameter("brand");
@@ -145,9 +147,9 @@ public class ProductManagementServlet extends HttpServlet {
 			sellPrice = Double.parseDouble(request.getParameter("sellPrice"));
 			SKU = request.getParameter("SKU");
 			isSuccessful = service.addProduct(categoryId, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, SKU);
-			System.out.println("ADD PRODUCT SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "editProduct":
 			productId = Integer.parseInt(request.getParameter("productId"));
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
@@ -160,15 +162,15 @@ public class ProductManagementServlet extends HttpServlet {
 			sellPrice = Double.parseDouble(request.getParameter("sellPrice"));
 			SKU = request.getParameter("SKU");
 			isSuccessful = service.editProduct(categoryId, productId, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, SKU);
-			System.out.println("EDIT PRODUCT SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "deleteProduct":
 			productId = Integer.parseInt(request.getParameter("productId"));
 			isSuccessful = service.deleteProduct(productId);
-			System.out.println("DELETE PRODUCT SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "inputBatch":
 			try {
 				productId = Integer.parseInt(request.getParameter("productId"));
@@ -179,13 +181,13 @@ public class ProductManagementServlet extends HttpServlet {
 				expirationDate = format.parse(request.getParameter("expirationDate"));
 				purchasePrice = Double.parseDouble(request.getParameter("purchasePrice"));
 				isSuccessful = service.inputBatch(productId, amount, comments, supplier, manufactureDate, expirationDate, purchasePrice);
-				System.out.println("INPUT BATCH SUCCESS: " + isSuccessful);
 				response.sendRedirect("productmanagement.jsp");
 			} catch (ParseException e) {
 				System.out.println("Error parsing date");
 				e.printStackTrace();
 			}
 			break;
+			
 		case "editBatch":
 			batchId = Integer.parseInt(request.getParameter("batchId"));
 			productId = Integer.parseInt(request.getParameter("productId"));
@@ -193,13 +195,32 @@ public class ProductManagementServlet extends HttpServlet {
 			comments = request.getParameter("comments");
 			supplier = request.getParameter("supplier");
 			isSuccessful = service.editBatch(batchId, productId, amount, comments, supplier);
-			System.out.println("EDIT BATCH SUCCESS: " + isSuccessful);
 			response.sendRedirect("productmanagement.jsp");
 			break;
+			
 		case "deleteBatch":
 			batchId = Integer.parseInt(request.getParameter("batchId"));
 			isSuccessful = service.deleteBatch(batchId);
-			System.out.println("DELETE BATCH SUCCESS: " + isSuccessful);
+			response.sendRedirect("productmanagement.jsp");
+			break;
+			
+		case "editItems":
+			try {
+				itemIds = new Gson().fromJson(request.getParameter("itemIds"), int[].class);
+				manufactureDate = format.parse(request.getParameter("manufactureDate"));
+				expirationDate = format.parse(request.getParameter("expirationDate"));
+				purchasePrice = Double.parseDouble(request.getParameter("purchasePrice"));
+				isSuccessful = service.editItems(itemIds, manufactureDate, expirationDate, purchasePrice);
+				response.sendRedirect("productmanagement.jsp");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
+		case "deleteItems":
+			itemIds = new Gson().fromJson(request.getParameter("itemIds"), int[].class);
+			isSuccessful = service.deleteItems(itemIds);
 			response.sendRedirect("productmanagement.jsp");
 			break;
 		}

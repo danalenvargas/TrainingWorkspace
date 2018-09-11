@@ -10,6 +10,7 @@ import com.ibm.cs.dao.ItemDAO;
 import com.ibm.cs.dao.ProductDAO;
 import com.ibm.cs.model.Batch;
 import com.ibm.cs.model.Category;
+import com.ibm.cs.model.Item;
 import com.ibm.cs.model.Product;
 
 public class ProductManagementService {
@@ -61,9 +62,6 @@ public class ProductManagementService {
 	public ArrayList<Category> getInventory(){
 		ArrayList<Category> categoryList = getCategoryList();
 		fillProductList(categoryList);
-//		for (Category category : categoryList) {
-//			category.setProducts(getProductList(category.getCategoryId()));
-//		}
 		return categoryList;
 	}
 	
@@ -72,7 +70,7 @@ public class ProductManagementService {
 		for (Category category : categoryList) {
 			ArrayList<Product> products = productDao.getProductList(category.getCategoryId());
 			category.setProducts(products);
-			fillBatchList(category.getProducts());
+			fillBatchList(products);
 		}
 		productDao.closeConnection();
 	}
@@ -82,8 +80,18 @@ public class ProductManagementService {
 		for (Product product : productList) {
 			ArrayList<Batch> batches = batchDao.getBatchList(product.getProductId());
 			product.setBatches(batches);
+			fillItemList(batches);
 		}
 		batchDao.closeConnection();
+	}
+	
+	public void fillItemList(ArrayList<Batch> batchList) {
+		itemDao = new ItemDAO();
+		for (Batch batch : batchList) {
+			ArrayList<Item> items = itemDao.getItemList(batch.getBatchId());
+			batch.setItems(items);
+		}
+		itemDao.closeConnection();
 	}
 	
 //	public ArrayList<Product> getProductList(int categoryId){
@@ -163,6 +171,27 @@ public class ProductManagementService {
 		batchDao = new BatchDAO();
 		isSuccessful = batchDao.deleteBatch(batchId);
 		batchDao.closeConnection();
+		return isSuccessful;
+	}
+	
+	public ArrayList<Item> getItems(int[] itemIds){
+		itemDao = new ItemDAO();
+		ArrayList<Item> itemList = itemDao.getItemList(itemIds);
+		itemDao.closeConnection();
+		return itemList;
+	}
+	
+	public boolean editItems(int[] itemIds, Date manufactureDate, Date expirationDate, double purchasePrice) {
+		itemDao = new ItemDAO();
+		isSuccessful = itemDao.editItems(itemIds, manufactureDate, expirationDate, purchasePrice);
+		itemDao.closeConnection();
+		return isSuccessful;
+	}
+	
+	public boolean deleteItems(int[] itemIds){
+		itemDao = new ItemDAO();
+		isSuccessful = itemDao.deleteItems(itemIds);
+		itemDao.closeConnection();
 		return isSuccessful;
 	}
 }

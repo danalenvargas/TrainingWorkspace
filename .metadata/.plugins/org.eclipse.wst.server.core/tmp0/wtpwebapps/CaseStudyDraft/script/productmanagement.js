@@ -31,27 +31,28 @@ function showCategoryDetails(categoryId){
 	
 	fetch('ProductManagement?action=getCategoryDetails&categoryId=' + categoryId, myInit) // request category info from server
 		.then(function(response){
-			response.json().then(function(data){
-//				console.log(data);
-				document.getElementById("txtCategoryName").value = data.name;
-				document.getElementById("txtCategoryId").value = data.categoryId;
-				document.getElementById("txtCategoryId2").value = data.categoryId;
-				document.getElementById("selCategoryType").value = data.productType;
-				if(data.isPerishable){
+			response.json().then(function(category){
+//				console.log(category);
+				showModal('modalEditCategory', 1);
+				document.getElementById("txtCategoryName").value = category.categoryName;
+				document.getElementById("txtCategoryId").value = category.categoryId;
+				document.getElementById("txtCategoryId2").value = category.categoryId;
+				document.getElementById("selCategoryType").value = category.categoryType;
+				if(category.isPerishable){
 					document.getElementById("radEditPerishable").checked = true;
 					disableEditRecyclableButtons();
 				} else {
 					document.getElementById("radEditNonPerishable").checked = true;
 					enableEditRecyclableButtons();
 				}
-				if(data.isRecyclable){
+				if(category.isRecyclable){
 					document.getElementById("radEditRecyclable").checked = true;
 				}
 				else{
 					document.getElementById("radEditNotRecyclable").checked = true;
 				}
 				
-				document.getElementById("editCategoryForm").style.visibility = "visible";
+//				document.getElementById("editCategoryForm").style.visibility = "visible";
 			})
 			.catch(function(err){
 				console.log("error with parsing");
@@ -71,6 +72,7 @@ function showProductDetails(productId){
 	fetch('ProductManagement?action=getProductDetails&productId=' + productId, myInit) // request category info from server
 		.then(function(response){
 			response.json().then(function(product){
+				showModal('modalEditProduct', 3);
 				document.getElementById("editProdCategory").value = product.fkCategoryId;
 				document.getElementById("editProdBrand").value = product.brand;
 				document.getElementById("editProdVariant").value = product.variant;
@@ -83,7 +85,7 @@ function showProductDetails(productId){
 				document.getElementById("editProdId").value = product.productId;
 				document.getElementById("editProdId2").value = product.productId;
 				
-				document.getElementById("editProductForm").style.visibility = "visible";
+//				document.getElementById("editProductForm").style.visibility = "visible";
 			})
 			.catch(function(err){
 				console.log("error with parsing");
@@ -103,6 +105,7 @@ function showBatchDetails(batchId){
 	fetch('ProductManagement?action=getBatchDetails&batchId=' + batchId, myInit) // request batch info from server
 		.then(function(response){
 			response.json().then(function(batch){
+				showModal('modalEditBatch', 5);
 				document.getElementById("editBatchId").innerHTML = batch.batchId;
 				document.getElementById("editBatchId2").value = batch.batchId;
 				document.getElementById("editBatchId3").value = batch.batchId;
@@ -116,7 +119,7 @@ function showBatchDetails(batchId){
 //				document.getElementById("editBatchExpirationDate").value = batch.ExpirationDate;
 //				document.getElementById("editBatchPurchasePrice").value = batch.PurchasePrice;
 				
-				document.getElementById("editBatchForm").style.visibility = "visible";
+//				document.getElementById("editBatchForm").style.visibility = "visible";
 			})
 			.catch(function(err){
 				console.log("error with parsing");
@@ -136,6 +139,7 @@ function showItemEditForm(){
 	fetch('ProductManagement?action=getItemDetails&itemIds=' + encodeURIComponent(JSON.stringify(selectedItems)), myInit) // request batch info from server
 	.then(function(response){
 		response.json().then(function(items){
+			showModal('modalEditItems', 6);
 			var sameManufactureDates=true, sameExpirationDates=true, samePurchasePrices=true;
 			for(var i=0; i<items.length - 1; i++){
 				if(items[i].manufactureDate != items[i+1].manufactureDate) sameManufactureDates = false;
@@ -226,4 +230,10 @@ function toggleCollapse(batchId){
 	}
 }
 
+window.onload = function() {
+	setActiveNavTab();
+};
 
+function setActiveNavTab(){
+	document.getElementById("navInventory").classList.add('active');
+};

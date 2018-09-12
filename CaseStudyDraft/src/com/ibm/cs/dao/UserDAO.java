@@ -1,5 +1,7 @@
 package com.ibm.cs.dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ public class UserDAO extends MasterDAO {
 		ResultSet rs = null;
 		ArrayList<User> userList = new ArrayList<>();
 		int userId;
-		String username, password, userType;
+		String username, userType;
 		boolean canCreate, canUpdate, canDelete;
 		
 		try {
@@ -33,13 +35,12 @@ public class UserDAO extends MasterDAO {
 			while (rs.next()) {
 				userId = rs.getInt("user_id");
 				username = rs.getString("username");
-				password = rs.getString("password");
 				userType = rs.getString("usertype");
 				canCreate = rs.getBoolean("can_create");
 				canUpdate = rs.getBoolean("can_update");
 				canDelete = rs.getBoolean("can_delete");
 				
-				userList.add(new User(userId, username, password, userType, canCreate, canUpdate, canDelete));
+				userList.add(new User(userId, username, userType, canCreate, canUpdate, canDelete));
             }
 			
 			return userList;
@@ -60,7 +61,7 @@ public class UserDAO extends MasterDAO {
 		try {
 			pst = conn.prepareStatement("INSERT INTO tbl_user(username, password, usertype) VALUES(?,?,?)");
 			pst.setString(1, username);
-			pst.setString(2, password);
+			pst.setString(2, generateHash(password));
 			pst.setString(3, userType);
 			pst.executeUpdate();
 
@@ -92,7 +93,7 @@ public class UserDAO extends MasterDAO {
 		try {
 			pst = conn.prepareStatement("UPDATE tbl_user SET username=?, password=? WHERE user_id=?");
 			pst.setString(1, username);
-			pst.setString(2, password);
+			pst.setString(2, generateHash(password));
 			pst.setInt(3, userId);
 			pst.executeUpdate();
 
@@ -133,7 +134,7 @@ public class UserDAO extends MasterDAO {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		String username, password, userType;
+		String username, userType;
 		boolean canCreate, canUpdate, canDelete;
 		User user = null;
 		
@@ -147,13 +148,12 @@ public class UserDAO extends MasterDAO {
 			
 			if(rs.next()) {
 				username = rs.getString("username");
-				password = rs.getString("password");
 				userType = rs.getString("usertype");
 				canCreate = rs.getBoolean("can_create");
 				canUpdate = rs.getBoolean("can_update");
 				canDelete = rs.getBoolean("can_delete");
 				
-				user = new User(userId, username, password, userType, canCreate, canUpdate, canDelete);
+				user = new User(userId, username, userType, canCreate, canUpdate, canDelete);
             }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -165,7 +165,7 @@ public class UserDAO extends MasterDAO {
 	}
 	
 	// get a User using username and password, used for login validation
-	public User getUser(String username, String password) {
+	public User authenticateUser(String username, String password) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
@@ -178,7 +178,8 @@ public class UserDAO extends MasterDAO {
 					+ "INNER JOIN tbl_access_level ON tbl_user.user_id = tbl_access_level.fk_user_id "
 					+ "WHERE username=? AND password=?");
 			pst.setString(1, username);
-			pst.setString(2, password);
+//			pst.setString(2, password);
+			pst.setString(2, generateHash(password));
 			
 			rs = pst.executeQuery();
 			
@@ -189,7 +190,7 @@ public class UserDAO extends MasterDAO {
 				canUpdate = rs.getBoolean("can_update");
 				canDelete = rs.getBoolean("can_delete");
 				
-				return new User(userId, username, password, userType, canCreate, canUpdate, canDelete);
+				return new User(userId, username, userType, canCreate, canUpdate, canDelete);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -198,5 +199,25 @@ public class UserDAO extends MasterDAO {
             closeResources(rs, pst);
         }
 		return null;
+	}
+	
+	public static String generateHash(String input) {
+		StringBuilder hash = new StringBuilder();
+
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			byte[] hashedBytes = md5.digest(input.getBytes());
+			char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+					'a', 'b', 'c', 'd', 'e', 'f' };
+			for (int idx = 0; idx < hashedBytes.length; ++idx) {
+				byte b = hashedBytes[idx];
+				hash.append(digits[(b & 0xf0) >> 4]);
+				hash.append(digits[b & 0x0f]);
+			}
+		} catch (NoSuchAlgorithmException e) {
+			// handle error here.
+		}
+
+		return hash.toString();
 	}
 }

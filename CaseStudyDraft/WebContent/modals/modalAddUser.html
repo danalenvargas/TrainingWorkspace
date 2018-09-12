@@ -1,0 +1,25 @@
+<div id="modalAddUser" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+		    <span class="close">&times;</span>
+			<h3>Add New User</h3>
+		</div>
+		<div class="modal-body">
+			<form action="UserManagement" method="post">
+				Username: <input type="text" name="username" placeholder="username" /><br />
+				Password: <input type="password" name="password" /><br />
+				Usertype: <select name="userType" onchange="togglePrivileges(this)">
+					<option value="user" title="coffee/tea, juice, soda" selected>Standard User</option>
+					<option value="admin" title="sandwich loaves, dinner rolls, tortillas, bagels">Admin</option>
+				</select> <br />
+				Privileges:<br>
+				Create: <input id="chkCreate" type="checkbox" name="canCreate" value="1" /><br />
+				Update: <input id="chkUpdate" type="checkbox" name="canUpdate" value="1" /><br />
+				Delete: <input id="chkDelete" type="checkbox" name="canDelete" value="1" /><br />
+				<br />
+				<input type="hidden" name="action" value="addUser" />
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
+</div>

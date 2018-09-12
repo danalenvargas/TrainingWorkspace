@@ -1,3 +1,5 @@
 INDEX VERSION 1.130
+C:\My Tools\Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2955872092.index
+\CaseStudyDraft\src
 C:\My Tools\Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\932768284.index
 \CaseStudyDraft\src

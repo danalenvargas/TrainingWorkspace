@@ -6,18 +6,17 @@ import java.io.Serializable;
 public class User implements Serializable{
 	private int userId;
 
-	private String username, password, userType;
+	private String username, userType;
 	private boolean canCreate, canUpdate, canDelete;
 
 	public User() {
 	}
 
-	public User(int userId, String username, String password, String userType, boolean canCreate,
+	public User(int userId, String username, String userType, boolean canCreate,
 			boolean canUpdate, boolean canDelete) {
 		super();
 		this.userId = userId;
 		this.username = username;
-		this.password = password;
 		this.userType = userType;
 		this.canCreate = canCreate;
 		this.canUpdate = canUpdate;
@@ -38,14 +37,6 @@ public class User implements Serializable{
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getUserType() {

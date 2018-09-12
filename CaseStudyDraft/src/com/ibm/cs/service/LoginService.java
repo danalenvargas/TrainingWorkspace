@@ -13,7 +13,7 @@ public class LoginService {
 	
 	public boolean isValidUser(String username, String password) {
 		dao.openConnection();
-		user = dao.getUser(username, password);
+		user = dao.authenticateUser(username, password);
 		dao.closeConnection();
 		
 		if(user != null) 

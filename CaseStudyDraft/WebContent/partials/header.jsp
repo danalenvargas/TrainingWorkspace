@@ -8,7 +8,7 @@
 		  <c:if test="${user.userType == 'admin'}">
 		  	<li><a id="navUser" href="UserManagement" onload="setActiveNavTab()">User Management</a></li>
 		  </c:if>
-		  <li><a id="navProfile" href="">Profile</a></li>
+		  <li><a id="navProfile" href="Profile">Profile</a></li>
 		  <li><a id="" href="Login?action=logout">Log Out</a></li>
 		</ul>
 	</div>

@@ -6,16 +6,17 @@
 		</div>
 		<div class="modal-body">
 			<form action="UserManagement" method="post">
-				Username: <input type="text" name="username" placeholder="username" /><br />
-				Password: <input type="password" name="password" /><br />
-				Usertype: <select name="userType" onchange="togglePrivileges(this)">
+				Username: <input type="text" name="username" placeholder="username" required /><br />
+				Password: <input id="password" type="password" name="password" placeholder="Password" required />
+				Confirm Password: <input id="confirmPassword" type="password" placeholder="Confirm Password"  required> <br />
+				Usertype: <select id="selUserType" name="userType" onchange="togglePrivileges(this)">
 					<option value="user" title="coffee/tea, juice, soda" selected>Standard User</option>
 					<option value="admin" title="sandwich loaves, dinner rolls, tortillas, bagels">Admin</option>
 				</select> <br />
 				Privileges:<br>
-				Create: <input id="chkCreate" type="checkbox" name="canCreate" value="1" /><br />
-				Update: <input id="chkUpdate" type="checkbox" name="canUpdate" value="1" /><br />
-				Delete: <input id="chkDelete" type="checkbox" name="canDelete" value="1" /><br />
+				Create: <input id="chkCreate" type="checkbox" name="canCreate" value="1" onchange="checkIfReadOnly(this)" /><br />
+				Update: <input id="chkUpdate" type="checkbox" name="canUpdate" value="1" onchange="checkIfReadOnly(this)" /><br />
+				Delete: <input id="chkDelete" type="checkbox" name="canDelete" value="1" onchange="checkIfReadOnly(this)" /><br />
 				<br />
 				<input type="hidden" name="action" value="addUser" />
 				<input type="submit" value="Submit" />

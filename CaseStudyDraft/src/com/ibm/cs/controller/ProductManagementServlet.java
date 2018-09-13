@@ -50,6 +50,9 @@ public class ProductManagementServlet extends HttpServlet {
 		case "showpage":
 			ArrayList<Category> categoryList = service.getInventory();
 			request.setAttribute("categoryList", categoryList);
+			if(request.getAttribute("selectedTab") == null) {
+				request.setAttribute("selectedTab", "item");
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("productmanagement.jsp");
 			dispatcher.forward(request, response);
 			break;
@@ -91,6 +94,7 @@ public class ProductManagementServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher;
 		ProductManagementService service = new ProductManagementService();
 		boolean isSuccessful;
 		int[] itemIds;
@@ -105,6 +109,10 @@ public class ProductManagementServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		switch(action) {
+		case "showpage":
+			doGet(request, response);
+			break;
+			
 		case "addCategory":
 			categoryName = request.getParameter("categoryName");
 			categoryType = request.getParameter("categoryType");
@@ -114,7 +122,7 @@ public class ProductManagementServlet extends HttpServlet {
 				isRecyclable = Boolean.valueOf(request.getParameter("recyclable"));
 			}
 			isSuccessful = service.addCategory(categoryName, categoryType, isPerishable, isRecyclable);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "category");
 			break;
 			
 		case "editCategory":
@@ -127,13 +135,15 @@ public class ProductManagementServlet extends HttpServlet {
 				isRecyclable = Boolean.valueOf(request.getParameter("recyclable"));
 			}
 			isSuccessful = service.editCategory(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "category");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "deleteCategory":
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
 			isSuccessful = service.deleteCategory(categoryId);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "category");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "addProduct":
@@ -147,7 +157,8 @@ public class ProductManagementServlet extends HttpServlet {
 			sellPrice = Double.parseDouble(request.getParameter("sellPrice"));
 			SKU = request.getParameter("SKU");
 			isSuccessful = service.addProduct(categoryId, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, SKU);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "product");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "editProduct":
@@ -162,13 +173,15 @@ public class ProductManagementServlet extends HttpServlet {
 			sellPrice = Double.parseDouble(request.getParameter("sellPrice"));
 			SKU = request.getParameter("SKU");
 			isSuccessful = service.editProduct(categoryId, productId, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, SKU);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "product");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "deleteProduct":
 			productId = Integer.parseInt(request.getParameter("productId"));
 			isSuccessful = service.deleteProduct(productId);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "product");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "inputBatch":
@@ -181,7 +194,8 @@ public class ProductManagementServlet extends HttpServlet {
 				expirationDate = format.parse(request.getParameter("expirationDate"));
 				purchasePrice = Double.parseDouble(request.getParameter("purchasePrice"));
 				isSuccessful = service.inputBatch(productId, amount, comments, supplier, manufactureDate, expirationDate, purchasePrice);
-				response.sendRedirect("productmanagement.jsp");
+				request.setAttribute("selectedTab", "batch");
+//				response.sendRedirect("productmanagement.jsp");
 			} catch (ParseException e) {
 				System.out.println("Error parsing date");
 				e.printStackTrace();
@@ -195,13 +209,15 @@ public class ProductManagementServlet extends HttpServlet {
 			comments = request.getParameter("comments");
 			supplier = request.getParameter("supplier");
 			isSuccessful = service.editBatch(batchId, productId, amount, comments, supplier);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "batch");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "deleteBatch":
 			batchId = Integer.parseInt(request.getParameter("batchId"));
 			isSuccessful = service.deleteBatch(batchId);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "batch");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 			
 		case "editItems":
@@ -211,9 +227,10 @@ public class ProductManagementServlet extends HttpServlet {
 				expirationDate = format.parse(request.getParameter("expirationDate"));
 				purchasePrice = Double.parseDouble(request.getParameter("purchasePrice"));
 				isSuccessful = service.editItems(itemIds, manufactureDate, expirationDate, purchasePrice);
-				response.sendRedirect("productmanagement.jsp");
+				request.setAttribute("selectedTab", "item");
+//				response.sendRedirect("productmanagement.jsp");
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error parsing date");
 				e.printStackTrace();
 			}
 			break;
@@ -221,9 +238,13 @@ public class ProductManagementServlet extends HttpServlet {
 		case "deleteItems":
 			itemIds = new Gson().fromJson(request.getParameter("itemIds"), int[].class);
 			isSuccessful = service.deleteItems(itemIds);
-			response.sendRedirect("productmanagement.jsp");
+			request.setAttribute("selectedTab", "item");
+//			response.sendRedirect("productmanagement.jsp");
 			break;
 		}
+		
+		dispatcher = request.getRequestDispatcher("ProductManagement?action=showpage");
+		dispatcher.forward(request, response);
 	}
 
 }

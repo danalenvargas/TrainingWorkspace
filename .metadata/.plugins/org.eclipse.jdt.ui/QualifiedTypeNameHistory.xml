@@ -41,4 +41,7 @@
 <fullyQualifiedTypeName name="com.google.gson.GsonBuilder"/>
 <fullyQualifiedTypeName name="java.security.MessageDigest"/>
 <fullyQualifiedTypeName name="java.security.NoSuchAlgorithmException"/>
+<fullyQualifiedTypeName name="org.junit.runner.Result"/>
+<fullyQualifiedTypeName name="org.junit.runner.JUnitCore"/>
+<fullyQualifiedTypeName name="org.junit.runner.notification.Failure"/>
 </qualifiedTypeNameHistroy>

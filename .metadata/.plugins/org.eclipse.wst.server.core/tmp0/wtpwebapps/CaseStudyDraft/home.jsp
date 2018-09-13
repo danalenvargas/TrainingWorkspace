@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-	<%@include file="header.jsp" %>
+	<%@include file="partials/header.jsp" %>
 	<div class="content">
 		<h6>Hello ${user.username}, you have successfully logged in!</h6>
 <!-- 		<button type="button" name="btnProd" onclick="location.href='ProductManagement'">Product List</button> <br> -->

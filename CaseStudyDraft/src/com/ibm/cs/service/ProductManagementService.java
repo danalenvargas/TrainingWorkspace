@@ -23,12 +23,65 @@ public class ProductManagementService {
 	public ProductManagementService() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public ArrayList<Category> getInventory(){
+		ArrayList<Category> categoryList = getCategoryList();
+		fillProductList(categoryList);
+		return categoryList;
+	}
+	
+	// get list of categories
+	public ArrayList<Category> getCategoryList(){
+		categoryDao = new CategoryDAO();
+		ArrayList<Category> categoryList = categoryDao.getCategoryList();
+		categoryDao.closeConnection();
+		return categoryList;
+	}
+	
+	// fill the productList of every category
+	public void fillProductList(ArrayList<Category> categoryList){
+		productDao = new ProductDAO();
+		for (Category category : categoryList) {
+			ArrayList<Product> products = productDao.getProductList(category.getCategoryId());
+			category.setProducts(products);
+			fillBatchList(products);
+		}
+		productDao.closeConnection();
+	}
+	
+	// fill the batchList of every product
+	public void fillBatchList(ArrayList<Product> productList) {
+		batchDao = new BatchDAO();
+		for (Product product : productList) {
+			ArrayList<Batch> batches = batchDao.getBatchList(product.getProductId());
+			product.setBatches(batches);
+			fillItemList(batches);
+		}
+		batchDao.closeConnection();
+	}
+	
+	// fill the itemList of every batch
+	public void fillItemList(ArrayList<Batch> batchList) {
+		itemDao = new ItemDAO();
+		for (Batch batch : batchList) {
+			ArrayList<Item> items = itemDao.getItemList(batch.getBatchId());
+			batch.setItems(items);
+		}
+		itemDao.closeConnection();
+	}
 
 	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		categoryDao = new CategoryDAO();
 		isSuccessful = categoryDao.addCategory(categoryName, categoryType, isPerishable, isRecyclable);
 		categoryDao.closeConnection();
 		return isSuccessful;
+	}
+	
+	public Category getCategory(int categoryId) {
+		categoryDao = new CategoryDAO();
+		Category category = categoryDao.getCategory(categoryId);
+		categoryDao.closeConnection();
+		return category;
 	}
 	
 	public boolean editCategory(int categoryId, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
@@ -44,75 +97,6 @@ public class ProductManagementService {
 		categoryDao.closeConnection();
 		return isSuccessful;
 	}
-	
-	public ArrayList<Category> getCategoryList(){
-		categoryDao = new CategoryDAO();
-		ArrayList<Category> categoryList = categoryDao.getCategoryList();
-		categoryDao.closeConnection();
-		return categoryList;
-	}
-	
-	public Category getCategory(int categoryId) {
-		categoryDao = new CategoryDAO();
-		Category category = categoryDao.getCategory(categoryId);
-		categoryDao.closeConnection();
-		return category;
-	}
-	
-	public ArrayList<Category> getInventory(){
-		ArrayList<Category> categoryList = getCategoryList();
-		fillProductList(categoryList);
-		return categoryList;
-	}
-	
-	public void fillProductList(ArrayList<Category> categoryList){
-		productDao = new ProductDAO();
-		for (Category category : categoryList) {
-			ArrayList<Product> products = productDao.getProductList(category.getCategoryId());
-			category.setProducts(products);
-			fillBatchList(products);
-		}
-		productDao.closeConnection();
-	}
-	
-	public void fillBatchList(ArrayList<Product> productList) {
-		batchDao = new BatchDAO();
-		for (Product product : productList) {
-			ArrayList<Batch> batches = batchDao.getBatchList(product.getProductId());
-			product.setBatches(batches);
-			fillItemList(batches);
-		}
-		batchDao.closeConnection();
-	}
-	
-	public void fillItemList(ArrayList<Batch> batchList) {
-		itemDao = new ItemDAO();
-		for (Batch batch : batchList) {
-			ArrayList<Item> items = itemDao.getItemList(batch.getBatchId());
-			batch.setItems(items);
-		}
-		itemDao.closeConnection();
-	}
-	
-//	public ArrayList<Product> getProductList(int categoryId){
-//		productDao = new ProductDAO();
-//		ArrayList<Product> products = productDao.getProductList(categoryId);
-//		productDao.closeConnection();
-//		return products;
-//	}
-//	public ArrayList<Product> getProductList(){
-//		ProductDAO dao = new ProductDAO();
-//		ArrayList<Product> productList = dao.getProductList();
-//		dao.closeConnection();
-//		return productList;
-//	}
-	
-//	public HashMap<Integer, Category> getProductMap(){
-//		HashMap<Integer, Category> categoryMap = categoryDao.getCategoryMap();
-//		for(Integer categoryId : categoryMap.keySet()) {
-//			
-//		}
-//	}
 	
 	public boolean addProduct(int categoryId, String brand, String variant, String size, String measurementUnit, String description, String specialHandling, double sellPrice, String SKU) {
 		productDao = new ProductDAO();

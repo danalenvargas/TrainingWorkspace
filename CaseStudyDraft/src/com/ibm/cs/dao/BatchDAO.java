@@ -25,7 +25,7 @@ public class BatchDAO extends MasterDAO {
 		Date entryTimestamp;
 		
 		try {
-			pst = conn.prepareStatement("SELECT * FROM tbl_batch WHERE is_active = 1 AND fk_product_id = ?");
+			pst = conn.prepareStatement("SELECT * FROM tbl_batch WHERE fk_product_id = ?");
 			pst.setInt(1, productId);
 			rs = pst.executeQuery();
 			
@@ -137,7 +137,7 @@ public class BatchDAO extends MasterDAO {
 		PreparedStatement pst = null;
 		
 		try {
-			pst = conn.prepareStatement("UPDATE tbl_batch SET is_active=0 WHERE batch_id=?");
+			pst = conn.prepareStatement("DELETE FROM tbl_batch WHERE batch_id=?");
 			pst.setInt(1, batchId);
 			
 			count = pst.executeUpdate();

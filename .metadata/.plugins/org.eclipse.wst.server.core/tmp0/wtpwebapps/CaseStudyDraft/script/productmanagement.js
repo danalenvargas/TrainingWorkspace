@@ -232,8 +232,27 @@ function toggleCollapse(batchId){
 
 window.onload = function() {
 	setActiveNavTab();
+	setActiveInventoryTab();
+	console.log(JSON.parse(test));
 };
 
 function setActiveNavTab(){
 	document.getElementById("navInventory").classList.add('active');
 };
+
+function setActiveInventoryTab(){
+	switch(selectedTab){
+	case "category":
+		document.getElementById("tabBtnCategories").click();
+		break;
+	case "product":
+		document.getElementById("tabBtnProducts").click();
+		break;
+	case "batch":
+		document.getElementById("tabBtnBatches").click();
+		break;
+	case "item":
+		document.getElementById("tabBtnItems").click();
+		break;
+	}
+}

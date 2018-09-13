@@ -14,7 +14,6 @@ public abstract class MasterDAO {
 	// private static final String USER = "root";
 	// private static final String PASSWORD = "admin";
 	protected Connection conn;
-
 	private Properties properties = new Properties();
 
 	public MasterDAO() {
@@ -45,8 +44,19 @@ public abstract class MasterDAO {
 		return conn;
 	}
 	
+	// connections are opened and closed at Service level to allow a single connection for multiple method calls
 	public void openConnection() {
 		conn = getConnection();
+	}
+
+	public void closeConnection() {
+		if (this.conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 //	public void startTransaction() {
@@ -70,17 +80,8 @@ public abstract class MasterDAO {
 //		}
 //		closeConnection();
 //	}
-
-	public void closeConnection() {
-		if (this.conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 	
+	// PreparedStatements and ResultSets are closed after every use/method
 	protected void closeResources(ResultSet rs, PreparedStatement pst) {
 		if (rs != null) {
             try {rs.close();} catch (SQLException e) { e.printStackTrace();}

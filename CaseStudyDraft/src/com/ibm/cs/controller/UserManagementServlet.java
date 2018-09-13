@@ -76,11 +76,10 @@ public class UserManagementServlet extends HttpServlet {
 		case "editUser":
 			userId = Integer.parseInt(request.getParameter("userId"));
 			username = request.getParameter("username");
-			password = request.getParameter("password");
 			canCreate = request.getParameterMap().containsKey("canCreate");
 			canUpdate = request.getParameterMap().containsKey("canUpdate");
 			canDelete = request.getParameterMap().containsKey("canDelete");
-			userService.editUser(userId, username, password, canCreate, canUpdate, canDelete);
+			userService.editUser(userId, username, canCreate, canUpdate, canDelete);
 			response.sendRedirect("UserManagement?action=showpage");
 			break;
 		case "deleteUser":

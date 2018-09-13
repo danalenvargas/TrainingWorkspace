@@ -13,7 +13,6 @@ public class UserDAO extends MasterDAO {
 
 	public UserDAO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ArrayList<User> getStandardUsers(){
@@ -87,14 +86,13 @@ public class UserDAO extends MasterDAO {
         }
 	}
 	
-	public void editUser(int userId, String username, String password, boolean canCreate,
+	public void editUser(int userId, String username, boolean canCreate,
 			boolean canUpdate, boolean canDelete) {
 		PreparedStatement pst = null;
 		try {
-			pst = conn.prepareStatement("UPDATE tbl_user SET username=?, password=? WHERE user_id=?");
+			pst = conn.prepareStatement("UPDATE tbl_user SET username=? WHERE user_id=?");
 			pst.setString(1, username);
-			pst.setString(2, generateHash(password));
-			pst.setInt(3, userId);
+			pst.setInt(2, userId);
 			pst.executeUpdate();
 
 			closeResources(pst);

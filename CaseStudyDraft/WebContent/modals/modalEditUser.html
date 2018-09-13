@@ -7,12 +7,12 @@
 	    <div class="modal-body">
 			<form action="UserManagement" method="post">
 				Username: <input id="txtUsername" type="text" name="username" placeholder="username" /><br />
-				New Password: <input id="txtPassword" type="password" name="password" /><br />
 				Privileges:<br />
 				Create: <input id="chkCreate" type="checkbox" name="canCreate" value="1" /><br />
 				Update: <input id="chkUpdate" type="checkbox" name="canUpdate" value="1" /><br/>
 				Delete: <input id="chkDelete" type="checkbox" name="canDelete" value="1" /><br />
 				<br />
+				<button type="button" onclick="showModal('modalChangePassword', 2)">Change Password</button> <br />
 				<input id="txtUserId" type="hidden" name="userId" />
 				<input type="hidden" name="action" value="editUser" />
 				<input type="submit" value="Update" /><br />

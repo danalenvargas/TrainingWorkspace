@@ -3,6 +3,8 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+
 @SuppressWarnings("serial")
 public class Category implements Serializable {
 	private int categoryId;
@@ -72,6 +74,11 @@ public class Category implements Serializable {
 
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
+	}
+	
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
 	}
 	
 }

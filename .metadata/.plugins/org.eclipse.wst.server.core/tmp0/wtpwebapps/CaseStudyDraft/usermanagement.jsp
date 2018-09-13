@@ -9,11 +9,13 @@
 	<script src="script/modal.js"></script>
 	<script src="script/usermanagement.js"></script>
 	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/modal.css" />
 </head>
 <body>
-	<%@include file="header.jsp" %>
+	<%@include file="partials/header.jsp" %>
 	<%@include file="modals/modalAddUser.html" %>
 	<%@include file="modals/modalEditUser.html" %>
+	<%@include file="modals/modalChangePassword.html" %>
 	<div class="content">
 		<h1>User Management</h1>
 		<!-- =============================== -->

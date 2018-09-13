@@ -13,47 +13,6 @@ public class ProductDAO extends MasterDAO {
 	public ProductDAO() {
 		super();
 	}
-//	public ArrayList<Product> getProductList(){
-//		PreparedStatement pst = null;
-//		ResultSet rs = null;
-//		
-//		ArrayList<Product> productList = new ArrayList<>();
-//		int productId, fkCategoryId;
-//		String SKU, brand, variant, size, measurementUnit, description, specialHandling;
-//		double sellPrice, stockAmount;
-//		Category category;
-//		
-//		CategoryDAO catDAO = new CategoryDAO(conn);
-//		
-//		try {
-//			pst = conn.prepareStatement("SELECT * FROM tbl_product WHERE is_active = 1");
-//			rs = pst.executeQuery();
-//			
-//			while(rs.next()) {
-//				System.out.println("FOUND PRODUCTS");
-//				productId = rs.getInt("product_id");
-//				fkCategoryId = rs.getInt("fk_category_id");
-//				SKU = rs.getString("SKU");
-//				brand = rs.getString("brand");
-//				variant = rs.getString("variant");
-//				size = rs.getString("size");
-//				measurementUnit = rs.getString("measurement_unit");
-//				description = rs.getString("description");
-//				specialHandling = rs.getString("special_handling");
-//				sellPrice = rs.getDouble("sell_price");
-//				stockAmount = calculateStockAmount(productId);
-//				category = catDAO.getCategory(fkCategoryId);
-//
-//				System.out.println("ADDING TO LIST");
-//				productList.add(new Product(productId, SKU, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, stockAmount, category));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//            closeResources(rs, pst);
-//        }
-//		return productList;
-//	}
 	
 	public ArrayList<Product> getProductList(int categoryId){
 		PreparedStatement pst = null;
@@ -65,7 +24,7 @@ public class ProductDAO extends MasterDAO {
 		double sellPrice, stockAmount;
 		
 		try {
-			pst = conn.prepareStatement("SELECT * FROM tbl_product WHERE is_active = 1 AND fk_category_id = ?");
+			pst = conn.prepareStatement("SELECT * FROM tbl_product WHERE fk_category_id = ?");
 			pst.setInt(1, categoryId);
 			rs = pst.executeQuery();
 			
@@ -214,7 +173,7 @@ public class ProductDAO extends MasterDAO {
 		PreparedStatement pst = null;
 		
 		try {
-			pst = conn.prepareStatement("UPDATE tbl_product SET is_active=0 WHERE product_id=?");
+			pst = conn.prepareStatement("DELETE FROM tbl_product WHERE product_id=?");
 			pst.setInt(1, productId);
 			
 			count = pst.executeUpdate();

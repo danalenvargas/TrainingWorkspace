@@ -1,6 +1,13 @@
 /**
  * 
  */
+window.onload = function() {
+	setActiveNavTab();
+	setActiveInventoryTab();
+//	console.log(JSON.parse(test));
+	applyPrivileges(privileges);
+};
+
 var selectedItems = [];
 
 function enableRecyclableButtons(){
@@ -115,11 +122,6 @@ function showBatchDetails(batchId){
 				document.getElementById("editBatchRemainingAmount").innerHTML = batch.remainingAmount;
 				document.getElementById("editBatchSupplier").value = batch.supplier;
 				document.getElementById("editBatchComments").value = batch.comments;
-//				document.getElementById("editBatchManufactureDate").value = batch.manufactureDate;
-//				document.getElementById("editBatchExpirationDate").value = batch.ExpirationDate;
-//				document.getElementById("editBatchPurchasePrice").value = batch.PurchasePrice;
-				
-//				document.getElementById("editBatchForm").style.visibility = "visible";
 			})
 			.catch(function(err){
 				console.log("error with parsing");
@@ -230,12 +232,6 @@ function toggleCollapse(batchId){
 	}
 }
 
-window.onload = function() {
-	setActiveNavTab();
-	setActiveInventoryTab();
-	console.log(JSON.parse(test));
-};
-
 function setActiveNavTab(){
 	document.getElementById("navInventory").classList.add('active');
 };
@@ -254,5 +250,105 @@ function setActiveInventoryTab(){
 	case "item":
 		document.getElementById("tabBtnItems").click();
 		break;
+	}
+}
+
+function sortTable(tableId, colIndex) {
+	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+	table = document.getElementById(tableId);
+	switching = true;
+	// Set the sorting direction to ascending:
+	dir = "asc";
+	/* Make a loop that will continue until
+	no switching has been done: */
+	while (switching) {
+		// Start by saying: no switching is done:
+		switching = false;
+		rows = table.rows;
+		/* Loop through all table rows (except the
+		first, which contains table headers): */
+		for (i = 2; i < (rows.length - 1); i++) {
+			// Start by saying there should be no switching:
+			shouldSwitch = false;
+			/* Get the two elements you want to compare,
+			one from current row and one from the next: */
+			x = rows[i].getElementsByTagName("TD")[colIndex];
+			y = rows[i + 1].getElementsByTagName("TD")[colIndex];
+			/* Check if the two rows should switch place,
+			based on the direction, asc or desc: */
+			if (dir == "asc") {
+				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+					// If so, mark as a switch and break the loop:
+					shouldSwitch = true;
+					break;
+				}
+			} else if (dir == "desc") {
+				if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+					// If so, mark as a switch and break the loop:
+					shouldSwitch = true;
+					break;
+				}
+			}
+		}
+		if (shouldSwitch) {
+			/* If a switch has been marked, make the switch
+			and mark that a switch has been done: */
+			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			switching = true;
+			// Each time a switch is done, increase this count by 1:
+			switchcount ++;
+		} else {
+			/* If no switching has been done AND the direction is "asc",
+			set the direction to "desc" and run the while loop again. */
+			if (switchcount == 0 && dir == "asc") {
+				dir = "desc";
+				switching = true;
+			}
+		}
+	}
+}
+
+function filterTable(tableId) {
+	var filterList, filter, table, rows, cell, i, j;
+	table = document.getElementById(tableId);
+	filterList = table.getElementsByClassName("colFilter");
+	rows = table.getElementsByTagName("tr");
+	
+	for(j=0; j<rows.length; j++){
+		rows[j].style.display = "";
+	}
+	
+	for(i = 0; i<filterList.length; i++){
+		filter = filterList[i].value.toUpperCase();
+		if (filter != ""){
+			for(j=0; j<rows.length; j++){
+				cell = rows[j].getElementsByTagName("td")[i];
+				if(cell){
+					if(cell.innerHTML.toUpperCase().indexOf(filter) == -1){
+						rows[j].style.display = "none";
+					}
+				}
+			}
+		}
+	}
+}
+
+function applyPrivileges(privileges){
+	var buttons = [];
+
+	if(privileges.canCreate == "false"){
+		buttons = buttons.concat(document.getElementsByClassName("btnAdd"));
+	}
+	if(privileges.canUpdate == "false"){
+		buttons = buttons.concat(document.getElementsByClassName("btnEdit"));
+	}
+	if(privileges.canDelete == "false"){
+		buttons = buttons.concat(document.getElementsByClassName("btnDelete"));
+	}
+	
+	for(var j=0; j<buttons.length; j++){
+		for(var i=0; i<buttons[j].length; i++){
+			buttons[j][i].disabled = true;
+		}
 	}
 }

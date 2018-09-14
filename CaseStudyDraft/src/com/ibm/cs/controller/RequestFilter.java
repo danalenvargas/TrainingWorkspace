@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -35,6 +36,7 @@ public class RequestFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+        RequestDispatcher dispatcher;
         String uri = req.getRequestURI();
         HttpSession session = req.getSession(false); //find session for this user, if none exists, return null
         if(session == null && !uri.endsWith("login.jsp")) { //check if a session exists for this user
@@ -42,6 +44,8 @@ public class RequestFilter implements Filter {
         } else if (uri.endsWith("usermanagement.jsp")) { //check if user asks for jsp page directly
         	res.sendRedirect("UserManagement");
         } else if (uri.endsWith("productmanagement.jsp")) {
+//        	dispatcher = request.getRequestDispatcher("ProductManagement");
+//        	dispatcher.forward(request, response);
         	res.sendRedirect("ProductManagement");
         } else {
         	chain.doFilter(request, response);

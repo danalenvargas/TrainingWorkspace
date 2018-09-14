@@ -3,13 +3,15 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 @SuppressWarnings("serial")
 public class Batch implements Serializable {
 	int batchId, fkProductId, amount, remainingAmount;
 	String comments, supplier;
 	Date entryTimestamp;
-	ArrayList<Item> items = new ArrayList<>();
+//	HashMap<Integer, Item> items = new HashMap<>();
+	ArrayList<Item> items;
 
 	public Batch() {
 		// TODO Auto-generated constructor stub
@@ -24,6 +26,7 @@ public class Batch implements Serializable {
 		this.comments = comments;
 		this.supplier = supplier;
 		this.entryTimestamp = entryTimestamp;
+		items = new ArrayList<>();
 	}
 
 	public int getBatchId() {
@@ -88,6 +91,10 @@ public class Batch implements Serializable {
 
 	public void setRemainingAmount(int remainingAmount) {
 		this.remainingAmount = remainingAmount;
+	}
+	
+	public void incrementRemainingAmount(int amountToAdd) {
+		this.remainingAmount += amountToAdd;
 	}
 	
 }

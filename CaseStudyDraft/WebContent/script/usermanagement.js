@@ -1,5 +1,4 @@
-var password;
-var confirmPassword;
+var password, confirmPassword, changePassword, confirmChangePassword;
 
 window.onload = function() {
 	setActiveNavTab();
@@ -8,11 +7,16 @@ window.onload = function() {
 	confirmPassword = document.getElementById("confirmPassword");
 	password.onchange = validatePassword;
 	confirmPassword.onkeyup = validatePassword;
+
+	changePassword = document.getElementById("changePassword")
+	confirmChangePassword = document.getElementById("changeConfirmPassword");
+	changePassword.onchange = validateChangePassword;
+	confirmChangePassword.onkeyup = validateChangePassword;
 };
 
 function setActiveNavTab(){
 	document.getElementById("navUser").classList.add('active');
-};
+}
 
 // Fetch a user's details from server, then display on the page
 function showUserDetails(userId){
@@ -24,14 +28,15 @@ function showUserDetails(userId){
 	fetch('UserManagement?action=getUser&userId=' + userId, myInit) // fetch request to server
 		.then(function(response){
 			response.json().then(function(user){
-//				console.log(data);
+				console.log(user);
 				showModal('modalEditUser', 1)
 				document.getElementById("txtUsername").value = user.username;
 				document.getElementById("txtUserId").value = user.userId;
-				document.getElementById("chkCreate").checked = user.canCreate;
-				document.getElementById("chkUpdate").checked = user.canUpdate;
-				document.getElementById("chkDelete").checked = user.canDelete;
+				document.getElementById("chkEditCreate").checked = user.canCreate;
+				document.getElementById("chkEditUpdate").checked = user.canUpdate;
+				document.getElementById("chkEditDelete").checked = user.canDelete;
 				document.getElementById("txtUserId2").value = user.userId;
+				document.getElementById("txtUserId3").value = user.userId;
 			})
 			.catch(function(err){
 				console.log("error with parsing");
@@ -64,8 +69,16 @@ function checkIfReadOnly(checkBox){
 
 function validatePassword(){
 	if(password.value != confirmPassword.value) {
-	  confirmPassword.setCustomValidity("Passwords Don't Match");
+		confirmPassword.setCustomValidity("Passwords Don't Match");
 	} else {
-	  confirmPassword.setCustomValidity('');
+		confirmPassword.setCustomValidity('');
+	}
+}
+
+function validateChangePassword(){
+	if(changePassword.value != changeConfirmPassword.value) {
+		changeConfirmPassword.setCustomValidity("Passwords Don't Match");
+	} else {
+		changeConfirmPassword.setCustomValidity('');
 	}
 }

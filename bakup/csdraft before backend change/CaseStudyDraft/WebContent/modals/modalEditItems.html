@@ -1,0 +1,19 @@
+<div id="modalEditItems" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+		    <span class="close">&times;</span>
+			<h3>Edit Items</h3>
+		</div>
+		<div class="modal-body">
+			<form action="ProductManagement" method="post" >
+				Item ID: <span id="editItemIds"></span> <br />
+				Manufacture Date: <input id="editItemManufactureDate" type="date" name="manufactureDate" /> <br />
+				Expiration Date: <input id="editItemExpirationDate" type="date" name="expirationDate" /> <br />
+				Purchase Price (per item): Php<input id="editItemPurchasePrice" type="number" name="purchasePrice" step="0.01" /> <br />
+				<input id="editItemIdsHidden" type="hidden" name="itemIds" />
+				<input type="hidden" name="action" value="editItems" />
+				<input type="submit" value="Update" />
+			</form>
+		</div>
+	</div>
+</div>

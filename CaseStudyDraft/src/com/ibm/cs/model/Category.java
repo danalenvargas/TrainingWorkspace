@@ -3,7 +3,7 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 @SuppressWarnings("serial")
 public class Category implements Serializable {
@@ -12,8 +12,7 @@ public class Category implements Serializable {
 	private String categoryType; // (Beverages, Bread/Bakery, Canned/Jarred GOods, Dairy, Dry/Baking Goods, Frozen Goods, Meat, Produce, Cleaners, Paper Goods, Personal Care, Other)
 	private boolean isPerishable;
 	private Boolean isRecyclable;
-//	HashMap<Integer, Product> products = new HashMap<>();
-	ArrayList<Product> products = new ArrayList<>();
+	ArrayList<Product> products;
 
 	public Category() {
 		// TODO Auto-generated constructor stub
@@ -26,6 +25,7 @@ public class Category implements Serializable {
 		this.categoryType = categoryType;
 		this.isPerishable = isPerishable;
 		this.isRecyclable = isRecyclable;
+		products = new ArrayList<>();
 	}
 
 	public int getCategoryId() {
@@ -76,9 +76,9 @@ public class Category implements Serializable {
 		this.products = products;
 	}
 	
-	@Override
-	public String toString() {
-		return new Gson().toJson(this);
-	}
+//	@Override
+//	public String toString() {
+//		return new Gson().toJson(this);
+//	}
 	
 }

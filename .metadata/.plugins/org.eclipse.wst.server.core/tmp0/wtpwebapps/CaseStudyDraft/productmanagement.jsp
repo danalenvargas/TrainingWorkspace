@@ -44,9 +44,14 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">  // make the request-scope variable 'categoryList' available in javascript later on for sorting/filtering the table
-	    var test = '${categoryList}';
+	<script type="text/javascript">  // make some request-scope variables available in javascript later on
+// 	    var test = '${categoryList}';
 	    var selectedTab = '${selectedTab}';
+	    var privileges = {
+		    canCreate : '${user.canCreate}',
+		    canUpdate : '${user.canUpdate}',
+		    canDelete : '${user.canDelete}',
+	    };
 	</script>
 </body>
 </html>

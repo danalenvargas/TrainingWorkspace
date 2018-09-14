@@ -1,9 +1,9 @@
 List of Items:<br />
-<button type="button" onclick="showItemEditForm()">Edit Items</button>
+<button class="btnEdit" type="button" onclick="showItemEditForm()">Edit Items</button>
 <form action="ProductManagement" method="post" onsubmit="setIdsToDelete()">
 	<input id="deleteItemIds" type="hidden" name="itemIds">
 	<input type="hidden" name="action" value="deleteItems" />
-	<input type="submit" value="Delete Items" /> <br />
+	<input class="btnDelete" type="submit" value="Delete Items" /> <br />
 </form>
 <table>
 	<tr>

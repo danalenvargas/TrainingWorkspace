@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.ibm.cs.model.Batch;
 
@@ -15,36 +16,68 @@ public class BatchDAO extends MasterDAO {
 		super();
 	}
 	
-	public ArrayList<Batch> getBatchList(int productId){
+	public HashMap<Integer, Batch> getBatchMap(){
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
-		ArrayList<Batch> batchList = new ArrayList<>();
-		int batchId, amount, remainingAmount;
+		HashMap<Integer, Batch>  batchMap = new HashMap<>();
+		int batchId, amount, remainingAmount, fkProductId;
 		String comments, supplier;
 		Date entryTimestamp;
 		
 		try {
-			pst = conn.prepareStatement("SELECT * FROM tbl_batch WHERE fk_product_id = ?");
-			pst.setInt(1, productId);
+			pst = conn.prepareStatement("SELECT * FROM tbl_batch");
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
 				batchId = rs.getInt("batch_id");
+				fkProductId = rs.getInt("fk_product_id");
 				amount = rs.getInt("amount");
-				remainingAmount = calculateRemainingAmount(batchId);
+//				remainingAmount = calculateRemainingAmount(batchId);
+				remainingAmount = 0; // will just increment later at mapping stage, instead of making separate DB query
 				comments = rs.getString("comments");
 				supplier = rs.getString("supplier");
 				entryTimestamp = rs.getTimestamp("entry_timestamp");
-				batchList.add(new Batch(batchId, productId, amount, remainingAmount, comments, supplier, entryTimestamp));
+				batchMap.put(batchId, new Batch(batchId, fkProductId, amount, remainingAmount, comments, supplier, entryTimestamp));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
             closeResources(rs, pst);
         }
-		return batchList;
+		return batchMap;
 	}
+	
+//	public ArrayList<Batch> getBatchList(int productId){
+//		PreparedStatement pst = null;
+//		ResultSet rs = null;
+//		
+//		ArrayList<Batch> batchList = new ArrayList<>();
+//		int batchId, amount, remainingAmount;
+//		String comments, supplier;
+//		Date entryTimestamp;
+//		
+//		try {
+//			pst = conn.prepareStatement("SELECT * FROM tbl_batch WHERE fk_product_id = ?");
+//			pst.setInt(1, productId);
+//			rs = pst.executeQuery();
+//			
+//			while(rs.next()) {
+//				batchId = rs.getInt("batch_id");
+//				amount = rs.getInt("amount");
+//				remainingAmount = calculateRemainingAmount(batchId);
+//				comments = rs.getString("comments");
+//				supplier = rs.getString("supplier");
+//				entryTimestamp = rs.getTimestamp("entry_timestamp");
+//				batchList.add(new Batch(batchId, productId, amount, remainingAmount, comments, supplier, entryTimestamp));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//            closeResources(rs, pst);
+//        }
+//		return batchList;
+//	}
 	
 	public int addBatch(int productId, int amount, String comments, String supplier) {
 		int newBatchId;

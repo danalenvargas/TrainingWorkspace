@@ -43,4 +43,14 @@
     <servlet-name>ProductManagementServlet</servlet-name>
     <url-pattern>/ProductManagement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>controller for user profile</description>
+    <display-name>Profile</display-name>
+    <servlet-name>Profile</servlet-name>
+    <servlet-class>com.ibm.cs.controller.ProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Profile</servlet-name>
+    <url-pattern>/Profile</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,4 +1,4 @@
-<button type="button" onclick="showModal('modalAddProduct', 2)">Add Product</button> <br />
+<button class="btnAdd" type="button" onclick="showModal('modalAddProduct', 2)">Add Product</button> <br />
 List of Products:<br />
 <table>
 	<tr>

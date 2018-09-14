@@ -20,17 +20,14 @@
 				Supplier: <input id="editBatchSupplier" type="text" name="supplier" value="" /> <br />
 				Comments: <textarea id="editBatchComments" name="comments" placeholder="comments" rows="3" cols="40"></textarea> <br />
 	<!-- IMPORTANT ----			FIGURE OUT HOW TO MANAGE EDITING OF EXPIRATION AND MANUFACTURING DATES (I can just do this at the item modification level) -->
-	<!-- 			Manufacture Date: <input id="editBatchManufactureDate" type="date" name="manufactureDate" /> <br /> -->
-	<!-- 			Expiration Date: <input id="editBatchExpirationDate" type="date" name="expirationDate" /> <br /> -->
-	<!-- 			Purchase Price (per item): Php<input id="editBatchPurchasePrice" type="number" name="purchasePrice" step="0.01" /> <br /> -->
 				<input id="editBatchId2" type="hidden" name="batchId" />
 				<input type="hidden" name="action" value="editBatch" />
-				<input type="submit" value="Update" />
+				<input class="btnEdit" type="submit" value="Update" />
 			</form>
 			<form action="ProductManagement" method="post">
 				<input id="editBatchId3" type="hidden" name="batchId" />
 				<input type="hidden" name="action" value="deleteBatch" />
-				<input type="submit" value="Remove Batch" />
+				<input class="btnDelete" type="submit" value="Remove Batch" />
 			</form>
 		</div>
 	</div>

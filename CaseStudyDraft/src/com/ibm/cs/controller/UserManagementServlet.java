@@ -18,13 +18,14 @@ import com.ibm.cs.service.UserManagementService;
  */
 public class UserManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	UserManagementService userService = new UserManagementService();
+	UserManagementService userService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UserManagementServlet() {
         super();
+        userService = new UserManagementService();
         // TODO Auto-generated constructor stub
     }
 
@@ -71,7 +72,6 @@ public class UserManagementServlet extends HttpServlet {
 			canUpdate = request.getParameterMap().containsKey("canUpdate");
 			canDelete = request.getParameterMap().containsKey("canDelete");
 			userService.addUser(username, password, userType, canCreate, canUpdate, canDelete);
-			response.sendRedirect("UserManagement?action=showpage");
 			break;
 		case "editUser":
 			userId = Integer.parseInt(request.getParameter("userId"));
@@ -80,14 +80,19 @@ public class UserManagementServlet extends HttpServlet {
 			canUpdate = request.getParameterMap().containsKey("canUpdate");
 			canDelete = request.getParameterMap().containsKey("canDelete");
 			userService.editUser(userId, username, canCreate, canUpdate, canDelete);
-			response.sendRedirect("UserManagement?action=showpage");
 			break;
 		case "deleteUser":
 			userId = Integer.parseInt(request.getParameter("userId"));
 			userService.deleteUser(userId);
-			response.sendRedirect("UserManagement?action=showpage");
+			break;
+		case "changePassword":
+			userId = Integer.parseInt(request.getParameter("userId"));
+			password = request.getParameter("password");
+			userService.changePassword(userId, password);
 			break;
 		}
+		
+		// POST-REDIRECT-GET pattern to avoid form resubmission
+		response.sendRedirect("UserManagement?action=showpage");
 	}
-
 }

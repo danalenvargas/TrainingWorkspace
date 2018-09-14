@@ -112,6 +112,28 @@ public class UserDAO extends MasterDAO {
         }
 	}
 	
+	public boolean editProfile(int userId, String username) {
+		PreparedStatement pst = null;
+		int resultCount;
+		
+		try {
+			pst = conn.prepareStatement("UPDATE tbl_user SET username=? WHERE user_id=?");
+			pst.setString(1, username);
+			pst.setInt(2, userId);
+			
+			resultCount = pst.executeUpdate();
+			if(resultCount > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeResources(pst);
+        }
+		return false;
+	}
+	
 	public void deleteUser(int userId) {
 		PreparedStatement pst = null;
 		
@@ -160,6 +182,22 @@ public class UserDAO extends MasterDAO {
 			closeResources(rs, pst);
         }
 		return user;
+	}
+	
+	public void changePassword(int userId, String password) {
+		PreparedStatement pst = null;
+		try {
+			pst = conn.prepareStatement("UPDATE tbl_user SET password=? WHERE user_id=?");
+			pst.setString(1, generateHash(password));
+			pst.setInt(2, userId);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeResources(pst);
+        }
 	}
 	
 	// get a User using username and password, used for login validation

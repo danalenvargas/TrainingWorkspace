@@ -38,26 +38,26 @@ public class ItemDAO extends MasterDAO {
 		return false;
 	}
 	
-	public ArrayList<Item> getItemList(int batchId){
+	public ArrayList<Item> getItemList(){
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
 		ArrayList<Item> itemList = new ArrayList<>();
-		int itemId;
+		int itemId, fkBatchId;
 		double purchasePrice;
 		Date manufactureDate, expirationDate;
 		
 		try {
-			pst = conn.prepareStatement("SELECT * FROM tbl_item WHERE fk_batch_id=?");
-			pst.setInt(1,  batchId);
+			pst = conn.prepareStatement("SELECT * FROM tbl_item");
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
 				itemId = rs.getInt("item_id");
+				fkBatchId = rs.getInt("fk_batch_id");
 				purchasePrice = rs.getDouble("purchase_price");
 				manufactureDate = rs.getDate("manufacture_date");
 				expirationDate = rs.getDate("expiration_date");
-				itemList.add(new Item(itemId, batchId, manufactureDate, expirationDate, purchasePrice));
+				itemList.add(new Item(itemId, fkBatchId, manufactureDate, expirationDate, purchasePrice));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,6 +66,35 @@ public class ItemDAO extends MasterDAO {
         }
 		return itemList;
 	}
+	
+//	public ArrayList<Item> getItemList(int batchId){
+//		PreparedStatement pst = null;
+//		ResultSet rs = null;
+//		
+//		ArrayList<Item> itemList = new ArrayList<>();
+//		int itemId;
+//		double purchasePrice;
+//		Date manufactureDate, expirationDate;
+//		
+//		try {
+//			pst = conn.prepareStatement("SELECT * FROM tbl_item WHERE fk_batch_id=?");
+//			pst.setInt(1,  batchId);
+//			rs = pst.executeQuery();
+//			
+//			while(rs.next()) {
+//				itemId = rs.getInt("item_id");
+//				purchasePrice = rs.getDouble("purchase_price");
+//				manufactureDate = rs.getDate("manufacture_date");
+//				expirationDate = rs.getDate("expiration_date");
+//				itemList.add(new Item(itemId, batchId, manufactureDate, expirationDate, purchasePrice));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//            closeResources(rs, pst);
+//        }
+//		return itemList;
+//	}
 	
 	public ArrayList<Item> getItemList(int[] itemIds){
 		PreparedStatement pst = null;

@@ -16,37 +16,35 @@ public abstract class MasterDAO {
 	protected Connection conn;
 	private Properties properties = new Properties();
 
+	// a connection is opened at DAO construction, but new connection can also be created using openConnection() method
 	public MasterDAO() {
-		conn = getConnection(); //temporary band-aid, to remove later
+		this.conn = getConnection(); 
 	}
 
 	protected Connection getConnection() {
-		Connection conn = null;
+		Connection con = null;
 		try {
 			properties.load(getClass().getResourceAsStream("config.properties"));
 			String url = properties.getProperty("DB_URL");
 			String user = properties.getProperty("DB_USER");
 			String password = properties.getProperty("DB_PASS");
 			
-//			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver()); // register the driver
 			Class.forName(properties.getProperty("DB_DRIVER")); // register the driver
-			conn = DriverManager.getConnection(url, user, password); // get a connection
+			con = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			System.out.println("ERROR in Connecting to Database.");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		return conn;
+		return con;
 	}
-	
-	// connections are opened and closed at Service level to allow a single connection for multiple method calls
+
+	// connections are opened and closed at Service level to allow a single connection for multiple DAO method calls
 	public void openConnection() {
-		conn = getConnection();
+		this.conn = getConnection();
 	}
 
 	public void closeConnection() {
@@ -58,28 +56,6 @@ public abstract class MasterDAO {
 			}
 		}
 	}
-	
-//	public void startTransaction() {
-//		try {
-//			conn = getConnection();
-//			conn.setAutoCommit(false);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	public void endTransaction(boolean isSuccessful) {
-//		try {
-//			if(isSuccessful) {
-//				conn.commit();
-//			} else {
-//				conn.rollback();
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		closeConnection();
-//	}
 	
 	// PreparedStatements and ResultSets are closed after every use/method
 	protected void closeResources(ResultSet rs, PreparedStatement pst) {

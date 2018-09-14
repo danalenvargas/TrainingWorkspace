@@ -28,6 +28,7 @@ public class Product implements Serializable {
 		this.specialHandling = specialHandling;
 		this.sellPrice = sellPrice;
 		this.stockAmount = stockAmount;
+		batches = new ArrayList<>();
 	}
 
 	public int getProductId() {
@@ -108,6 +109,10 @@ public class Product implements Serializable {
 
 	public void setStockAmount(double stockAmount) {
 		this.stockAmount = stockAmount;
+	}
+
+	public void incrementStockAmount(double amountToAdd) {
+		this.stockAmount += amountToAdd;
 	}
 
 	public int getFkCategoryId() {

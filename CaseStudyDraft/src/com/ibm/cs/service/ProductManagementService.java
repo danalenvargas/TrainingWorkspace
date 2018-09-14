@@ -1,7 +1,7 @@
 package com.ibm.cs.service;
 
 import java.util.ArrayList;
-//import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Date;
 
 import com.ibm.cs.dao.BatchDAO;
@@ -24,51 +24,114 @@ public class ProductManagementService {
 		// TODO Auto-generated constructor stub
 	}
 	
+// 	builds the Inventory
+//	Iventory has following structure:
+//		- list of categories, e.g. (toothpaste)
+//		- each category has list of products, e.g. (Colgate-White variant-150ml under toothpaste category)
+//		- each product has list of batches, e.g. (1 shipment of Colgate-White-150ml toothpaste containing 100 items)
+//		- each batch has list of items, e.g. (item of type Colgate-White-150ml toothpaste with own expiry and manufacture date)
 	public ArrayList<Category> getInventory(){
-		ArrayList<Category> categoryList = getCategoryList();
-		fillProductList(categoryList);
+		Product parentProduct;
+		Batch parentBatch;
+		ArrayList<Item> itemList = getItemList();
+		// HashMaps used for constant-time O(1) search/get
+		HashMap<Integer, Batch> batchMap = getBatchMap(); // key = batch id, value = Batch object
+		HashMap<Integer, Product> productMap = getProductMap(); // key = product id, value = Product object
+		HashMap<Integer, Category> categoryMap = getCategoryMap(); // key = category id, value = Category object
+		
+		// put each item into the items-arraylist of their 'Parent Batch'
+		for(Item item : itemList) {
+			parentBatch = batchMap.get(item.getFkBatchId());
+			parentBatch.getItems().add(item);
+			parentBatch.incrementRemainingAmount(1); // increment amount of remaining items under this batch
+		}
+		
+		// put each batch into the batches-arraylist of their 'Parent Product'
+		for(Batch batch : batchMap.values()) {
+			parentProduct = productMap.get(batch.getFkProductId());
+			parentProduct.getBatches().add(batch);
+			parentProduct.incrementStockAmount(batch.getRemainingAmount()); // increment amount of remaining items under this product
+		}
+		
+		// put each product into the products-arraylist of their 'Parent Category'
+		for(Product product : productMap.values()) {
+			categoryMap.get(product.getFkCategoryId()).getProducts().add(product);
+		}
+		
+		ArrayList<Category> categoryList = new ArrayList<>(categoryMap.values());
 		return categoryList;
 	}
 	
-	// get list of categories
-	public ArrayList<Category> getCategoryList(){
-		categoryDao = new CategoryDAO();
-		ArrayList<Category> categoryList = categoryDao.getCategoryList();
-		categoryDao.closeConnection();
-		return categoryList;
-	}
-	
-	// fill the productList of every category
-	public void fillProductList(ArrayList<Category> categoryList){
-		productDao = new ProductDAO();
-		for (Category category : categoryList) {
-			ArrayList<Product> products = productDao.getProductList(category.getCategoryId());
-			category.setProducts(products);
-			fillBatchList(products);
-		}
-		productDao.closeConnection();
-	}
-	
-	// fill the batchList of every product
-	public void fillBatchList(ArrayList<Product> productList) {
-		batchDao = new BatchDAO();
-		for (Product product : productList) {
-			ArrayList<Batch> batches = batchDao.getBatchList(product.getProductId());
-			product.setBatches(batches);
-			fillItemList(batches);
-		}
-		batchDao.closeConnection();
-	}
-	
-	// fill the itemList of every batch
-	public void fillItemList(ArrayList<Batch> batchList) {
+	public ArrayList<Item> getItemList(){
 		itemDao = new ItemDAO();
-		for (Batch batch : batchList) {
-			ArrayList<Item> items = itemDao.getItemList(batch.getBatchId());
-			batch.setItems(items);
-		}
+		ArrayList<Item> itemList = itemDao.getItemList();
 		itemDao.closeConnection();
+		return itemList;
 	}
+	
+	public HashMap<Integer, Batch> getBatchMap(){
+		batchDao = new BatchDAO();
+		HashMap<Integer, Batch> batchMap = batchDao.getBatchMap();
+		batchDao.closeConnection();
+		return batchMap;
+	}
+	
+	public HashMap<Integer, Product> getProductMap(){
+		productDao = new ProductDAO();
+		HashMap<Integer, Product> productMap = productDao.getProductMap();
+		productDao.closeConnection();
+		return productMap;
+	}
+	
+	public HashMap<Integer, Category> getCategoryMap(){
+		categoryDao = new CategoryDAO();
+		HashMap<Integer, Category> categoryMap = categoryDao.getCategoryMap();
+		categoryDao.closeConnection();
+		return categoryMap;
+	}
+	
+	// ==================================== v TO REPLACE v  ===========================
+	// get list of categories
+//	public ArrayList<Category> getCategoryList(){
+//		categoryDao = new CategoryDAO();
+//		ArrayList<Category> categoryList = categoryDao.getCategoryList();
+//		categoryDao.closeConnection();
+//		return categoryList;
+//	}
+	
+//	// fill the productList of every category
+//	public void fillProductList(ArrayList<Category> categoryList){
+//		productDao = new ProductDAO();
+//		for (Category category : categoryList) {
+//			ArrayList<Product> products = productDao.getProductList(category.getCategoryId());
+//			category.setProducts(products);
+//			fillBatchList(products);
+//		}
+//		productDao.closeConnection();
+//	}
+	
+//	// fill the batchList of every product
+//	public void fillBatchList(ArrayList<Product> productList) {
+//		batchDao = new BatchDAO();
+//		for (Product product : productList) {
+//			ArrayList<Batch> batches = batchDao.getBatchList(product.getProductId());
+//			product.setBatches(batches);
+//			fillItemList(batches);
+//		}
+//		batchDao.closeConnection();
+//	}
+	
+//	// fill the itemList of every batch
+//	public void fillItemList(ArrayList<Batch> batchList) {
+//		itemDao = new ItemDAO();
+//		for (Batch batch : batchList) {
+//			ArrayList<Item> items = itemDao.getItemList(batch.getBatchId());
+//			batch.setItems(items);
+//		}
+//		itemDao.closeConnection();
+//	}
+	
+	// ==================================== ^ TO REPLACE ^  ===========================
 
 	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
 		categoryDao = new CategoryDAO();

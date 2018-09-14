@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.ibm.cs.model.Product;
 
@@ -14,22 +15,22 @@ public class ProductDAO extends MasterDAO {
 		super();
 	}
 	
-	public ArrayList<Product> getProductList(int categoryId){
+	public HashMap<Integer, Product> getProductMap(){
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
-		ArrayList<Product> productList = new ArrayList<>();
-		int productId;
+		HashMap<Integer, Product> productMap = new HashMap<>();
+		int productId, fkCategoryId;
 		String SKU, brand, variant, size, measurementUnit, description, specialHandling;
 		double sellPrice, stockAmount;
 		
 		try {
-			pst = conn.prepareStatement("SELECT * FROM tbl_product WHERE fk_category_id = ?");
-			pst.setInt(1, categoryId);
+			pst = conn.prepareStatement("SELECT * FROM tbl_product");
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
 				productId = rs.getInt("product_id");
+				fkCategoryId = rs.getInt("fk_category_id");
 				SKU = rs.getString("SKU");
 				brand = rs.getString("brand");
 				variant = rs.getString("variant");
@@ -38,17 +39,54 @@ public class ProductDAO extends MasterDAO {
 				description = rs.getString("description");
 				specialHandling = rs.getString("special_handling");
 				sellPrice = rs.getDouble("sell_price");
-				stockAmount = calculateStockAmount(productId);
-
-				productList.add(new Product(productId, categoryId, SKU, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, stockAmount));
+//				stockAmount = calculateStockAmount(productId);
+				stockAmount = 0; // will just increment later at mapping stage, instead of making separate DB query
+				
+				productMap.put(productId, new Product(productId, fkCategoryId, SKU, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, stockAmount));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
             closeResources(rs, pst);
         }
-		return productList;
+		return productMap;
 	}
+	
+//	public ArrayList<Product> getProductList(int categoryId){
+//		PreparedStatement pst = null;
+//		ResultSet rs = null;
+//		
+//		ArrayList<Product> productList = new ArrayList<>();
+//		int productId;
+//		String SKU, brand, variant, size, measurementUnit, description, specialHandling;
+//		double sellPrice, stockAmount;
+//		
+//		try {
+//			pst = conn.prepareStatement("SELECT * FROM tbl_product WHERE fk_category_id = ?");
+//			pst.setInt(1, categoryId);
+//			rs = pst.executeQuery();
+//			
+//			while(rs.next()) {
+//				productId = rs.getInt("product_id");
+//				SKU = rs.getString("SKU");
+//				brand = rs.getString("brand");
+//				variant = rs.getString("variant");
+//				size = rs.getString("size");
+//				measurementUnit = rs.getString("measurement_unit");
+//				description = rs.getString("description");
+//				specialHandling = rs.getString("special_handling");
+//				sellPrice = rs.getDouble("sell_price");
+//				stockAmount = calculateStockAmount(productId);
+//
+//				productList.add(new Product(productId, categoryId, SKU, brand, variant, size, measurementUnit, description, specialHandling, sellPrice, stockAmount));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//            closeResources(rs, pst);
+//        }
+//		return productList;
+//	}
 	
 	private int calculateStockAmount(int productId) {
 		PreparedStatement pst = null;

@@ -7,6 +7,7 @@ import com.ibm.cs.model.User;
 
 public class UserManagementService {
 	UserDAO userDao;
+	boolean isSuccessful;
 
 	public UserManagementService() {
 		// TODO Auto-generated constructor stub
@@ -40,10 +41,22 @@ public class UserManagementService {
 		userDao.closeConnection();
 	}
 	
+	public boolean editProfile(int userId, String username) {
+		userDao = new UserDAO();
+		isSuccessful = userDao.editProfile(userId, username);
+		userDao.closeConnection();
+		return isSuccessful;
+	}
+	
 	public void deleteUser(int userId) {
 		userDao = new UserDAO();
 		userDao.deleteUser(userId);
 		userDao.closeConnection();
 	}
 
+	public void changePassword(int userId, String password) {
+		userDao = new UserDAO();
+		userDao.changePassword(userId, password);
+		userDao.closeConnection();
+	}
 }

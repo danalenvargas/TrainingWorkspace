@@ -1,4 +1,4 @@
-<button type="button" onclick="showModal('modalInputBatch', 4)">Input Batch of Items</button> <br />
+<button class="btnAdd" type="button" onclick="showModal('modalInputBatch', 4)">Input Batch of Items</button> <br />
 List of Batches:<br />
 <table>
 	<tr>

@@ -14,7 +14,12 @@ import com.ibm.cs.model.User;
 import com.ibm.cs.service.UserManagementService;
 
 /**
- * Servlet implementation class UserManagementServlet
+ * Servlet controller for all user account-related requests. <br>
+ * Handles validation and CRUD requests for User accounts<br>
+ * 
+ * @author Dan Alejandro A. Vargas
+ * @see UserManagementService
+ * @see User
  */
 public class UserManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,10 +35,19 @@ public class UserManagementServlet extends HttpServlet {
     }
 
 	/**
+	 * Handles GET requests, purpose of request are determined by the request's
+	 * 'action' parameter. <br>
+	 * Actions handled: <br>
+	 * - showing usermanagement.jsp page <br>
+	 * - getting User information <br>
+	 * - validating uniqueness of username when adding / editing user accounts
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String jsonString;
 		String action = request.getParameter("action");
+		
 		if(action==null) {
 			action = "showpage";
 		}
@@ -45,23 +59,40 @@ public class UserManagementServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("usermanagement.jsp");
 			dispatcher.forward(request, response);
 			break;
+			
 		case "getUser":
 			int userId = Integer.parseInt(request.getParameter("userId"));
 			User user = userService.getUser(userId);
-			String jsonString = new Gson().toJson(user);
+			jsonString = new Gson().toJson(user);
 			response.setContentType("application/json");
             response.getWriter().write(jsonString);
+            break;
+            
+		case "validateUsername":
+			String username = request.getParameter("username");
+			boolean isUnique = userService.validateUsername(username);
+			jsonString = new Gson().toJson(isUnique);
+			response.setContentType("application/json");
+            response.getWriter().write(jsonString);
+            break;
 		}
 	}
 
 	/**
+	 * Handles POST requests, purpose of request are determined by the request's
+	 * 'action' parameter. <br>
+	 * Actions handled: <br>
+	 * - adding, editing, deleting user accounts <br>
+	 * - changing user passwords 
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
 		int userId;
 		String username, password, userType;
 		boolean canCreate, canUpdate, canDelete;
+		
+		String action = request.getParameter("action");
 		
 		switch(action){
 		case "addUser":
@@ -73,6 +104,7 @@ public class UserManagementServlet extends HttpServlet {
 			canDelete = request.getParameterMap().containsKey("canDelete");
 			userService.addUser(username, password, userType, canCreate, canUpdate, canDelete);
 			break;
+			
 		case "editUser":
 			userId = Integer.parseInt(request.getParameter("userId"));
 			username = request.getParameter("username");
@@ -81,10 +113,12 @@ public class UserManagementServlet extends HttpServlet {
 			canDelete = request.getParameterMap().containsKey("canDelete");
 			userService.editUser(userId, username, canCreate, canUpdate, canDelete);
 			break;
+			
 		case "deleteUser":
 			userId = Integer.parseInt(request.getParameter("userId"));
 			userService.deleteUser(userId);
 			break;
+			
 		case "changePassword":
 			userId = Integer.parseInt(request.getParameter("userId"));
 			password = request.getParameter("password");
@@ -92,7 +126,6 @@ public class UserManagementServlet extends HttpServlet {
 			break;
 		}
 		
-		// POST-REDIRECT-GET pattern to avoid form resubmission
 		response.sendRedirect("UserManagement?action=showpage");
 	}
 }

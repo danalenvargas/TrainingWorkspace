@@ -3,6 +3,14 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Class representing a single item, entered under a particular batch of a
+ * particular product type.
+ * 
+ * @author Dan Alejandro A. Vargas
+ * @see Batch
+ * @see Product
+ */
 @SuppressWarnings("serial")
 public class Item implements Serializable {
 	private int itemId, fkBatchId;
@@ -12,7 +20,7 @@ public class Item implements Serializable {
 	public Item() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Item(int itemId, int fkBatchId, Date manufactureDate, Date expirationDate, double purchasePrice) {
 		super();
 		this.itemId = itemId;

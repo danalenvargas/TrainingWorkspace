@@ -1,3 +1,7 @@
+/**
+ * Script for modal displaying and hiding
+ */
+
 var modal;
 
 function showModal(modalName, index){
@@ -10,7 +14,7 @@ function showModal(modalName, index){
 	    modal.style.display = "none";
 	}
 	
-	//When the user clicks anywhere outside of the modal, close it
+	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	    if (modal != null && event.target == modal) {
 	        modal.style.display = "none";

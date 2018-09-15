@@ -13,15 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class RequestFilter
+ * Servlet Filter which filters all in-bound requests
+ * 
+ * @author Dan Alejandro A. Vargas
  */
 public class RequestFilter implements Filter {
-    /**
-     * Default constructor. 
-     */
-    public RequestFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public RequestFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -31,25 +33,34 @@ public class RequestFilter implements Filter {
 	}
 
 	/**
+	 * Filters in-bound requests for purposes of authentication and proper
+	 * processing of page. <br>
+	 * - Checks if user is logged in before proceeding, if not logged-in, request is
+	 * redirected to login page. <br>
+	 * - Redirects direct JSP page request to their corresponding servlets for proper
+	 * processing.
+	 * 
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        RequestDispatcher dispatcher;
-        String uri = req.getRequestURI();
-        HttpSession session = req.getSession(false); //find session for this user, if none exists, return null
-        if(session == null && !uri.endsWith("login.jsp")) { //check if a session exists for this user
-        	res.sendRedirect("login.jsp");
-        } else if (uri.endsWith("usermanagement.jsp")) { //check if user asks for jsp page directly
-        	res.sendRedirect("UserManagement");
-        } else if (uri.endsWith("productmanagement.jsp")) {
-//        	dispatcher = request.getRequestDispatcher("ProductManagement");
-//        	dispatcher.forward(request, response);
-        	res.sendRedirect("ProductManagement");
-        } else {
-        	chain.doFilter(request, response);
-        }
+		HttpServletResponse res = (HttpServletResponse) response;
+		String uri = req.getRequestURI();
+		HttpSession session = req.getSession();
+		boolean isLoggedIn = (session.getAttribute("user") != null);
+
+		if (!isLoggedIn && !uri.endsWith("login.jsp") && !uri.endsWith("Login")) {
+			res.sendRedirect("Login");
+		} else if (uri.contains("usermanagement.jsp")) {
+			res.sendRedirect("UserManagement");
+		} else if (uri.contains("productmanagement.jsp")) {
+			res.sendRedirect("ProductManagement");
+		} else if (uri.contains("userprofile.jsp")) {
+			res.sendRedirect("Profile");
+		} else {
+			chain.doFilter(request, response);
+		}
 	}
 
 	/**

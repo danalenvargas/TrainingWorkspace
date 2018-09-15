@@ -1,7 +1,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -17,7 +17,7 @@
 	<div class="content">
 		<h2>User Profile</h2>
 		<form action="Profile" method="post">
-			Username: <input type="text" name="username" placeholder="username" value="${user.username}" /><br />
+			Username: <input type="text" name="username" placeholder="username" value="${user.username}" onchange="validateUsername(this)" /><br />
 			User Type: <input type="text" name="userType" value="${user.userType}" readonly/><br />
 			Privileges:<br />
 			Create: <input type="checkbox" name="canCreate" value="1" ${user.canCreate == true ? 'checked' : ''} onclick="return false;" /><br />

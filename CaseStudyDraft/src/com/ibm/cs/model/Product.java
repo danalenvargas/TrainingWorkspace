@@ -3,6 +3,15 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class representing a single product, can have zero or more batches registered
+ * under it. For example: Under 'toothpaste' category, you can have 'Colgate
+ * White 50ml', 'Colgate Red 50ml', 'Close Up White 10ml' products.
+ * 
+ * @author Dan Alejandro A. Vargas
+ * @see Category
+ * @see Batch
+ */
 @SuppressWarnings("serial")
 public class Product implements Serializable {
 	int productId, fkCategoryId;
@@ -13,9 +22,9 @@ public class Product implements Serializable {
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Product(int productId, int fkCategoryId, String SKU, String brand, String variant, String size, String measurementUnit,
-			String description, String specialHandling, double sellPrice, double stockAmount) {
+
+	public Product(int productId, int fkCategoryId, String SKU, String brand, String variant, String size,
+			String measurementUnit, String description, String specialHandling, double sellPrice, double stockAmount) {
 		super();
 		this.productId = productId;
 		this.fkCategoryId = fkCategoryId;
@@ -130,6 +139,5 @@ public class Product implements Serializable {
 	public void setBatches(ArrayList<Batch> batches) {
 		this.batches = batches;
 	}
-	
-	
+
 }

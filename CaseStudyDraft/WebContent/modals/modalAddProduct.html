@@ -23,7 +23,7 @@
 					<option value="fragile">fragile</option>
 				</select> <br />
 				Selling Price: Php<input type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
-				SKU: <input id="addProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit">
+				SKU: <input id="addProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" onchange="validateProductSKU(this)">
 				<button type="button" onclick="generateSKU('onAdd')">Generate</button> <br />
 				<input type="hidden" name="action" value="addProduct" /> 
 				<input type="submit" value="Submit" />

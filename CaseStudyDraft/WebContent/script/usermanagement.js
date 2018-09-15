@@ -1,3 +1,7 @@
+/**
+ * Scripts for user management page (usermanagement.jsp)
+ */
+
 var password, confirmPassword, changePassword, confirmChangePassword;
 
 window.onload = function() {
@@ -14,21 +18,21 @@ window.onload = function() {
 	confirmChangePassword.onkeyup = validateChangePassword;
 };
 
+//sets the active Navigation tab to User Management tab for styling purposes
 function setActiveNavTab(){
 	document.getElementById("navUser").classList.add('active');
 }
 
-// Fetch a user's details from server, then display on the page
+// Fetch a user's details from server, then display on the modal
 function showUserDetails(userId){
 	var myInit = { 
 			method:'GET',
 			credentials: 'same-origin'
 	};
 	
-	fetch('UserManagement?action=getUser&userId=' + userId, myInit) // fetch request to server
+	fetch('UserManagement?action=getUser&userId=' + userId, myInit)
 		.then(function(response){
 			response.json().then(function(user){
-				console.log(user);
 				showModal('modalEditUser', 1)
 				document.getElementById("txtUsername").value = user.username;
 				document.getElementById("txtUserId").value = user.userId;
@@ -36,6 +40,7 @@ function showUserDetails(userId){
 				document.getElementById("chkEditUpdate").checked = user.canUpdate;
 				document.getElementById("chkEditDelete").checked = user.canDelete;
 				document.getElementById("txtUserId2").value = user.userId;
+				document.getElementById("txtOrigUsername").value = user.username;
 				document.getElementById("txtUserId3").value = user.userId;
 			})
 			.catch(function(err){
@@ -47,19 +52,22 @@ function showUserDetails(userId){
 		});
 }
 
+// when adding a user, if user type is "admin", set all privileges to true
 function togglePrivileges(selUserType){
 	if(selUserType.value == "admin"){
 		document.getElementById("chkCreate").checked = true;
 		document.getElementById("chkUpdate").checked = true;
 		document.getElementById("chkDelete").checked = true;
-	}else{
-		document.getElementById("chkCreate").readonly = false;
-		document.getElementById("chkUpdate").readonly = false;
-		document.getElementById("chkDelete").readonly = false;
 	}
+//	else{
+//		document.getElementById("chkCreate").readonly = false;
+//		document.getElementById("chkUpdate").readonly = false;
+//		document.getElementById("chkDelete").readonly = false;
+//	}
 }
 
-// work-around method to virtually make checkboxes read-only when userType is admin
+// work-around method to virtually make checkboxes read-only 
+// when userType is admin
 function checkIfReadOnly(checkBox){
 	var userType = document.getElementById("selUserType").value;
 	if(userType == "admin"){
@@ -67,6 +75,39 @@ function checkIfReadOnly(checkBox){
 	}
 }
 
+// checks if the username is unique, blocks submission of add/edit-user form 
+// if username is not unique 
+function validateUsername(unameInput){
+	var username = unameInput.value;
+	
+	var myInit = {
+			method:'GET',
+			credentials: 'same-origin'
+	};
+	
+	fetch('UserManagement?action=validateUsername&username=' + username, myInit)
+		.then(function(response){
+			response.json().then(function(isUnique){
+				if(isUnique == false){
+					unameInput.setCustomValidity("Username already taken");
+				}else{
+					unameInput.setCustomValidity('');
+				}
+				
+				if(unameInput.id == 'txtUsername' && username == document.getElementById('txtOrigUsername').value){
+					unameInput.setCustomValidity('');
+				}
+			})
+			.catch(function(err){
+				console.log("error with parsing");
+			});
+		})
+		.catch(function(err){
+			console.log("Fetch Error: ", err)
+		});
+}
+
+// checks if passwords match in add-user modal
 function validatePassword(){
 	if(password.value != confirmPassword.value) {
 		confirmPassword.setCustomValidity("Passwords Don't Match");
@@ -75,6 +116,7 @@ function validatePassword(){
 	}
 }
 
+// checks if passwords match in edit-user modal
 function validateChangePassword(){
 	if(changePassword.value != changeConfirmPassword.value) {
 		changeConfirmPassword.setCustomValidity("Passwords Don't Match");
@@ -82,3 +124,4 @@ function validateChangePassword(){
 		changeConfirmPassword.setCustomValidity('');
 	}
 }
+

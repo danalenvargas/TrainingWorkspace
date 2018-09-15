@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Product Management</title>
 	<script src="script/modal.js"></script>
 	<script src="script/productmanagement.js"></script>
@@ -12,6 +12,15 @@
 	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="css/modal.css" />
 	<link rel="stylesheet" href="css/tab.css" />
+	
+	<script type="text/javascript">  // make some request-scope variables available in javascript later on
+	    var selectedTab = '${selectedTab}';
+	    var privileges = {
+		    canCreate : '${user.canCreate}',
+		    canUpdate : '${user.canUpdate}',
+		    canDelete : '${user.canDelete}',
+	    };
+	</script>
 </head>
 <body>
 	<%@include file="partials/header.jsp" %>
@@ -43,15 +52,5 @@
 			<%@include file="partials/tabItems.jsp" %>
 		</div>
 	</div>
-	
-	<script type="text/javascript">  // make some request-scope variables available in javascript later on
-// 	    var test = '${categoryList}';
-	    var selectedTab = '${selectedTab}';
-	    var privileges = {
-		    canCreate : '${user.canCreate}',
-		    canUpdate : '${user.canUpdate}',
-		    canDelete : '${user.canDelete}',
-	    };
-	</script>
 </body>
 </html>

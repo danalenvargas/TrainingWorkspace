@@ -23,9 +23,10 @@
 					<option value="fragile">fragile</option>
 				</select> <br />
 				Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
-				SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" />
+				SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" onchange="validateProductSKU(this)"/>
 				<button type="button" onclick="generateSKU('onEdit')">Generate</button> <br />
 				<input id="editProdId" type="hidden" name="productId" />
+				<input id="editProdOrigSKU" type="hidden" disabled />
 				<input type="hidden" name="action" value="editProduct" />
 				<input class="btnEdit" type="submit" value="Update" />
 			</form>

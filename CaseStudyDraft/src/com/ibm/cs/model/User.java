@@ -2,8 +2,14 @@ package com.ibm.cs.model;
 
 import java.io.Serializable;
 
+/**
+ * Class representing a user for the inventory management system
+ * 
+ * @author Dan Alejandro A. Vargas
+ *
+ */
 @SuppressWarnings("serial")
-public class User implements Serializable{
+public class User implements Serializable {
 	private int userId;
 
 	private String username, userType;
@@ -12,8 +18,7 @@ public class User implements Serializable{
 	public User() {
 	}
 
-	public User(int userId, String username, String userType, boolean canCreate,
-			boolean canUpdate, boolean canDelete) {
+	public User(int userId, String username, String userType, boolean canCreate, boolean canUpdate, boolean canDelete) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -22,7 +27,7 @@ public class User implements Serializable{
 		this.canUpdate = canUpdate;
 		this.canDelete = canDelete;
 	}
-	
+
 	public int getUserId() {
 		return userId;
 	}

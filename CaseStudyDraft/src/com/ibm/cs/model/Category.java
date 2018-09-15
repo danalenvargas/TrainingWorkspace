@@ -3,22 +3,28 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-//import com.google.gson.Gson;
-
+/**
+ * Class representing a single category, can have zero or more products
+ * registered under it. For example: Under 'toothpaste' category, you can have
+ * 'Colgate White 50ml', 'Colgate Red 50ml', 'Close Up White 10ml' products
+ * 
+ * @author Dan Alejandro A. Vargas
+ * @see Product
+ */
 @SuppressWarnings("serial")
 public class Category implements Serializable {
 	private int categoryId;
 	private String categoryName;
-	private String categoryType; // (Beverages, Bread/Bakery, Canned/Jarred GOods, Dairy, Dry/Baking Goods, Frozen Goods, Meat, Produce, Cleaners, Paper Goods, Personal Care, Other)
+	private String categoryType;
 	private boolean isPerishable;
 	private Boolean isRecyclable;
 	ArrayList<Product> products;
 
 	public Category() {
-		// TODO Auto-generated constructor stub
 	}
-	
-	public Category(int category_id, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
+
+	public Category(int category_id, String categoryName, String categoryType, boolean isPerishable,
+			Boolean isRecyclable) {
 		super();
 		this.categoryId = category_id;
 		this.categoryName = categoryName;
@@ -44,6 +50,25 @@ public class Category implements Serializable {
 		this.categoryName = name;
 	}
 
+	/**
+	 * Categories are further grouped into types, example:<br>
+	 * Category Type | category samples<br>
+	 * ----------------------------------------------<br>
+	 * Beverages | coffee/tea, juice, soda<br>
+	 * Bread/Bakery | sandwich loaves, dinner rolls, tortillas, bagels<br>
+	 * Canned/Jarred Goods | vegetables, spaghetti sauce, ketchup<br>
+	 * Dairy | cheeses, eggs, milk, yogurt, butter<br>
+	 * Dry/Baking Goods | cereals, flour, sugar, pasta, mixes<br>
+	 * Frozen Foods | waffles, vegetables, individual meals, ice cream<br>
+	 * Meat | lunch meat, poultry, beef, pork<br>
+	 * Produce | fruits, vegetables<br>
+	 * Cleaners | laundry detergent, dishwashing liquid/detergent<br>
+	 * Paper Goods | paper towels, toilet paper, aluminum foil, sandwich bags<br>
+	 * Personal Care | shampoo, soap, hand soap, shaving cream<br>
+	 * Other | baby items, pet items, batteries, greeting cards<br>
+	 * 
+	 * @return category type
+	 */
 	public String getCategoryType() {
 		return categoryType;
 	}
@@ -67,7 +92,7 @@ public class Category implements Serializable {
 	public void setIsRecyclable(Boolean isRecyclable) {
 		this.isRecyclable = isRecyclable;
 	}
-	
+
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
@@ -75,10 +100,4 @@ public class Category implements Serializable {
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
 	}
-	
-//	@Override
-//	public String toString() {
-//		return new Gson().toJson(this);
-//	}
-	
 }

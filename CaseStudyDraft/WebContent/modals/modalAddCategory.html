@@ -6,7 +6,7 @@
 		</div>
 		<div class="modal-body">
 			<form action="ProductManagement" method="post" >
-				Name: <input type="text" name="categoryName" placeholder="category name"> <br />
+				Name: <input type="text" name="categoryName" placeholder="category name" onchange="validateCategoryName(this)"> <br />
 				Category Type:  <select name="categoryType">
 					<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
 					<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>

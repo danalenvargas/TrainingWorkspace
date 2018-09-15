@@ -3,21 +3,28 @@ package com.ibm.cs.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
+/**
+ * Class representing a single batch, consists one or multiple Items of a
+ * particular Product type. For example: You can have a batch of 150 pieces
+ * (items) of 'Colgate White 50ml' product
+ * 
+ * @author Dan Alejandro A. Vargas
+ * @see Product
+ * @see Item
+ */
 @SuppressWarnings("serial")
 public class Batch implements Serializable {
 	int batchId, fkProductId, amount, remainingAmount;
 	String comments, supplier;
 	Date entryTimestamp;
-//	HashMap<Integer, Item> items = new HashMap<>();
 	ArrayList<Item> items;
 
 	public Batch() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Batch(int batchId, int fkProductId, int amount, int remainingAmount, String comments, String supplier, Date entryTimestamp) {
+	public Batch(int batchId, int fkProductId, int amount, int remainingAmount, String comments, String supplier,
+			Date entryTimestamp) {
 		super();
 		this.batchId = batchId;
 		this.fkProductId = fkProductId;
@@ -92,9 +99,9 @@ public class Batch implements Serializable {
 	public void setRemainingAmount(int remainingAmount) {
 		this.remainingAmount = remainingAmount;
 	}
-	
+
 	public void incrementRemainingAmount(int amountToAdd) {
 		this.remainingAmount += amountToAdd;
 	}
-	
+
 }

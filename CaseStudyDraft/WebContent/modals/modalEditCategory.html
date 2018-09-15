@@ -6,7 +6,7 @@
 		</div>
 		<div class="modal-body">
 			<form action="ProductManagement" method="post">
-				Name: <input id="txtCategoryName" type="text" name="categoryName" placeholder="category name" /> <br />
+				Name: <input id="txtCategoryName" type="text" name="categoryName" placeholder="category name" onchange="validateCategoryName(this)" /> <br />
 				Category Type:  <select id="selCategoryType" name="categoryType">
 					<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
 					<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
@@ -28,6 +28,7 @@
 				</fieldset>
 				<br />
 				<input id="txtCategoryId" type="hidden" name="categoryId" />
+				<input id="txtOrigCategoryName" type="hidden" disabled />
 				<input type="hidden" name="action" value="editCategory" />
 				<input class="btnEdit" id="btnEditCategory" type="submit" value="Update" /><br />
 			</form>

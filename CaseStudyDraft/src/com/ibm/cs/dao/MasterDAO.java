@@ -8,19 +8,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Base abstract DAO class inherited by all concrete DAO classes
+ * 
+ * @author Dan Alejandro A. Vargas
+ * @see UserDAO
+ * @see CategoryDAO
+ * @see ProductDAO
+ * @see BatchDAO
+ * @see ItemDAO
+ */
 public abstract class MasterDAO {
-	// private static final String URL =
-	// "jdbc:mysql://localhost/cs_draft_db?useLegacyDatetimeCode=false&serverTimezone=UTC";
+	// private static final String URL = "jdbc:mysql://localhost/cs_draft_db?useLegacyDatetimeCode=false&serverTimezone=UTC";
 	// private static final String USER = "root";
 	// private static final String PASSWORD = "admin";
 	protected Connection conn;
 	private Properties properties = new Properties();
 
-	// a connection is opened at DAO construction, but new connection can also be created using openConnection() method
+	/**
+	 * Default constructor. A connection is opened at DAO construction, but new
+	 * connection can also be created using openConnection() method in case it is
+	 * closed. <br>
+	 * Connections are opened and closed at Service level to allow a single
+	 * connection for multiple method calls
+	 */
 	public MasterDAO() {
-		this.conn = getConnection(); 
+		this.conn = getConnection();
 	}
 
+	/**
+	 * Utility method to get a connection to be assigned to the DAO's connection
+	 * variable;
+	 * 
+	 * @return Connection created using the properties on the config file
+	 */
 	protected Connection getConnection() {
 		Connection con = null;
 		try {
@@ -28,7 +49,7 @@ public abstract class MasterDAO {
 			String url = properties.getProperty("DB_URL");
 			String user = properties.getProperty("DB_USER");
 			String password = properties.getProperty("DB_PASS");
-			
+
 			Class.forName(properties.getProperty("DB_DRIVER")); // register the driver
 			con = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
@@ -38,15 +59,24 @@ public abstract class MasterDAO {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 		return con;
 	}
 
-	// connections are opened and closed at Service level to allow a single connection for multiple DAO method calls
+	/**
+	 * Assigns an open connection to a DAO's connection variable. <br>
+	 * Connections are opened and closed at Service level to allow a single
+	 * connection for multiple method calls.
+	 */
 	public void openConnection() {
 		this.conn = getConnection();
 	}
 
+	/**
+	 * Closes a DAO's connection. <br>
+	 * Connections are opened and closed at Service level to allow a single
+	 * connection for multiple method calls.
+	 */
 	public void closeConnection() {
 		if (this.conn != null) {
 			try {
@@ -56,20 +86,46 @@ public abstract class MasterDAO {
 			}
 		}
 	}
-	
-	// PreparedStatements and ResultSets are closed after every use/method
+
+	/**
+	 * Utility method to close PreparedStatements and ResultSets after every
+	 * use/method.
+	 * 
+	 * @param rs
+	 *            Resultset to be closed
+	 * @param pst
+	 *            PreparedStatement to be closed
+	 */
 	protected void closeResources(ResultSet rs, PreparedStatement pst) {
 		if (rs != null) {
-            try {rs.close();} catch (SQLException e) { e.printStackTrace();}
-        }
-        if (pst != null) {
-            try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-        }
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if (pst != null) {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-	
+
+	/**
+	 * Utility method to close PreparedStatements after every use/method
+	 * 
+	 * @param pst
+	 *            PreparedStatement to be closed
+	 */
 	protected void closeResources(PreparedStatement pst) {
-        if (pst != null) {
-            try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-        }
+		if (pst != null) {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

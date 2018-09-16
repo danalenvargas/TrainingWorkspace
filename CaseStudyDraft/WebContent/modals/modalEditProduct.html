@@ -11,7 +11,7 @@
 						<option value="${category.categoryId}" title="${category.categoryType}">${category.categoryName}</option>
 					</c:forEach>
 				</select> <br />
-				Brand: <input id="editProdBrand" type="text" name="brand" placeholder="brand" /> <br />
+				Brand: <input id="editProdBrand" type="text" name="brand" placeholder="brand" required /> <br />
 				Variant: <input id="editProdVariant" type="text" name="variant" value="none" placeholder="none" /> <br />
 				Size: <input id="editProdSize" type="text" name="size" placeholder="size" />
 				<input id="editProdUnit" type="text" name="measurementUnit" placeholder="unit" /> <br />
@@ -22,8 +22,8 @@
 					<option value="keep refrigerated">keep refrigerated</option>
 					<option value="fragile">fragile</option>
 				</select> <br />
-				Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
-				SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" onchange="validateProductSKU(this)"/>
+				Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01" min="0" max="9999999" /> <br /><br />
+				SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" onchange="validateProductSKU(this)" required />
 				<button type="button" onclick="generateSKU('onEdit')">Generate</button> <br />
 				<input id="editProdId" type="hidden" name="productId" />
 				<input id="editProdOrigSKU" type="hidden" disabled />

@@ -1,7 +1,8 @@
 @charset "ISO-8859-1";
 
 .tab {
-    overflow: hidden;
+    overflow: auto;
+    overflow-x: auto;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
@@ -30,6 +31,7 @@
 
 /* Style the tab content */
 .tabcontent {
+	overflow-x: scroll;
     display: none;
     padding: 6px 12px;
     border: 1px solid #ccc;

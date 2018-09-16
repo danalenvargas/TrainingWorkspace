@@ -6,7 +6,7 @@
 	    </div>
 	    <div class="modal-body">
 			<form action="UserManagement" method="post" accept-charset=utf-8>
-				Username: <input id="txtUsername" type="text" name="username" placeholder="username" onchange="validateUsername(this)"/><br />
+				Username: <input id="txtUsername" type="text" name="username" placeholder="username" onchange="validateUsername(this)" required /><br />
 				Privileges:<br />
 				Create: <input id="chkEditCreate" type="checkbox" name="canCreate" value="1" /><br />
 				Update: <input id="chkEditUpdate" type="checkbox" name="canUpdate" value="1" /><br/>

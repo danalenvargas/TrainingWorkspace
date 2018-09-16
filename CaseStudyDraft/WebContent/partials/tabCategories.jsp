@@ -25,13 +25,13 @@ List of Categories:<br />
 		</select></th>
 		<th><select class="colFilter">
 			<option value="" selected></option>
-			<option value="true">true</option>
-			<option value="false">false</option>
+			<option value="Perishable">Perishable</option>
+			<option value="Non-perishable">Non-perishable</option>
 		</select></th>
 		<th><select class="colFilter">
 			<option value="" selected></option>
-			<option value="true">true</option>
-			<option value="false">false</option>
+			<option value="Recyclable">Recyclable</option>
+			<option value="Non-recyclable">Non-recyclable</option>
 		</select>
 		<button type="button" onclick="filterTable('tblCategory')">Filter</button></th>
 	</tr>
@@ -39,8 +39,8 @@ List of Categories:<br />
 		<tr>
 			<td onclick="showCategoryDetails('${category.categoryId}')">${category.categoryName}</td>
 			<td>${category.categoryType}</td>
-			<td>${category.isPerishable}</td>
-			<td>${category.isRecyclable}</td>
+			<td>${category.isPerishable == true ? 'Perishable' : 'Non-perishable'}</td>
+			<td>${!empty category.isRecyclable ? (category.isRecyclable == true ? 'Recyclable' : 'Non-recyclable') : '---'}</td>
 		</tr>
 	</c:forEach>
 </table>

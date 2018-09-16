@@ -6,6 +6,7 @@
 
 body {
   margin: 0;
+/*   overflow-x: scroll; */
 }
 
 /* styles for the header bar */
@@ -72,8 +73,52 @@ body {
 	clear:left;
 	margin: 100px auto 0;
 	padding: 5px;
+/* 	overflow: auto; */
 }
 
 .active {
     background-color: #39CCCC;
+}
+
+th, td {
+	min-width: 140px; 
+	text-align: center;
+}
+
+/* .fixed_header{ */
+/*     width: 400px; */
+/*     table-layout: fixed; */
+/*     border-collapse: collapse; */
+/* } */
+
+/* .fixed_header tbody{ */
+/* 	display:block; */
+/*   overflow: auto; */
+/*   height: 100%; */
+/*   width: 100%; */
+
+/* 	overflow: auto; */
+/*    display: block; */
+/*    max-height: 1000px;     */
+/* } */
+
+/* .fixed_header tbody tr{ */
+/* 	display: table; */
+/*    width: 100%; */
+/*    table-layout: fixed; */
+/* } */
+
+/* .fixed_header thead { */
+/*   background: black; */
+/*   color:#fff; */
+/* display: table;   */
+/*    width: 100%; */
+/*    table-layout: fixed; */
+/* } */
+
+/* .fixed_header th, .fixed_header td { */
+/*   padding: 5px; */
+/*   text-align: left; */
+/*   width: auto; */
+/*   width: 200px; */
 }

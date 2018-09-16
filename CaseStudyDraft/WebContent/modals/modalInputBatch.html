@@ -9,16 +9,16 @@
 				Product:  <select name="productId">
 					<c:forEach items="${categoryList}" var="category">
 						<c:forEach items="${category.products}" var="product">
-							<option value="${product.productId}" title="${category.categoryType}">${product.SKU} (${category.categoryName}-${product.brand}/${product.variant}/${product.size} ${product.measurementUnit})</option>
+							<option value="${product.productId}" title="${category.categoryType}" onclick="toggleExpiryInput(${category.isPerishable})">${product.SKU} (${category.categoryName}-${product.brand}/${product.variant}/${product.size} ${product.measurementUnit})</option>
 						</c:forEach>
 					</c:forEach>
 				</select> <br />
-				Amount: <input type="number" name="amount" /> <br />
+				Amount: <input type="number" name="amount" min="1" max="9999" required /> <br />
 				Supplier: <input type="text" name="supplier" value="" /> <br />
 				Comments: <textarea name="comments" placeholder="comments" rows="3" cols="40"></textarea> <br />
-				Manufacture Date: <input type="date" name="manufactureDate" /> <br />
-				Expiration Date: <input type="date" name="expirationDate" /> <br />
-				Purchase Price (per item): Php<input type="number" name="purchasePrice" step="0.01" /> <br />
+				Manufacture Date: <input type="date" name="manufactureDate" required /> <br />
+				Expiration Date: <input id="expirationInput" type="date" name="expirationDate" /> <br />
+				Purchase Price (per item): Php<input type="number" name="purchasePrice" step="0.01" min="0" max="9999999" required /> <br />
 				<input type="hidden" name="action" value="inputBatch" />
 				<input type="submit" value="Submit" />
 			</form>

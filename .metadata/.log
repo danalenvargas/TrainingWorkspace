@@ -9549,3 +9549,367 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2018-09-16 06:49:41.298 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_172
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_PH
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-09-16 06:49:53.453
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\danal'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2018-09-16 09:29:43.252 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_172
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_PH
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-09-16 09:29:51.600
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\danal'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2018-09-16 13:39:46.982 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_172
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_PH
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-09-16 13:39:55.103
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\danal'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 13:42:39.703
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 13:42:39.703
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 13:42:39.734
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 13:42:39.734
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 14:31:17.748
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.Scope.getKey(Scope.java:403)
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.SymbolBase.getKey(SymbolBase.java:38)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.putBinding(BindingResolverDom.java:199)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.processVariableDeclaration(BindingResolverDom.java:163)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.resolve(BindingResolverDom.java:105)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.resolveBindings(ASTParser.java:1110)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.createAST(ASTParser.java:656)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:583)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:576)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:511)
+	at org.eclipse.wst.jsdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:150)
+	at org.eclipse.wst.jsdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:135)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 14:31:17.998
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.Scope.getKey(Scope.java:403)
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.SymbolBase.getKey(SymbolBase.java:38)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.putBinding(BindingResolverDom.java:199)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.processVariableDeclaration(BindingResolverDom.java:163)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.resolve(BindingResolverDom.java:105)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.resolveBindings(ASTParser.java:1110)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.createAST(ASTParser.java:656)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:583)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:576)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:511)
+	at org.eclipse.wst.jsdt.internal.ui.text.java.JavascriptReconcilingStrategy$1.run(JavascriptReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.jsdt.internal.ui.text.java.JavascriptReconcilingStrategy.reconcile(JavascriptReconcilingStrategy.java:76)
+	at org.eclipse.wst.jsdt.internal.ui.text.java.JavascriptReconcilingStrategy.reconcile(JavascriptReconcilingStrategy.java:129)
+	at org.eclipse.wst.jsdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:85)
+	at org.eclipse.wst.jsdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:98)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
+	at org.eclipse.wst.jsdt.internal.ui.text.JavaReconciler.process(JavaReconciler.java:374)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.wst.xml.core 4 4 2018-09-16 17:54:11.837
+!MESSAGE IStructuredDocumentRegion management failed.
+!STACK 0
+org.eclipse.wst.xml.core.internal.document.StructuredDocumentRegionManagementException: IStructuredDocumentRegion management failed.
+	at org.eclipse.wst.xml.core.internal.document.XMLModelParser.removeStructuredDocumentRegion(XMLModelParser.java:2222)
+	at org.eclipse.wst.xml.core.internal.document.XMLModelParser.removeStructuredDocumentRegion(XMLModelParser.java:2281)
+	at org.eclipse.wst.xml.core.internal.document.XMLModelParser.replaceStructuredDocumentRegions(XMLModelParser.java:2339)
+	at org.eclipse.wst.xml.core.internal.document.DOMModelImpl.nodesReplaced(DOMModelImpl.java:737)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument._fireEvent(BasicStructuredDocument.java:600)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument.fireStructuredDocumentEvent(BasicStructuredDocument.java:1198)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument.internalReplaceText(BasicStructuredDocument.java:1979)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument.replaceText(BasicStructuredDocument.java:2423)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument.replaceText(BasicStructuredDocument.java:2408)
+	at org.eclipse.wst.sse.core.internal.text.JobSafeStructuredDocument.access$2(JobSafeStructuredDocument.java:1)
+	at org.eclipse.wst.sse.core.internal.text.JobSafeStructuredDocument$3.run(JobSafeStructuredDocument.java:141)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.sse.ui.EditorExecutionContext.execute(EditorExecutionContext.java:149)
+	at org.eclipse.wst.sse.core.internal.text.JobSafeStructuredDocument.replaceText(JobSafeStructuredDocument.java:144)
+	at org.eclipse.wst.sse.core.internal.text.BasicStructuredDocument.replace(BasicStructuredDocument.java:2368)
+	at org.eclipse.wst.sse.core.internal.text.JobSafeStructuredDocument.access$0(JobSafeStructuredDocument.java:1)
+	at org.eclipse.wst.sse.core.internal.text.JobSafeStructuredDocument$1.run(JobSafeStructuredDocument.java:103)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.sse.ui.EditorExecutionContext.execute(EditorExecutionContext.java:149)
+	at org.eclipse.wst.sse.core.internal.text.JobSafeStructuredDocument.replace(JobSafeStructuredDocument.java:106)
+	at org.eclipse.jface.text.projection.ProjectionTextStore.replace(ProjectionTextStore.java:103)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1095)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1120)
+	at org.eclipse.jface.text.projection.ProjectionDocument.replace(ProjectionDocument.java:625)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.replaceTextRange(DefaultDocumentAdapter.java:233)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:7355)
+	at org.eclipse.swt.custom.StyledText.sendKeyEvent(StyledText.java:8203)
+	at org.eclipse.swt.custom.StyledText.doBackspace(StyledText.java:2335)
+	at org.eclipse.swt.custom.StyledText.invokeAction(StyledText.java:7144)
+	at org.eclipse.swt.custom.StyledText.handleKey(StyledText.java:6007)
+	at org.eclipse.swt.custom.StyledText.handleKeyDown(StyledText.java:6034)
+	at org.eclipse.swt.custom.StyledText.lambda$1(StyledText.java:5732)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:86)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4428)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1079)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1103)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1088)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1130)
+	at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:1126)
+	at org.eclipse.swt.widgets.Widget.wmChar(Widget.java:1547)
+	at org.eclipse.swt.widgets.Control.WM_CHAR(Control.java:4962)
+	at org.eclipse.swt.widgets.Canvas.WM_CHAR(Canvas.java:364)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:4843)
+	at org.eclipse.swt.widgets.Canvas.windowProc(Canvas.java:359)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5178)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2560)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3815)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1150)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1039)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:680)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:594)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:151)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:653)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:590)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1499)
+!SESSION 2018-09-16 19:18:48.578 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_172
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_PH
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-09-16 19:18:56.282
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\danal'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 19:27:40.469
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 19:27:40.475
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 19:27:40.500
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-16 19:27:40.506
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 19:36:23.399
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.Scope.getKey(Scope.java:403)
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.SymbolBase.getKey(SymbolBase.java:38)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.putBinding(BindingResolverDom.java:199)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.processVariableDeclaration(BindingResolverDom.java:163)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.resolve(BindingResolverDom.java:105)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.resolveBindings(ASTParser.java:1110)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.createAST(ASTParser.java:656)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:583)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:576)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:511)
+	at org.eclipse.wst.jsdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:150)
+	at org.eclipse.wst.jsdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$3.run(SelectionListenerWithASTManager.java:135)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 19:36:23.610
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.Scope.getKey(Scope.java:403)
+	at org.eclipse.wst.jsdt.internal.core.dom.binding.SymbolBase.getKey(SymbolBase.java:38)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.putBinding(BindingResolverDom.java:199)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.processVariableDeclaration(BindingResolverDom.java:163)
+	at org.eclipse.wst.jsdt.core.dom.BindingResolverDom.resolve(BindingResolverDom.java:105)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.resolveBindings(ASTParser.java:1110)
+	at org.eclipse.wst.jsdt.core.dom.ASTParser.createAST(ASTParser.java:656)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider$1.run(ASTProvider.java:583)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.createAST(ASTProvider.java:576)
+	at org.eclipse.wst.jsdt.internal.ui.javaeditor.ASTProvider.getAST(ASTProvider.java:511)
+	at org.eclipse.wst.jsdt.internal.ui.text.java.JavascriptReconcilingStrategy$1.run(JavascriptReconcilingStrategy.java:89)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.wst.jsdt.internal.ui.text.java.JavascriptReconcilingStrategy.reconcile(JavascriptReconcilingStrategy.java:76)
+	at org.eclipse.wst.jsdt.internal.ui.text.java.JavascriptReconcilingStrategy.reconcile(JavascriptReconcilingStrategy.java:129)
+	at org.eclipse.wst.jsdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:85)
+	at org.eclipse.wst.jsdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:98)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
+	at org.eclipse.wst.jsdt.internal.ui.text.JavaReconciler.process(JavaReconciler.java:374)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 19:36:24.632
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 19:36:24.878
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.wst.jsdt.core 4 4 2018-09-16 19:36:26.651
+!MESSAGE null
+!STACK 0
+java.lang.NullPointerException
+!SESSION 2018-09-16 20:42:43.851 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_172
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_PH
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-09-16 20:42:51.624
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\danal'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui.browser 4 0 2018-09-16 20:43:14.069
+!MESSAGE Launching C:\Program Files (x86)\Mozilla Firefox\firefox.exe has failed.
+!STACK 0
+java.io.IOException: Cannot run program "C:\Program Files (x86)\Mozilla Firefox\firefox.exe": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.openBrowser(MozillaBrowser.java:103)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.run(MozillaBrowser.java:175)
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 5 more
+
+!ENTRY org.eclipse.ui.browser 4 0 2018-09-16 20:44:07.443
+!MESSAGE Launching C:\Program Files (x86)\Mozilla Firefox\firefox.exe has failed.
+!STACK 0
+java.io.IOException: Cannot run program "C:\Program Files (x86)\Mozilla Firefox\firefox.exe": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.openBrowser(MozillaBrowser.java:103)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.run(MozillaBrowser.java:175)
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 5 more
+
+!ENTRY org.eclipse.ui.browser 4 0 2018-09-16 20:44:44.209
+!MESSAGE Launching C:\Program Files (x86)\Mozilla Firefox\firefox.exe has failed.
+!STACK 0
+java.io.IOException: Cannot run program "C:\Program Files (x86)\Mozilla Firefox\firefox.exe": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.openBrowser(MozillaBrowser.java:103)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.run(MozillaBrowser.java:175)
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 5 more
+
+!ENTRY org.eclipse.ui.browser 4 0 2018-09-16 20:45:05.490
+!MESSAGE Launching C:\Program Files (x86)\Mozilla Firefox\firefox.exe has failed.
+!STACK 0
+java.io.IOException: Cannot run program "C:\Program Files (x86)\Mozilla Firefox\firefox.exe": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.openBrowser(MozillaBrowser.java:103)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.run(MozillaBrowser.java:175)
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 5 more
+
+!ENTRY org.eclipse.ui.browser 4 0 2018-09-16 20:45:55.103
+!MESSAGE Launching C:\Program Files (x86)\Mozilla Firefox\firefox.exe has failed.
+!STACK 0
+java.io.IOException: Cannot run program "C:\Program Files (x86)\Mozilla Firefox\firefox.exe": CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at java.lang.Runtime.exec(Unknown Source)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.openBrowser(MozillaBrowser.java:103)
+	at org.eclipse.ui.internal.browser.browsers.MozillaBrowser$BrowserThread.run(MozillaBrowser.java:175)
+Caused by: java.io.IOException: CreateProcess error=2, The system cannot find the file specified
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 5 more
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-17 00:52:00.350
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-17 00:52:00.360
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-17 01:37:42.280
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-17 01:37:42.290
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-17 02:06:49.276
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2018-09-17 02:06:49.282
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'

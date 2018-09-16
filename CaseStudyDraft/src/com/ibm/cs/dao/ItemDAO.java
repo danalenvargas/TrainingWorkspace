@@ -105,8 +105,10 @@ public class ItemDAO extends MasterDAO {
 					"INSERT INTO tbl_item(fk_batch_id, manufacture_date, expiration_date, purchase_price) "
 							+ "VALUES(?,?,?,?)");
 			pst.setInt(1, batchId);
-			pst.setDate(2, new java.sql.Date(manufactureDate.getTime()));
-			pst.setDate(3, new java.sql.Date(expirationDate.getTime()));
+			if(manufactureDate != null) pst.setDate(2, new java.sql.Date(manufactureDate.getTime()));
+			else pst.setNull(2, java.sql.Types.BOOLEAN);
+			if(expirationDate != null) pst.setDate(3, new java.sql.Date(expirationDate.getTime()));
+			else pst.setNull(3, java.sql.Types.BOOLEAN);
 			pst.setDouble(4, purchasePrice);
 
 			for (int i = 0; i < amount; i++) {
@@ -128,8 +130,10 @@ public class ItemDAO extends MasterDAO {
 		try {
 			pst = conn.prepareStatement(
 					"UPDATE tbl_item SET manufacture_date=?, expiration_date=?, purchase_price=? " + "WHERE item_id=?");
-			pst.setDate(1, new java.sql.Date(manufactureDate.getTime()));
-			pst.setDate(2, new java.sql.Date(expirationDate.getTime()));
+			if(manufactureDate != null) pst.setDate(1, new java.sql.Date(manufactureDate.getTime()));
+			else pst.setNull(1, java.sql.Types.BOOLEAN);
+			if(expirationDate != null) pst.setDate(2, new java.sql.Date(expirationDate.getTime()));
+			else pst.setNull(2, java.sql.Types.BOOLEAN);
 			pst.setDouble(3, purchasePrice);
 
 			for (int id : itemIds) {

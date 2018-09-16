@@ -14,9 +14,9 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("serial")
 public class Product implements Serializable {
-	int productId, fkCategoryId;
+	int productId, fkCategoryId, stockAmount;
 	String SKU, brand, variant, size, measurementUnit, description, specialHandling;
-	double sellPrice, stockAmount;
+	double sellPrice;
 	ArrayList<Batch> batches;
 
 	public Product() {
@@ -24,7 +24,7 @@ public class Product implements Serializable {
 	}
 
 	public Product(int productId, int fkCategoryId, String SKU, String brand, String variant, String size,
-			String measurementUnit, String description, String specialHandling, double sellPrice, double stockAmount) {
+			String measurementUnit, String description, String specialHandling, double sellPrice, int stockAmount) {
 		super();
 		this.productId = productId;
 		this.fkCategoryId = fkCategoryId;
@@ -112,11 +112,11 @@ public class Product implements Serializable {
 		this.sellPrice = sellPrice;
 	}
 
-	public double getStockAmount() {
+	public int getStockAmount() {
 		return stockAmount;
 	}
 
-	public void setStockAmount(double stockAmount) {
+	public void setStockAmount(int stockAmount) {
 		this.stockAmount = stockAmount;
 	}
 

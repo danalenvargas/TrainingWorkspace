@@ -15,8 +15,8 @@
 						</c:forEach>
 					</c:forEach>
 				</select> <br />
-				Amount: <span id="editBatchRemainingAmount"></span> / <input id="editBatchAmount" type="number" name="amount" /> <br /> 
-				Supplier: <input id="editBatchSupplier" type="text" name="supplier" value="" /> <br />
+				Amount: <span id="editBatchRemainingAmount"></span> / <input id="editBatchAmount" type="number" name="amount" min="1" max="9999"/> <br /> 
+				Supplier: <input id="editBatchSupplier" type="text" name="supplier" value="" required /> <br />
 				Comments: <textarea id="editBatchComments" name="comments" placeholder="comments" rows="3" cols="40"></textarea> <br />
 				<input id="editBatchId2" type="hidden" name="batchId" />
 				<input type="hidden" name="action" value="editBatch" />

@@ -4,6 +4,7 @@
 
 // array of selected items for edit/delete
 var selectedItems = [];
+var groupingLevel = 'batch';
 
 // at page load, set the active navigation tab, set the active inventory tab, and apply user privileges
 window.onload = function() {
@@ -17,6 +18,7 @@ window.onload = function() {
 //parameters: tableId = id of table to be sorted, colIndex = which column to use for sorting the table
 function sortTable(tableId, colIndex) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+	
 	table = document.getElementById(tableId);
 	switching = true;
 	dir = "asc";
@@ -24,11 +26,14 @@ function sortTable(tableId, colIndex) {
 	while (switching) {
 		switching = false;
 		rows = table.rows;
+//		console.log("rows : " + rows.length);
+//		console.log(rows);
 
 		for (i = 2; i < (rows.length - 1); i++) {
 			shouldSwitch = false;
-			x = rows[i].getElementsByTagName("TD")[colIndex];
-			y = rows[i + 1].getElementsByTagName("TD")[colIndex];
+			console.log(i + " " + colIndex)
+			x = rows[i].getElementsByTagName("td")[colIndex];
+			y = rows[i + 1].getElementsByTagName("td")[colIndex];
 			if (dir == "asc") {
 				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 					shouldSwitch = true;
@@ -41,8 +46,10 @@ function sortTable(tableId, colIndex) {
 				}
 			}
 		}
+		console.log("out of loop, i: " + i);
 		
 		if (shouldSwitch) {
+//			console.log("switching, i: " + i);
 			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
 			switching = true;
 			switchcount ++;
@@ -54,6 +61,88 @@ function sortTable(tableId, colIndex) {
 		}
 	}
 }
+
+// Sort function for items table
+//function sortItemTable(tableId, colIndex){
+//	console.log("inside sortItem v7");
+//	var table, sortSubject, sortBase, baseRows, subjectRows, switching, i, j, x, y, shouldSwitch, dir, switchcount = 0;
+//	var counter = 0;
+//	
+//	table = document.getElementById(tableId);
+//	dir = "asc";
+//	
+//	if(colIndex >= 20) {
+//		sortSubject = "itemRow";
+//	}
+//	console.log(sortSubject);
+//	
+//	if(groupingLevel != 'none'){
+//		switch(groupingLevel){
+//		case "batch":
+//			sortBase = "batchRow";
+//			break;
+//		case "category":
+//			sortBase = "categoryRow";
+//			break;
+//		case "product":
+//			sortBase = "productRow";
+//			break;
+//		}
+//		
+//		var baseRows = table.getElementsByClassName(sortBase);
+//		console.log("baseRows: ");
+//		console.log(baseRows);
+//	
+//		switching = true;
+//		while (switching){
+//			for (i=0; i<baseRows.length; i++){
+//				switching = true;
+//				while (switching){
+//					switching = false;
+////					console.log();
+//					subjectRows = table.getElementsByClassName(sortSubject + "-" + baseRows[i].id);
+////					console.log('subjectRows :');
+////					console.log(subjectRows);
+//					
+//					for(j = 0; j < (subjectRows.length - 1); j++){
+//						shouldSwitch = false;
+//						counter++;
+//						x = subjectRows[j].getElementsByTagName("td")[colIndex];
+//						y = subjectRows[j + 1].getElementsByTagName("td")[colIndex];
+//						if (dir == "asc") {
+//							if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+//								shouldSwitch = true;
+//								break;
+//							}
+//						} else if (dir == "desc") {
+//							if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+//								shouldSwitch = true;
+//								break;
+//							}
+//						}
+//					}
+//					
+//					if (shouldSwitch) {
+//						subjectRows[j].parentNode.insertBefore(subjectRows[j + 1], subjectRows[j]);
+//						switching = true;
+//						switchcount ++;
+//					}
+////					console.log(i + " " + counter);
+//				}
+//			}
+//			if (switchcount == 0 && dir == "asc") {
+//				dir = "desc";
+//				switching = true;
+//			}
+//		}
+//	} else if(groupingLevel == 'none') {
+//		sortTable(tableId, colIndex);
+//	}
+//}
+//
+//function insertAfter(newNode, referenceNode) {
+//    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+//}
 
 //filters the results shown on the table based on criteria per column
 function filterTable(tableId) {
@@ -68,7 +157,8 @@ function filterTable(tableId) {
 	
 	for(i = 0; i<filterList.length; i++){
 		filter = filterList[i].value.toUpperCase();
-		if (filter != ""){
+		if(filter != "" && filter != 'PERISHABLE' && filter != 'RECYCLABLE'){
+			console.log("inside if 1");
 			for(j=0; j<rows.length; j++){
 				cell = rows[j].getElementsByTagName("td")[i];
 				if(cell){
@@ -77,6 +167,127 @@ function filterTable(tableId) {
 					}
 				}
 			}
+		}else if(filter != ""){
+			for(j=0; j<rows.length; j++){
+				cell = rows[j].getElementsByTagName("td")[i];
+				if(cell){
+					if(cell.innerHTML.toUpperCase().indexOf(filter) != 0){
+						rows[j].style.display = "none";
+					}
+				}
+			}
+		}
+	}
+}
+
+function expandColumns(colClass){
+	var columns = document.getElementsByClassName(colClass);
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "";
+	}
+	
+
+	columns = document.getElementsByClassName(colClass + "Minimized");
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "none";
+	}
+}
+
+function minimizeColumns(colClass){
+	var columns = document.getElementsByClassName(colClass);
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "none";
+	}
+	
+
+	columns = document.getElementsByClassName(colClass + "Minimized");
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "";
+	}
+}
+
+function applyGrouping(){
+	var columns, categoryRows, productRows, batchRows, itemRows;
+	groupingLevel = document.getElementById('selGrouping').value;
+	
+//	expandColumns('categoryCol');
+//	expandColumns('productCol');
+//	expandColumns('batchCol');
+
+	var columns = document.getElementsByClassName('batchColSpan');
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "";
+	}
+	var columns = document.getElementsByClassName('productColSpan');
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "";
+	}
+	var columns = document.getElementsByClassName('categoryColSpan');
+	for(var i=0; i<columns.length; i++){
+		columns[i].style.display = "";
+	}
+	
+	var batchRows = document.getElementsByClassName('batchRow');
+	for(var i=0; i<batchRows.length; i++){
+		batchRows[i].style.display = "none";
+	}
+	
+	var batchRows = document.getElementsByClassName('productRow');
+	for(var i=0; i<batchRows.length; i++){
+		batchRows[i].style.display = "none";
+	}
+	
+	var batchRows = document.getElementsByClassName('categoryRow');
+	for(var i=0; i<batchRows.length; i++){
+		batchRows[i].style.display = "none";
+	}
+	
+	var itemRows = document.getElementsByClassName('itemRow');
+	for(var i=0; i<itemRows.length; i++){
+		itemRows[i].style.display = "";
+	}
+	
+	switch(groupingLevel){
+	case 'batch':
+		minimizeColumns('batchCol');
+		
+		columns = document.getElementsByClassName('batchColSpan');
+		for(var i=0; i<columns.length; i++){
+			columns[i].style.display = "none";
+		}
+		
+		var batchRows = document.getElementsByClassName('batchRow');
+		for(var i=0; i<batchRows.length; i++){
+			batchRows[i].style.display = "";
+		}
+		
+		var itemRows = document.getElementsByClassName('itemRow');
+		for(var i=0; i<itemRows.length; i++){
+			itemRows[i].style.display = "none";
+		}
+	case 'product':
+		minimizeColumns('productCol');
+		
+		columns = document.getElementsByClassName('productColSpan');
+		for(var i=0; i<columns.length; i++){
+			columns[i].style.display = "none";
+		}
+		
+		var batchRows = document.getElementsByClassName('productRow');
+		for(var i=0; i<batchRows.length; i++){
+			batchRows[i].style.display = "";
+		}
+	case 'category':
+		minimizeColumns('categorytCol');
+		
+		columns = document.getElementsByClassName('categoryColSpan');
+		for(var i=0; i<columns.length; i++){
+			columns[i].style.display = "none";
+		}
+		
+		var batchRows = document.getElementsByClassName('categoryRow');
+		for(var i=0; i<batchRows.length; i++){
+			batchRows[i].style.display = "";
 		}
 	}
 }
@@ -141,14 +352,23 @@ function toggleSelected(checkbox){
 	}
 }
 
+function toggleExpiryInput(isPerishable){
+	if(isPerishable){
+		document.getElementById("expirationInput").readOnly=false;
+	}else{
+		document.getElementById("expirationInput").value="";
+		document.getElementById("expirationInput").readOnly=true;
+	}
+}
+
 //sets the items to delete when delete-items form is submitted
 function setIdsToDelete(){
 	document.getElementById("deleteItemIds").value = JSON.stringify(selectedItems);
 }
 
 //Collapses and expands a batch row is clicked to show/hide the contained items
-function toggleCollapse(batchId){
-	itemRows = document.getElementsByClassName("items-" + batchId);
+function toggleCollapse(batchRowId){
+	itemRows = document.getElementsByClassName("itemRow-" + batchRowId);
 	var styleToSet;
 	if (itemRows[0] != null && itemRows[0].style.display == "none"){
 		styleToSet = "";

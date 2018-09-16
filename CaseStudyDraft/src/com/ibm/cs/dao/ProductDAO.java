@@ -32,9 +32,9 @@ public class ProductDAO extends MasterDAO {
 		ResultSet rs = null;
 
 		HashMap<Integer, Product> productMap = new HashMap<>();
-		int productId, fkCategoryId;
+		int productId, fkCategoryId, stockAmount;
 		String SKU, brand, variant, size, measurementUnit, description, specialHandling;
-		double sellPrice, stockAmount;
+		double sellPrice;
 
 		try {
 			pst = conn.prepareStatement("SELECT * FROM tbl_product");
@@ -162,9 +162,9 @@ public class ProductDAO extends MasterDAO {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
-		int fkCategoryId;
+		int fkCategoryId, stockAmount;
 		String SKU, brand, variant, size, measurementUnit, description, specialHandling;
-		double sellPrice, stockAmount;
+		double sellPrice;
 		Product product = null;
 
 		try {

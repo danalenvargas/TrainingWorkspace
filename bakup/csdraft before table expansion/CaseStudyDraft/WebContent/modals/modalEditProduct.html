@@ -1,0 +1,40 @@
+<div id="modalEditProduct" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+		    <span class="close">&times;</span>
+			<h3>Edit Product</h3>
+		</div>
+		<div class="modal-body">
+			<form action="ProductManagement" method="post" >
+				Category:  <select id="editProdCategory" name="categoryId">
+					<c:forEach items="${categoryList}" var="category">
+						<option value="${category.categoryId}" title="${category.categoryType}">${category.categoryName}</option>
+					</c:forEach>
+				</select> <br />
+				Brand: <input id="editProdBrand" type="text" name="brand" placeholder="brand" /> <br />
+				Variant: <input id="editProdVariant" type="text" name="variant" value="none" placeholder="none" /> <br />
+				Size: <input id="editProdSize" type="text" name="size" placeholder="size" />
+				<input id="editProdUnit" type="text" name="measurementUnit" placeholder="unit" /> <br />
+				Description: <textarea id = "editProdDescription" name="description" placeholder="description" rows="3" cols="40"></textarea> <br />
+				Special Handling: <select id="editProdSpecialHandling" name="specialHandling">
+					<option value="" selected></option>
+					<option value="keep frozen">keep frozen</option>
+					<option value="keep refrigerated">keep refrigerated</option>
+					<option value="fragile">fragile</option>
+				</select> <br />
+				Selling Price: Php<input id="editProdSellPrice" type="number" name="sellPrice" placeholder="sell price" step="0.01"> <br /><br />
+				SKU: <input id="editProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" onchange="validateProductSKU(this)"/>
+				<button type="button" onclick="generateSKU('onEdit')">Generate</button> <br />
+				<input id="editProdId" type="hidden" name="productId" />
+				<input id="editProdOrigSKU" type="hidden" disabled />
+				<input type="hidden" name="action" value="editProduct" />
+				<input class="btnEdit" type="submit" value="Update" />
+			</form>
+			<form action="ProductManagement" method="post">
+				<input id="editProdId2" type="hidden" name="productId" />
+				<input type="hidden" name="action" value="deleteProduct" />
+				<input class="btnDelete" type="submit" value="Remove Product" />
+			</form>
+		</div>
+	</div>
+</div>

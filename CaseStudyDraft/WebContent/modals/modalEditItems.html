@@ -9,7 +9,7 @@
 				Item ID: <span id="editItemIds"></span> <br />
 				Manufacture Date: <input id="editItemManufactureDate" type="date" name="manufactureDate" /> <br />
 				Expiration Date: <input id="editItemExpirationDate" type="date" name="expirationDate" /> <br />
-				Purchase Price (per item): Php<input id="editItemPurchasePrice" type="number" name="purchasePrice" step="0.01" /> <br />
+				Purchase Price (per item): Php<input id="editItemPurchasePrice" type="number" name="purchasePrice" step="0.01" min="0" max="9999999" required /> <br />
 				<input id="editItemIdsHidden" type="hidden" name="itemIds" />
 				<input type="hidden" name="action" value="editItems" />
 				<input type="submit" value="Update" />

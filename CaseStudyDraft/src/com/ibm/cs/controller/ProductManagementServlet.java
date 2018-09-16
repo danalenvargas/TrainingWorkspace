@@ -193,7 +193,7 @@ public class ProductManagementServlet extends HttpServlet {
 			measurementUnit = request.getParameter("measurementUnit");
 			description = request.getParameter("description");
 			specialHandling = request.getParameter("specialHandling");
-			sellPrice = Double.parseDouble(request.getParameter("sellPrice"));
+			sellPrice = (request.getParameter("sellPrice") != "" ? Double.parseDouble(request.getParameter("sellPrice")) : 0);
 			SKU = request.getParameter("SKU");
 			isSuccessful = service.addProduct(categoryId, brand, variant, size, measurementUnit, description,
 					specialHandling, sellPrice, SKU);
@@ -209,7 +209,7 @@ public class ProductManagementServlet extends HttpServlet {
 			measurementUnit = request.getParameter("measurementUnit");
 			description = request.getParameter("description");
 			specialHandling = request.getParameter("specialHandling");
-			sellPrice = Double.parseDouble(request.getParameter("sellPrice"));
+			sellPrice = (request.getParameter("sellPrice") != "" ? Double.parseDouble(request.getParameter("sellPrice")) : 0) ;
 			SKU = request.getParameter("SKU");
 			isSuccessful = service.editProduct(categoryId, productId, brand, variant, size, measurementUnit,
 					description, specialHandling, sellPrice, SKU);
@@ -228,8 +228,8 @@ public class ProductManagementServlet extends HttpServlet {
 				amount = Integer.parseInt(request.getParameter("amount"));
 				comments = request.getParameter("comments");
 				supplier = request.getParameter("supplier");
-				manufactureDate = format.parse(request.getParameter("manufactureDate"));
-				expirationDate = format.parse(request.getParameter("expirationDate"));
+				manufactureDate = (request.getParameter("manufactureDate") != "" ? format.parse(request.getParameter("manufactureDate")) : null);
+				expirationDate = (request.getParameter("expirationDate") != "" ? format.parse(request.getParameter("expirationDate")) : null);
 				purchasePrice = Double.parseDouble(request.getParameter("purchasePrice"));
 				isSuccessful = service.inputBatch(productId, amount, comments, supplier, manufactureDate,
 						expirationDate, purchasePrice);
@@ -259,8 +259,8 @@ public class ProductManagementServlet extends HttpServlet {
 		case "editItems":
 			try {
 				itemIds = new Gson().fromJson(request.getParameter("itemIds"), int[].class);
-				manufactureDate = format.parse(request.getParameter("manufactureDate"));
-				expirationDate = format.parse(request.getParameter("expirationDate"));
+				manufactureDate = (request.getParameter("manufactureDate") != "" ? format.parse(request.getParameter("manufactureDate")) : null);
+				expirationDate = (request.getParameter("expirationDate") != "" ? format.parse(request.getParameter("expirationDate")) : null);
 				purchasePrice = Double.parseDouble(request.getParameter("purchasePrice"));
 				isSuccessful = service.editItems(itemIds, manufactureDate, expirationDate, purchasePrice);
 				selectedTab = "item";

@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import com.ibm.cs.model.Batch;
 import com.ibm.cs.model.Category;
 /**
  * Data Access Object for Category
@@ -16,7 +15,7 @@ import com.ibm.cs.model.Category;
 public class CategoryDAO extends MasterDAO {
 	int count;
 
-	public CategoryDAO() {
+	public CategoryDAO() throws Exception {
 		super();
 	}
 	
@@ -27,7 +26,7 @@ public class CategoryDAO extends MasterDAO {
 	 *         categories in the database
 	 * @see Category
 	 */
-	public HashMap<Integer, Category> getCategoryMap(){
+	public HashMap<Integer, Category> getCategoryMap() throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
@@ -53,7 +52,7 @@ public class CategoryDAO extends MasterDAO {
 				categoryMap.put(categoryId, new Category(categoryId, categoryName, categoryType, isPerishable, isRecyclable));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
             closeResources(rs, pst);
         }
@@ -67,7 +66,7 @@ public class CategoryDAO extends MasterDAO {
 	 *            String name of a category
 	 * @return true if the category's name is unique
 	 */
-	public boolean validateCategoryName(String categoryName) {
+	public boolean validateCategoryName(String categoryName) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
@@ -82,16 +81,15 @@ public class CategoryDAO extends MasterDAO {
             	return true;
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
         }
-		return false;
 	}
 	
 	// v======= CATEGORY CRUD ===========v
 	
-	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
@@ -108,14 +106,14 @@ public class CategoryDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
             closeResources(rs, pst);
         }
 		return false;
 	}
 	
-	public boolean editCategory(int categoryId, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean editCategory(int categoryId, String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) throws SQLException {
 		PreparedStatement pst = null;
 		
 		try{
@@ -133,14 +131,14 @@ public class CategoryDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
             closeResources(pst);
         }
 		return false;
 	}
 	
-	public boolean deleteCategory(int categoryId) {
+	public boolean deleteCategory(int categoryId) throws SQLException {
 		PreparedStatement pst = null;
 		
 		try {
@@ -152,14 +150,14 @@ public class CategoryDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
             closeResources(pst);
         }
 		return false;
 	}
 	
-	public Category getCategory(int categoryId) {
+	public Category getCategory(int categoryId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		
@@ -185,7 +183,7 @@ public class CategoryDAO extends MasterDAO {
 				category = new Category(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
             }
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
             closeResources(rs, pst);
         }

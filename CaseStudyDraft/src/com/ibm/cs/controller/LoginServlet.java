@@ -43,16 +43,21 @@ public class LoginServlet extends HttpServlet {
 		if (action == null) {
 			action = "";
 		}
-
-		switch (action) {
-		case "logout":
-			HttpSession session = request.getSession(false);
-			session.invalidate();
-			response.sendRedirect("login.jsp");
-			break;
-		default:
-			response.sendRedirect("login.jsp");
-			break;
+		
+		try {
+			switch (action) {
+			case "logout":
+				HttpSession session = request.getSession(false);
+				session.invalidate();
+				response.sendRedirect("login.jsp");
+				break;
+			default:
+				response.sendRedirect("login.jsp");
+				break;
+			}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("errorpage.jsp");
 		}
 	}
 
@@ -78,26 +83,30 @@ public class LoginServlet extends HttpServlet {
 			action = "";
 		}
 
-		LoginService loginService = new LoginService();
-		switch (action) {
-		case "login":
-			username = request.getParameter("username");
-			password = request.getParameter("password");
-			session = request.getSession();
-			if (loginService.isValidUser(username, password)) {
-				User user = loginService.getUser();
-				session.setAttribute("user", user);
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
-				dispatcher.forward(request, response);
-			} else {
+		try {
+			LoginService loginService = new LoginService();
+			switch (action) {
+			case "login":
+				username = request.getParameter("username");
+				password = request.getParameter("password");
+				session = request.getSession();
+				if (loginService.isValidUser(username, password)) {
+					User user = loginService.getUser();
+					session.setAttribute("user", user);
+	
+					RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
+					dispatcher.forward(request, response);
+				} else {
+					response.sendRedirect("login.jsp");
+				}
+				break;
+			default:
 				response.sendRedirect("login.jsp");
+				break;
 			}
-			break;
-		default:
-			response.sendRedirect("login.jsp");
-			break;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("errorpage.jsp");
 		}
-
 	}
 }

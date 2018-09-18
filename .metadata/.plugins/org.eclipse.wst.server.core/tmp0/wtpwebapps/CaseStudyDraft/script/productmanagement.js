@@ -16,7 +16,7 @@ window.onload = function() {
 //algorithm to sort the inventory table
 //clicking a table header will trigger the sorting, clicking the same header again will sort it at the opposite direction
 //parameters: tableId = id of table to be sorted, colIndex = which column to use for sorting the table
-function sortTable(tableId, colIndex) {
+function sortTable(tableId, colIndex, rowClassToSort) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	
 	table = document.getElementById(tableId);
@@ -25,13 +25,13 @@ function sortTable(tableId, colIndex) {
 	
 	while (switching) {
 		switching = false;
-		rows = table.rows;
+		rows = table.getElementsByClassName(rowClassToSort);
 //		console.log("rows : " + rows.length);
 //		console.log(rows);
 
-		for (i = 2; i < (rows.length - 1); i++) {
+		for (i = 0; i < (rows.length - 1); i++) {
 			shouldSwitch = false;
-			console.log(i + " " + colIndex)
+//			console.log(i + " " + colIndex)
 			x = rows[i].getElementsByTagName("td")[colIndex];
 			y = rows[i + 1].getElementsByTagName("td")[colIndex];
 			if (dir == "asc") {
@@ -46,7 +46,7 @@ function sortTable(tableId, colIndex) {
 				}
 			}
 		}
-		console.log("out of loop, i: " + i);
+//		console.log("out of loop, i: " + i);
 		
 		if (shouldSwitch) {
 //			console.log("switching, i: " + i);
@@ -63,83 +63,83 @@ function sortTable(tableId, colIndex) {
 }
 
 // Sort function for items table
-//function sortItemTable(tableId, colIndex){
-//	console.log("inside sortItem v7");
-//	var table, sortSubject, sortBase, baseRows, subjectRows, switching, i, j, x, y, shouldSwitch, dir, switchcount = 0;
-//	var counter = 0;
-//	
-//	table = document.getElementById(tableId);
-//	dir = "asc";
-//	
-//	if(colIndex >= 20) {
-//		sortSubject = "itemRow";
-//	}
-//	console.log(sortSubject);
-//	
-//	if(groupingLevel != 'none'){
-//		switch(groupingLevel){
-//		case "batch":
-//			sortBase = "batchRow";
-//			break;
-//		case "category":
-//			sortBase = "categoryRow";
-//			break;
-//		case "product":
-//			sortBase = "productRow";
-//			break;
-//		}
-//		
-//		var baseRows = table.getElementsByClassName(sortBase);
-//		console.log("baseRows: ");
-//		console.log(baseRows);
-//	
-//		switching = true;
-//		while (switching){
-//			for (i=0; i<baseRows.length; i++){
-//				switching = true;
-//				while (switching){
-//					switching = false;
-////					console.log();
-//					subjectRows = table.getElementsByClassName(sortSubject + "-" + baseRows[i].id);
-////					console.log('subjectRows :');
-////					console.log(subjectRows);
-//					
-//					for(j = 0; j < (subjectRows.length - 1); j++){
-//						shouldSwitch = false;
-//						counter++;
-//						x = subjectRows[j].getElementsByTagName("td")[colIndex];
-//						y = subjectRows[j + 1].getElementsByTagName("td")[colIndex];
-//						if (dir == "asc") {
-//							if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-//								shouldSwitch = true;
-//								break;
-//							}
-//						} else if (dir == "desc") {
-//							if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-//								shouldSwitch = true;
-//								break;
-//							}
-//						}
-//					}
-//					
-//					if (shouldSwitch) {
-//						subjectRows[j].parentNode.insertBefore(subjectRows[j + 1], subjectRows[j]);
-//						switching = true;
-//						switchcount ++;
-//					}
-////					console.log(i + " " + counter);
-//				}
-//			}
-//			if (switchcount == 0 && dir == "asc") {
-//				dir = "desc";
-//				switching = true;
-//			}
-//		}
-//	} else if(groupingLevel == 'none') {
-//		sortTable(tableId, colIndex);
-//	}
-//}
-//
+function sortItemTable(tableId, colIndex){
+	console.log("inside sortItem v7");
+	var table, sortSubject, sortBase, baseRows, subjectRows, switching, i, j, x, y, shouldSwitch, dir, switchcount = 0;
+	var counter = 0;
+	
+	table = document.getElementById(tableId);
+	dir = "asc";
+	
+	if(colIndex >= 20) {
+		sortSubject = "itemRow";
+	}
+	console.log(sortSubject);
+	
+	if(groupingLevel != 'none'){
+		switch(groupingLevel){
+		case "batch":
+			sortBase = "batchRow";
+			break;
+		case "category":
+			sortBase = "categoryRow";
+			break;
+		case "product":
+			sortBase = "productRow";
+			break;
+		}
+		
+		var baseRows = table.getElementsByClassName(sortBase);
+		console.log("baseRows: ");
+		console.log(baseRows);
+	
+		switching = true;
+		while (switching){
+			for (i=0; i<baseRows.length; i++){
+				switching = true;
+				while (switching){
+					switching = false;
+//					console.log();
+					subjectRows = table.getElementsByClassName(sortSubject + "-" + baseRows[i].id);
+//					console.log('subjectRows :');
+//					console.log(subjectRows);
+					
+					for(j = 0; j < (subjectRows.length - 1); j++){
+						shouldSwitch = false;
+						counter++;
+						x = subjectRows[j].getElementsByTagName("td")[colIndex];
+						y = subjectRows[j + 1].getElementsByTagName("td")[colIndex];
+						if (dir == "asc") {
+							if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+								shouldSwitch = true;
+								break;
+							}
+						} else if (dir == "desc") {
+							if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+								shouldSwitch = true;
+								break;
+							}
+						}
+					}
+					
+					if (shouldSwitch) {
+						subjectRows[j].parentNode.insertBefore(subjectRows[j + 1], subjectRows[j]);
+						switching = true;
+						switchcount ++;
+					}
+//					console.log(i + " " + counter);
+				}
+			}
+			if (switchcount == 0 && dir == "asc") {
+				dir = "desc";
+				switching = true;
+			}
+		}
+	} else if(groupingLevel == 'none') {
+		sortTable(tableId, colIndex, 'itemRow');
+	}
+}
+
 //function insertAfter(newNode, referenceNode) {
 //    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 //}

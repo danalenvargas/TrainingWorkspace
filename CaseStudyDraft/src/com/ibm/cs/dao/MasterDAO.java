@@ -32,7 +32,7 @@ public abstract class MasterDAO {
 	 * Connections are opened and closed at Service level to allow a single
 	 * connection for multiple method calls
 	 */
-	public MasterDAO() {
+	public MasterDAO() throws Exception{
 		this.conn = getConnection();
 	}
 
@@ -42,7 +42,7 @@ public abstract class MasterDAO {
 	 * 
 	 * @return Connection created using the properties on the config file
 	 */
-	protected Connection getConnection() {
+	protected Connection getConnection() throws Exception {
 		Connection con = null;
 		try {
 			properties.load(getClass().getResourceAsStream("config.properties"));
@@ -54,11 +54,11 @@ public abstract class MasterDAO {
 			con = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			System.out.println("ERROR in Connecting to Database.");
-			e.printStackTrace();
+			throw e;
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throw e;
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		return con;
 	}
@@ -68,7 +68,7 @@ public abstract class MasterDAO {
 	 * Connections are opened and closed at Service level to allow a single
 	 * connection for multiple method calls.
 	 */
-	public void openConnection() {
+	public void openConnection() throws Exception {
 		this.conn = getConnection();
 	}
 
@@ -96,19 +96,19 @@ public abstract class MasterDAO {
 	 * @param pst
 	 *            PreparedStatement to be closed
 	 */
-	protected void closeResources(ResultSet rs, PreparedStatement pst) {
+	protected void closeResources(ResultSet rs, PreparedStatement pst) throws SQLException {
 		if (rs != null) {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		if (pst != null) {
 			try {
 				pst.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
@@ -119,12 +119,12 @@ public abstract class MasterDAO {
 	 * @param pst
 	 *            PreparedStatement to be closed
 	 */
-	protected void closeResources(PreparedStatement pst) {
+	protected void closeResources(PreparedStatement pst) throws SQLException {
 		if (pst != null) {
 			try {
 				pst.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

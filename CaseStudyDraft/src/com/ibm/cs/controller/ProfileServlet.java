@@ -31,8 +31,6 @@ public class ProfileServlet extends HttpServlet {
 	public ProfileServlet() {
 		super();
 		userService = new UserManagementService();
-
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -57,24 +55,29 @@ public class ProfileServlet extends HttpServlet {
 			action = "showpage";
 		}
 
-		switch (action) {
-		case "showpage":
-			RequestDispatcher dispatcher = request.getRequestDispatcher("userprofile.jsp");
-			dispatcher.forward(request, response);
-			break;
-			
-		case "validateUsername":
-			String username = request.getParameter("username");
-			boolean isUnique;
-			if (user.getUsername().equals(username)) {
-				isUnique = true;
-			} else {
-				isUnique = userService.validateUsername(username);
+		try {
+			switch (action) {
+			case "showpage":
+				RequestDispatcher dispatcher = request.getRequestDispatcher("userprofile.jsp");
+				dispatcher.forward(request, response);
+				break;
+				
+			case "validateUsername":
+				String username = request.getParameter("username");
+				boolean isUnique;
+				if (user.getUsername().equals(username)) {
+					isUnique = true;
+				} else {
+					isUnique = userService.validateUsername(username);
+				}
+				jsonString = new Gson().toJson(isUnique);
+				response.setContentType("application/json");
+				response.getWriter().write(jsonString);
+				break;
 			}
-			jsonString = new Gson().toJson(isUnique);
-			response.setContentType("application/json");
-			response.getWriter().write(jsonString);
-			break;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("errorpage.jsp");
 		}
 	}
 
@@ -97,27 +100,32 @@ public class ProfileServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 
-		switch (action) {
-		case "editUser":
-			userId = user.getUserId();
-			username = request.getParameter("username");
-			isSuccessful = userService.editProfile(userId, username);
-			if (isSuccessful) {
-				user.setUsername(username);
-				session.setAttribute("user", user);
+		try {
+			switch (action) {
+			case "editUser":
+				userId = user.getUserId();
+				username = request.getParameter("username");
+				isSuccessful = userService.editProfile(userId, username);
+				if (isSuccessful) {
+					user.setUsername(username);
+					session.setAttribute("user", user);
+				}
+				break;
+				
+			case "changePassword":
+				userId = user.getUserId();
+				password = request.getParameter("password");
+				userService.changePassword(userId, password);
+				break;
 			}
-			break;
 			
-		case "changePassword":
-			userId = user.getUserId();
-			password = request.getParameter("password");
-			userService.changePassword(userId, password);
-			break;
+			response.sendRedirect("Profile?action=showpage");
+			// RequestDispatcher dispatcher=request.getRequestDispatcher("userprofile.jsp");
+			// dispatcher.forward(request, response);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("errorpage.jsp");
 		}
-
-		response.sendRedirect("Profile?action=showpage");
-		// RequestDispatcher dispatcher=request.getRequestDispatcher("userprofile.jsp");
-		// dispatcher.forward(request, response);
 	}
 
 }

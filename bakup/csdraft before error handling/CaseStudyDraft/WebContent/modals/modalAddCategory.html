@@ -1,0 +1,35 @@
+<div id="modalAddCategory" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+		    <span class="close">&times;</span>
+			<h3>Add Category</h3>
+		</div>
+		<div class="modal-body">
+			<form action="ProductManagement" method="post" >
+				Name: <input type="text" name="categoryName" placeholder="category name" onchange="validateCategoryName(this)" required> <br />
+				Category Type:  <select name="categoryType" required>
+					<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
+					<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
+					<option value="Canned/Jarred Goods" title="vegetables, spaghetti sauce, ketchup">Canned/Jarred Goods</option>
+					<option value="Dry/Baking Goods">Dry/Baking Goods</option>
+					<option value="Frozen Foods">Frozen Foods</option>
+					<option value="Meat">Meat</option>
+					<option value="Produce">Produce</option>
+					<option value="Cleaners">Cleaners</option>
+					<option value="Paper Goods">Paper Goods</option>
+					<option value="Personal Care">Personal Care</option>
+					<option value="Other" selected>Other</option>
+				</select> <br />
+				<fieldset>
+					Perishable: <input type="radio" name="perishable" value="true" onclick="disableRecyclableButtons()"> 
+					Non Perishable: <input type="radio" name="perishable" value="false" onclick="enableRecyclableButtons()" checked><br />
+					Recyclable: <input id="radRecyclable" type="radio" name="recyclable" value="true"> 
+					Not Recyclable: <input id="radNotRecyclable" type="radio" name="recyclable" value="false" checked>
+				</fieldset>
+				<br />
+				<input type="hidden" name="action" value="addCategory" />
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
+</div>

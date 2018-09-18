@@ -17,7 +17,7 @@ import com.ibm.cs.model.Batch;
 public class BatchDAO extends MasterDAO {
 	int count;
 
-	public BatchDAO() {
+	public BatchDAO() throws Exception {
 		super();
 	}
 
@@ -28,7 +28,7 @@ public class BatchDAO extends MasterDAO {
 	 *         in the database
 	 * @see Batch
 	 */
-	public HashMap<Integer, Batch> getBatchMap() {
+	public HashMap<Integer, Batch> getBatchMap() throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -54,7 +54,7 @@ public class BatchDAO extends MasterDAO {
 						new Batch(batchId, fkProductId, amount, remainingAmount, comments, supplier, entryTimestamp));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -70,7 +70,7 @@ public class BatchDAO extends MasterDAO {
 	 * @return int representing the remaining items in the db that belong to this
 	 *         batch
 	 */
-	private int calculateRemainingAmount(int batchId) {
+	private int calculateRemainingAmount(int batchId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -84,7 +84,7 @@ public class BatchDAO extends MasterDAO {
 				remainingAmount = rs.getInt("amount");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -93,7 +93,7 @@ public class BatchDAO extends MasterDAO {
 	
 	// v======= BATCH CRUD ===========v
 
-	public int addBatch(int productId, int amount, String comments, String supplier) {
+	public int addBatch(int productId, int amount, String comments, String supplier) throws SQLException {
 		int newBatchId;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -115,14 +115,14 @@ public class BatchDAO extends MasterDAO {
 				return newBatchId;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 		return -1;
 	}
 
-	public Batch getBatch(int batchId) {
+	public Batch getBatch(int batchId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -147,14 +147,14 @@ public class BatchDAO extends MasterDAO {
 				batch = new Batch(batchId, fkProductId, amount, remainingAmount, comments, supplier, entryTimestamp);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
 		return batch;
 	}
 
-	public boolean editBatch(int batchId, int productId, int amount, String comments, String supplier) {
+	public boolean editBatch(int batchId, int productId, int amount, String comments, String supplier) throws SQLException {
 		PreparedStatement pst = null;
 
 		try {
@@ -171,14 +171,14 @@ public class BatchDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 		return false;
 	}
 
-	public boolean deleteBatch(int batchId) {
+	public boolean deleteBatch(int batchId) throws SQLException {
 		PreparedStatement pst = null;
 
 		try {
@@ -190,7 +190,7 @@ public class BatchDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}

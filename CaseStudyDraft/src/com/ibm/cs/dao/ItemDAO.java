@@ -17,7 +17,7 @@ import com.ibm.cs.model.Item;
 public class ItemDAO extends MasterDAO {
 	int count;
 
-	public ItemDAO() {
+	public ItemDAO() throws Exception {
 		super();
 	}
 
@@ -27,7 +27,7 @@ public class ItemDAO extends MasterDAO {
 	 * @return ArrayList containing all items in the database
 	 * @see Item
 	 */
-	public ArrayList<Item> getItemList() {
+	public ArrayList<Item> getItemList() throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -49,7 +49,7 @@ public class ItemDAO extends MasterDAO {
 				itemList.add(new Item(itemId, fkBatchId, manufactureDate, expirationDate, purchasePrice));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -64,7 +64,7 @@ public class ItemDAO extends MasterDAO {
 	 * @return ArrayList containing all items requested in the parameter
 	 * @see Item
 	 */
-	public ArrayList<Item> getItemList(int[] itemIds) {
+	public ArrayList<Item> getItemList(int[] itemIds) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -88,7 +88,7 @@ public class ItemDAO extends MasterDAO {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -97,7 +97,7 @@ public class ItemDAO extends MasterDAO {
 
 	// v======= ITEM CRUD ===========v
 
-	public boolean addItems(int batchId, int amount, Date manufactureDate, Date expirationDate, double purchasePrice) {
+	public boolean addItems(int batchId, int amount, Date manufactureDate, Date expirationDate, double purchasePrice) throws SQLException {
 		PreparedStatement pst = null;
 		count = 0;
 		try {
@@ -118,12 +118,12 @@ public class ItemDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		}
 		return false;
 	}
 
-	public boolean editItems(int[] itemIds, Date manufactureDate, Date expirationDate, double purchasePrice) {
+	public boolean editItems(int[] itemIds, Date manufactureDate, Date expirationDate, double purchasePrice) throws SQLException {
 		PreparedStatement pst = null;
 		count = 0;
 
@@ -145,14 +145,14 @@ public class ItemDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 		return false;
 	}
 
-	public boolean deleteItems(int[] itemIds) {
+	public boolean deleteItems(int[] itemIds) throws SQLException {
 		PreparedStatement pst = null;
 		count = 0;
 
@@ -168,7 +168,7 @@ public class ItemDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}

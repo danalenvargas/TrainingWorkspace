@@ -1,0 +1,42 @@
+<div id="modalEditCategory" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+		    <span class="close">&times;</span>
+			<h3>Edit Category</h3>
+		</div>
+		<div class="modal-body">
+			<form action="ProductManagement" method="post">
+				Name: <input id="txtCategoryName" type="text" name="categoryName" placeholder="category name" onchange="validateCategoryName(this)" required /> <br />
+				Category Type:  <select id="selCategoryType" name="categoryType">
+					<option value="Beverages" title="coffee/tea, juice, soda">Beverages</option>
+					<option value="Bread/Bakery" title="sandwich loaves, dinner rolls, tortillas, bagels">Bread/Bakery</option>
+					<option value="Canned/Jarred Goods" title="vegetables, spaghetti sauce, ketchup">Canned/Jarred Goods</option>
+					<option value="Dry/Baking Goods">Dry/Baking Goods</option>
+					<option value="Frozen Foods">Frozen Foods</option>
+					<option value="Meat">Meat</option>
+					<option value="Produce">Produce</option>
+					<option value="Cleaners">Cleaners</option>
+					<option value="Paper Goods">Paper Goods</option>
+					<option value="Personal Care">Personal Care</option>
+					<option value="Other">Other</option>
+				</select> <br />
+				<fieldset>
+					Perishable: <input id="radEditPerishable" type="radio" name="perishable" value="true" onclick="disableEditRecyclableButtons()" /> 
+					Non Perishable: <input id="radEditNonPerishable" type="radio" name="perishable" value="false" onclick="enableEditRecyclableButtons()" checked /><br />
+					Recyclable: <input id="radEditRecyclable" type="radio" name="recyclable" value="true" /> 
+					Not Recyclable: <input id="radEditNotRecyclable" type="radio" name="recyclable" value="false" checked />
+				</fieldset>
+				<br />
+				<input id="txtCategoryId" type="hidden" name="categoryId" />
+				<input id="txtOrigCategoryName" type="hidden" disabled />
+				<input type="hidden" name="action" value="editCategory" />
+				<input class="btnEdit" id="btnEditCategory" type="submit" value="Update" /><br />
+			</form>
+			<form action="ProductManagement" method="post">
+				<input id="txtCategoryId2" type="hidden" name="categoryId" />
+				<input type="hidden" name="action" value="deleteCategory" />
+				<input class="btnDelete" id="btnDeleteCategory" type="submit" value="Remove Category" />
+			</form>
+		</div>
+	</div>
+</div>

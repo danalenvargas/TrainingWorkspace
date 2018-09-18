@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.ibm.cs.model.Product;
 import com.ibm.cs.model.User;
 
 /**
@@ -18,7 +17,7 @@ import com.ibm.cs.model.User;
  */
 public class UserDAO extends MasterDAO {
 
-	public UserDAO() {
+	public UserDAO() throws Exception {
 		super();
 	}
 
@@ -28,7 +27,7 @@ public class UserDAO extends MasterDAO {
 	 * @return ArrayList of all standard users from database
 	 * @see User
 	 */
-	public ArrayList<User> getStandardUsers() {
+	public ArrayList<User> getStandardUsers() throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ArrayList<User> userList = new ArrayList<>();
@@ -57,11 +56,10 @@ public class UserDAO extends MasterDAO {
 
 			return userList;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
-		return null;
 	}
 
 	/**
@@ -72,7 +70,7 @@ public class UserDAO extends MasterDAO {
 	 * @return true if username is unique, otherwise false
 	 * @see User
 	 */
-	public boolean validateUsername(String username) {
+	public boolean validateUsername(String username) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -87,11 +85,10 @@ public class UserDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
-		return false;
 	}
 
 	/**
@@ -104,7 +101,7 @@ public class UserDAO extends MasterDAO {
 	 * @return User object created from entered login information
 	 * @see User
 	 */
-	public User authenticateUser(String username, String password) {
+	public User authenticateUser(String username, String password) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -131,8 +128,7 @@ public class UserDAO extends MasterDAO {
 				return new User(userId, username, userType, canCreate, canUpdate, canDelete);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -146,7 +142,7 @@ public class UserDAO extends MasterDAO {
 	 *            String password to be hashed
 	 * @return String representation of hashed password
 	 */
-	private static String generateHash(String input) {
+	private static String generateHash(String input) throws SQLException {
 		StringBuilder hash = new StringBuilder();
 
 		try {
@@ -167,7 +163,7 @@ public class UserDAO extends MasterDAO {
 	// v======= USER CRUD ===========v
 
 	public void addUser(String username, String password, String userType, boolean canCreate, boolean canUpdate,
-			boolean canDelete) {
+			boolean canDelete) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		int newUserId;
@@ -194,14 +190,13 @@ public class UserDAO extends MasterDAO {
 				pst.executeUpdate();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
 	}
 
-	public void editUser(int userId, String username, boolean canCreate, boolean canUpdate, boolean canDelete) {
+	public void editUser(int userId, String username, boolean canCreate, boolean canUpdate, boolean canDelete) throws SQLException {
 		PreparedStatement pst = null;
 		try {
 			pst = conn.prepareStatement("UPDATE tbl_user SET username=? WHERE user_id=?");
@@ -218,13 +213,13 @@ public class UserDAO extends MasterDAO {
 			pst.setInt(4, userId);
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 	}
 
-	public boolean editProfile(int userId, String username) {
+	public boolean editProfile(int userId, String username) throws SQLException {
 		PreparedStatement pst = null;
 		int resultCount;
 
@@ -238,14 +233,14 @@ public class UserDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 		return false;
 	}
 
-	public void deleteUser(int userId) {
+	public void deleteUser(int userId) throws SQLException {
 		PreparedStatement pst = null;
 
 		try {
@@ -254,13 +249,13 @@ public class UserDAO extends MasterDAO {
 
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 	}
 
-	public User getUser(int userId) {
+	public User getUser(int userId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -286,14 +281,14 @@ public class UserDAO extends MasterDAO {
 				user = new User(userId, username, userType, canCreate, canUpdate, canDelete);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
 		return user;
 	}
 
-	public void changePassword(int userId, String password) {
+	public void changePassword(int userId, String password) throws SQLException {
 		PreparedStatement pst = null;
 		try {
 			pst = conn.prepareStatement("UPDATE tbl_user SET password=? WHERE user_id=?");
@@ -302,7 +297,7 @@ public class UserDAO extends MasterDAO {
 			pst.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}

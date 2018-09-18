@@ -19,7 +19,7 @@
 	</style>
 </head>
 <body>
-	<h1 align="center">Product Inventory Login</h1>
+	<h1 align="center">Inventory Management System<br>Login</h1>
 	<form action="Login" method="post">
 		<input type="text" name="username" placeholder="username" /><br />
 		<input type="password" name="password" placeholder="password" /><br />

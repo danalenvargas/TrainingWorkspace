@@ -10,10 +10,11 @@ import com.ibm.cs.model.User;
  * @see User
  */
 public class LoginService {
-	UserDAO dao = new UserDAO();
 	private User user;
-
-	public LoginService() {
+	UserDAO dao;
+	
+	public LoginService() throws Exception {
+		dao = new UserDAO();
 	}
 
 	/**
@@ -28,7 +29,7 @@ public class LoginService {
 	 * @see User
 	 * @see UserDAO
 	 */
-	public boolean isValidUser(String username, String password) {
+	public boolean isValidUser(String username, String password) throws Exception {
 		dao.openConnection();
 		user = dao.authenticateUser(username, password);
 		dao.closeConnection();

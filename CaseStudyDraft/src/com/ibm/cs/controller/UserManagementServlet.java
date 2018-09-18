@@ -31,7 +31,6 @@ public class UserManagementServlet extends HttpServlet {
     public UserManagementServlet() {
         super();
         userService = new UserManagementService();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -52,29 +51,34 @@ public class UserManagementServlet extends HttpServlet {
 			action = "showpage";
 		}
 		
-		switch(action){
-		case "showpage":
-			ArrayList<User> userList = userService.getStandardUsers();
-			request.setAttribute("userList", userList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("usermanagement.jsp");
-			dispatcher.forward(request, response);
-			break;
-			
-		case "getUser":
-			int userId = Integer.parseInt(request.getParameter("userId"));
-			User user = userService.getUser(userId);
-			jsonString = new Gson().toJson(user);
-			response.setContentType("application/json");
-            response.getWriter().write(jsonString);
-            break;
-            
-		case "validateUsername":
-			String username = request.getParameter("username");
-			boolean isUnique = userService.validateUsername(username);
-			jsonString = new Gson().toJson(isUnique);
-			response.setContentType("application/json");
-            response.getWriter().write(jsonString);
-            break;
+		try {
+			switch(action){
+			case "showpage":
+				ArrayList<User> userList = userService.getStandardUsers();
+				request.setAttribute("userList", userList);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("usermanagement.jsp");
+				dispatcher.forward(request, response);
+				break;
+				
+			case "getUser":
+				int userId = Integer.parseInt(request.getParameter("userId"));
+				User user = userService.getUser(userId);
+				jsonString = new Gson().toJson(user);
+				response.setContentType("application/json");
+	            response.getWriter().write(jsonString);
+	            break;
+	            
+			case "validateUsername":
+				String username = request.getParameter("username");
+				boolean isUnique = userService.validateUsername(username);
+				jsonString = new Gson().toJson(isUnique);
+				response.setContentType("application/json");
+	            response.getWriter().write(jsonString);
+	            break;
+			}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("errorpage.jsp");
 		}
 	}
 
@@ -94,38 +98,43 @@ public class UserManagementServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		
-		switch(action){
-		case "addUser":
-			username = request.getParameter("username");
-			password = request.getParameter("password");
-			userType = "user";
-			canCreate = request.getParameterMap().containsKey("canCreate");
-			canUpdate = request.getParameterMap().containsKey("canUpdate");
-			canDelete = request.getParameterMap().containsKey("canDelete");
-			userService.addUser(username, password, userType, canCreate, canUpdate, canDelete);
-			break;
+		try {
+			switch(action){
+			case "addUser":
+				username = request.getParameter("username");
+				password = request.getParameter("password");
+				userType = "user";
+				canCreate = request.getParameterMap().containsKey("canCreate");
+				canUpdate = request.getParameterMap().containsKey("canUpdate");
+				canDelete = request.getParameterMap().containsKey("canDelete");
+				userService.addUser(username, password, userType, canCreate, canUpdate, canDelete);
+				break;
+				
+			case "editUser":
+				userId = Integer.parseInt(request.getParameter("userId"));
+				username = request.getParameter("username");
+				canCreate = request.getParameterMap().containsKey("canCreate");
+				canUpdate = request.getParameterMap().containsKey("canUpdate");
+				canDelete = request.getParameterMap().containsKey("canDelete");
+				userService.editUser(userId, username, canCreate, canUpdate, canDelete);
+				break;
+				
+			case "deleteUser":
+				userId = Integer.parseInt(request.getParameter("userId"));
+				userService.deleteUser(userId);
+				break;
+				
+			case "changePassword":
+				userId = Integer.parseInt(request.getParameter("userId"));
+				password = request.getParameter("password");
+				userService.changePassword(userId, password);
+				break;
+			}
 			
-		case "editUser":
-			userId = Integer.parseInt(request.getParameter("userId"));
-			username = request.getParameter("username");
-			canCreate = request.getParameterMap().containsKey("canCreate");
-			canUpdate = request.getParameterMap().containsKey("canUpdate");
-			canDelete = request.getParameterMap().containsKey("canDelete");
-			userService.editUser(userId, username, canCreate, canUpdate, canDelete);
-			break;
-			
-		case "deleteUser":
-			userId = Integer.parseInt(request.getParameter("userId"));
-			userService.deleteUser(userId);
-			break;
-			
-		case "changePassword":
-			userId = Integer.parseInt(request.getParameter("userId"));
-			password = request.getParameter("password");
-			userService.changePassword(userId, password);
-			break;
+			response.sendRedirect("UserManagement?action=showpage");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("errorpage.jsp");
 		}
-		
-		response.sendRedirect("UserManagement?action=showpage");
 	}
 }

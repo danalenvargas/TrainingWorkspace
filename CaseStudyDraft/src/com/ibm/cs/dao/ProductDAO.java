@@ -16,7 +16,7 @@ import com.ibm.cs.model.Product;
 public class ProductDAO extends MasterDAO {
 	int count;
 
-	public ProductDAO() {
+	public ProductDAO() throws Exception {
 		super();
 	}
 
@@ -27,7 +27,7 @@ public class ProductDAO extends MasterDAO {
 	 *         products in the database
 	 * @see Product
 	 */
-	public HashMap<Integer, Product> getProductMap() {
+	public HashMap<Integer, Product> getProductMap() throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -58,7 +58,7 @@ public class ProductDAO extends MasterDAO {
 						measurementUnit, description, specialHandling, sellPrice, stockAmount));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -74,7 +74,7 @@ public class ProductDAO extends MasterDAO {
 	 * @return int representing the remaining items in the db that belong to batches
 	 *         under this batch
 	 */
-	private int calculateStockAmount(int productId) {
+	private int calculateStockAmount(int productId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -90,7 +90,7 @@ public class ProductDAO extends MasterDAO {
 				stockAmount = rs.getInt("amount");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -104,7 +104,7 @@ public class ProductDAO extends MasterDAO {
 	 *            String Stock Keeping Unit (SKU) of a product
 	 * @return true if the product's SKU is unique
 	 */
-	public boolean validateProductSKU(String SKU) {
+	public boolean validateProductSKU(String SKU) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -119,17 +119,16 @@ public class ProductDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
-		return false;
 	}
 	
 	// v======= PRODUCT CRUD ===========v
 
 	public boolean addProduct(int categoryId, String brand, String variant, String size, String measurementUnit,
-			String description, String specialHandling, double sellPrice, String SKU) {
+			String description, String specialHandling, double sellPrice, String SKU) throws SQLException {
 		PreparedStatement pst = null;
 
 		try {
@@ -151,14 +150,14 @@ public class ProductDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 		return false;
 	}
 
-	public Product getProduct(int productId) {
+	public Product getProduct(int productId) throws SQLException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 
@@ -189,7 +188,7 @@ public class ProductDAO extends MasterDAO {
 						specialHandling, sellPrice, stockAmount);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(rs, pst);
 		}
@@ -197,7 +196,7 @@ public class ProductDAO extends MasterDAO {
 	}
 
 	public boolean editProduct(int categoryId, int productId, String brand, String variant, String size,
-			String measurementUnit, String description, String specialHandling, double sellPrice, String SKU) {
+			String measurementUnit, String description, String specialHandling, double sellPrice, String SKU) throws SQLException {
 		PreparedStatement pst = null;
 
 		try {
@@ -220,14 +219,14 @@ public class ProductDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}
 		return false;
 	}
 
-	public boolean deleteProduct(int productId) {
+	public boolean deleteProduct(int productId) throws SQLException {
 		PreparedStatement pst = null;
 
 		try {
@@ -239,7 +238,7 @@ public class ProductDAO extends MasterDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			closeResources(pst);
 		}

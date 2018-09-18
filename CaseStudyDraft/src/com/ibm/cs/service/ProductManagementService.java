@@ -48,7 +48,7 @@ public class ProductManagementService {
 	 * 
 	 * @return ArrayList of Categories which represents the whole inventory
 	 */
-	public ArrayList<Category> getInventory() {
+	public ArrayList<Category> getInventory() throws Exception {
 		Product parentProduct;
 		Batch parentBatch;
 		ArrayList<Item> itemList = getItemList();
@@ -86,7 +86,7 @@ public class ProductManagementService {
 	 * @see Item
 	 * @see ItemDAO
 	 */
-	public ArrayList<Item> getItemList() {
+	public ArrayList<Item> getItemList() throws Exception {
 		itemDao = new ItemDAO();
 		ArrayList<Item> itemList = itemDao.getItemList();
 		itemDao.closeConnection();
@@ -101,7 +101,7 @@ public class ProductManagementService {
 	 * @see Batch
 	 * @see BatchDAO
 	 */
-	public HashMap<Integer, Batch> getBatchMap() {
+	public HashMap<Integer, Batch> getBatchMap() throws Exception {
 		batchDao = new BatchDAO();
 		HashMap<Integer, Batch> batchMap = batchDao.getBatchMap();
 		batchDao.closeConnection();
@@ -116,7 +116,7 @@ public class ProductManagementService {
 	 * @see Product
 	 * @see ProductDAO
 	 */
-	public HashMap<Integer, Product> getProductMap() {
+	public HashMap<Integer, Product> getProductMap() throws Exception {
 		productDao = new ProductDAO();
 		HashMap<Integer, Product> productMap = productDao.getProductMap();
 		productDao.closeConnection();
@@ -131,7 +131,7 @@ public class ProductManagementService {
 	 * @see Category
 	 * @see CategoryDAO
 	 */
-	public HashMap<Integer, Category> getCategoryMap() {
+	public HashMap<Integer, Category> getCategoryMap() throws Exception {
 		categoryDao = new CategoryDAO();
 		HashMap<Integer, Category> categoryMap = categoryDao.getCategoryMap();
 		categoryDao.closeConnection();
@@ -145,7 +145,7 @@ public class ProductManagementService {
 	 *            String name of a category
 	 * @return true if the category's name is unique
 	 */
-	public boolean validateCategoryName(String categoryName) {
+	public boolean validateCategoryName(String categoryName) throws Exception {
 		categoryDao = new CategoryDAO();
 		boolean isUnique = categoryDao.validateCategoryName(categoryName);
 		categoryDao.closeConnection();
@@ -159,7 +159,7 @@ public class ProductManagementService {
 	 *            String Stock Keeping Unit (SKU) of a product
 	 * @return true if the product's SKU is unique
 	 */
-	public boolean validateProductSKU(String SKU) {
+	public boolean validateProductSKU(String SKU) throws Exception {
 		productDao = new ProductDAO();
 		boolean isUnique = productDao.validateProductSKU(SKU);
 		productDao.closeConnection();
@@ -168,14 +168,14 @@ public class ProductManagementService {
 
 	// v======= CATEGORY CRUD ===========v
 
-	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) {
+	public boolean addCategory(String categoryName, String categoryType, boolean isPerishable, Boolean isRecyclable) throws Exception {
 		categoryDao = new CategoryDAO();
 		isSuccessful = categoryDao.addCategory(categoryName, categoryType, isPerishable, isRecyclable);
 		categoryDao.closeConnection();
 		return isSuccessful;
 	}
 
-	public Category getCategory(int categoryId) {
+	public Category getCategory(int categoryId) throws Exception {
 		categoryDao = new CategoryDAO();
 		Category category = categoryDao.getCategory(categoryId);
 		categoryDao.closeConnection();
@@ -183,14 +183,14 @@ public class ProductManagementService {
 	}
 
 	public boolean editCategory(int categoryId, String categoryName, String categoryType, boolean isPerishable,
-			Boolean isRecyclable) {
+			Boolean isRecyclable) throws Exception {
 		categoryDao = new CategoryDAO();
 		isSuccessful = categoryDao.editCategory(categoryId, categoryName, categoryType, isPerishable, isRecyclable);
 		categoryDao.closeConnection();
 		return isSuccessful;
 	}
 
-	public boolean deleteCategory(int categoryId) {
+	public boolean deleteCategory(int categoryId) throws Exception {
 		categoryDao = new CategoryDAO();
 		isSuccessful = categoryDao.deleteCategory(categoryId);
 		categoryDao.closeConnection();
@@ -200,7 +200,7 @@ public class ProductManagementService {
 	// v======= PRODUCT CRUD ===========v
 
 	public boolean addProduct(int categoryId, String brand, String variant, String size, String measurementUnit,
-			String description, String specialHandling, double sellPrice, String SKU) {
+			String description, String specialHandling, double sellPrice, String SKU) throws Exception {
 		productDao = new ProductDAO();
 		isSuccessful = productDao.addProduct(categoryId, brand, variant, size, measurementUnit, description,
 				specialHandling, sellPrice, SKU);
@@ -208,7 +208,7 @@ public class ProductManagementService {
 		return isSuccessful;
 	}
 
-	public Product getProduct(int productId) {
+	public Product getProduct(int productId) throws Exception {
 		productDao = new ProductDAO();
 		Product product = productDao.getProduct(productId);
 		productDao.closeConnection();
@@ -216,7 +216,7 @@ public class ProductManagementService {
 	}
 
 	public boolean editProduct(int categoryId, int productId, String brand, String variant, String size,
-			String measurementUnit, String description, String specialHandling, double sellPrice, String SKU) {
+			String measurementUnit, String description, String specialHandling, double sellPrice, String SKU) throws Exception {
 		productDao = new ProductDAO();
 		isSuccessful = productDao.editProduct(categoryId, productId, brand, variant, size, measurementUnit, description,
 				specialHandling, sellPrice, SKU);
@@ -224,7 +224,7 @@ public class ProductManagementService {
 		return isSuccessful;
 	}
 
-	public boolean deleteProduct(int productId) {
+	public boolean deleteProduct(int productId) throws Exception {
 		productDao = new ProductDAO();
 		isSuccessful = productDao.deleteProduct(productId);
 		productDao.closeConnection();
@@ -234,7 +234,7 @@ public class ProductManagementService {
 	// v======= BATCH CRUD ===========v
 
 	public boolean inputBatch(int productId, int amount, String comments, String supplier, Date manufactureDate,
-			Date expirationDate, double purchasePrice) {
+			Date expirationDate, double purchasePrice) throws Exception {
 		batchDao = new BatchDAO();
 		int newBatchId = batchDao.addBatch(productId, amount, comments, supplier);
 		batchDao.closeConnection();
@@ -245,21 +245,21 @@ public class ProductManagementService {
 		return isSuccessful;
 	}
 
-	public Batch getBatch(int batchId) {
+	public Batch getBatch(int batchId) throws Exception {
 		batchDao = new BatchDAO();
 		Batch batch = batchDao.getBatch(batchId);
 		batchDao.closeConnection();
 		return batch;
 	}
 
-	public boolean editBatch(int batchId, int productId, int amount, String comments, String supplier) {
+	public boolean editBatch(int batchId, int productId, int amount, String comments, String supplier) throws Exception {
 		batchDao = new BatchDAO();
 		isSuccessful = batchDao.editBatch(batchId, productId, amount, comments, supplier);
 		batchDao.closeConnection();
 		return isSuccessful;
 	}
 
-	public boolean deleteBatch(int batchId) {
+	public boolean deleteBatch(int batchId) throws Exception {
 		batchDao = new BatchDAO();
 		isSuccessful = batchDao.deleteBatch(batchId);
 		batchDao.closeConnection();
@@ -268,21 +268,21 @@ public class ProductManagementService {
 
 	// v======= ITEM CRUD ===========v
 
-	public ArrayList<Item> getItems(int[] itemIds) {
+	public ArrayList<Item> getItems(int[] itemIds) throws Exception {
 		itemDao = new ItemDAO();
 		ArrayList<Item> itemList = itemDao.getItemList(itemIds);
 		itemDao.closeConnection();
 		return itemList;
 	}
 
-	public boolean editItems(int[] itemIds, Date manufactureDate, Date expirationDate, double purchasePrice) {
+	public boolean editItems(int[] itemIds, Date manufactureDate, Date expirationDate, double purchasePrice) throws Exception {
 		itemDao = new ItemDAO();
 		isSuccessful = itemDao.editItems(itemIds, manufactureDate, expirationDate, purchasePrice);
 		itemDao.closeConnection();
 		return isSuccessful;
 	}
 
-	public boolean deleteItems(int[] itemIds) {
+	public boolean deleteItems(int[] itemIds) throws Exception {
 		itemDao = new ItemDAO();
 		isSuccessful = itemDao.deleteItems(itemIds);
 		itemDao.closeConnection();

@@ -1,0 +1,33 @@
+<div id="modalAddProduct" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+		    <span class="close">&times;</span>
+			<h3>Add Product</h3>
+		</div>
+		<div class="modal-body">
+			<form action="ProductManagement" method="post">
+				Category:  <select id="addProdCategory" name="categoryId" required>
+					<c:forEach items="${categoryList}" var="category">
+						<option value="${category.categoryId}" title="${category.categoryType}">${category.categoryName}</option>
+					</c:forEach>
+				</select> <br />
+				Brand: <input id="addProdBrand" type="text" name="brand" placeholder="brand" required /> <br />
+				Variant: <input id="addProdVariant" type="text" name="variant" value="none" placeholder="none" /> <br />
+				Size: <input id="addProdSize" type="text" name="size" placeholder="size" />
+				<input id="addProdUnit" type="text" name="measurementUnit" placeholder="unit" /> <br />
+				Description: <textarea name="description" placeholder="description" rows="3" cols="40"></textarea> <br />
+				Special Handling: <select name="specialHandling">
+					<option value="" selected></option>
+					<option value="keep frozen">keep frozen</option>
+					<option value="keep refrigerated">keep refrigerated</option>
+					<option value="fragile">fragile</option>
+				</select> <br />
+				Selling Price: Php<input type="number" name="sellPrice" placeholder="sell price" step="0.01" min="0" max="9999999" /> <br /><br />
+				SKU: <input id="addProdSKU" type="text" name="SKU" placeholder="Stock Keeping Unit" onchange="validateProductSKU(this)" required />
+				<button type="button" onclick="generateSKU('onAdd')">Generate</button> <br />
+				<input type="hidden" name="action" value="addProduct" /> 
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
+</div>

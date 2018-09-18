@@ -26,7 +26,7 @@ public class UserManagementService {
 	 * @see User
 	 * @see UserDAO
 	 */
-	public ArrayList<User> getStandardUsers() {
+	public ArrayList<User> getStandardUsers() throws Exception {
 		userDao = new UserDAO();
 		ArrayList<User> userList = userDao.getStandardUsers();
 		userDao.closeConnection();
@@ -42,7 +42,7 @@ public class UserManagementService {
 	 * @see User
 	 * @see UserDAO
 	 */
-	public boolean validateUsername(String username) {
+	public boolean validateUsername(String username) throws Exception {
 		userDao = new UserDAO();
 		boolean isUnique = userDao.validateUsername(username);
 		userDao.closeConnection();
@@ -51,7 +51,7 @@ public class UserManagementService {
 
 	// ========= User CRUD ============
 
-	public User getUser(int userId) {
+	public User getUser(int userId) throws Exception {
 		userDao = new UserDAO();
 		User user = userDao.getUser(userId);
 		userDao.closeConnection();
@@ -59,32 +59,32 @@ public class UserManagementService {
 	}
 
 	public void addUser(String username, String password, String userType, boolean canCreate, boolean canUpdate,
-			boolean canDelete) {
+			boolean canDelete) throws Exception {
 		userDao = new UserDAO();
 		userDao.addUser(username, password, userType, canCreate, canUpdate, canDelete);
 		userDao.closeConnection();
 	}
 
-	public void editUser(int userId, String username, boolean canCreate, boolean canUpdate, boolean canDelete) {
+	public void editUser(int userId, String username, boolean canCreate, boolean canUpdate, boolean canDelete) throws Exception {
 		userDao = new UserDAO();
 		userDao.editUser(userId, username, canCreate, canUpdate, canDelete);
 		userDao.closeConnection();
 	}
 
-	public boolean editProfile(int userId, String username) {
+	public boolean editProfile(int userId, String username) throws Exception {
 		userDao = new UserDAO();
 		isSuccessful = userDao.editProfile(userId, username);
 		userDao.closeConnection();
 		return isSuccessful;
 	}
 
-	public void deleteUser(int userId) {
+	public void deleteUser(int userId) throws Exception {
 		userDao = new UserDAO();
 		userDao.deleteUser(userId);
 		userDao.closeConnection();
 	}
 
-	public void changePassword(int userId, String password) {
+	public void changePassword(int userId, String password) throws Exception {
 		userDao = new UserDAO();
 		userDao.changePassword(userId, password);
 		userDao.closeConnection();
